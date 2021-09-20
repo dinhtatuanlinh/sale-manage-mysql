@@ -4,8 +4,8 @@ date = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 const logConfiguration = {
     'transports': [
         new winston.transports.File({
-            level: 'info',
-            filename: `logs/${date}.log`
+            level: 'info', //đánh dấu dạng log
+            filename: `logs/${date}.log` //file log
         }),
         new winston.transports.File({
             level: 'error',
@@ -13,6 +13,7 @@ const logConfiguration = {
         }),
     ]
 };
+// tạo log bằng hàm createLogger
 const logger = winston.createLogger(logConfiguration);
 //
 // If we're not in production then log to the `console` with the format:

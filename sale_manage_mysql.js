@@ -34,6 +34,7 @@ global.__pathIMGS = __base + 'public/imgs/';
 const options = require(__pathConfig + 'options');
 const viewEngine = require(__pathConfig + "viewEngine");
 const initWebRoutes = require(__pathRoutes + "web");
+// tạo module ghi logs ra file bằng winston
 const logging = require(__pathServices + 'winston_logging');
 
 
@@ -96,25 +97,20 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-    logging.info(req.app.get('env'));
     // render the error page
     res.status(err.status || 500);
     res.render('404'); ///khi không tìm được trang sẽ trả về trang báo lỗi có thông báo lỗi đầy đủ
     // res.render('error', { title: 'errorPage' });
 });
-// log log log log
-
-// setup the logger
-// app.use(morgan('dev', { stream: accessLogStream }));
-
-
-// log log log log
 
 
 // lấy tham số trong file .env môi trường
 let port = process.env.PORT || 6969; // ||hoặc
 // PORT === undefined thì gán vào 6969
-
+let time = new Date();
+time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+logging.info(`###################################`);
+logging.info(`###################################`);
 app.listen(port, () => {
     logging.info(`app is running at port: http://localhost:${port}`);
 });
