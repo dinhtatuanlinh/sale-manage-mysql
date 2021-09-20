@@ -39,7 +39,7 @@ router.get(
     (req, res, next) => { registerController.confirm(req, res, next) }
 );
 router.get(
-    '/del/:usernname',
+    '/del/:username',
     (req, res, next) => { registerController.del(req, res, next) }
 );
 // END login and register
