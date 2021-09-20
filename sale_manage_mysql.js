@@ -12,8 +12,11 @@ const flash = require('express-flash-notification');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 // show logs 
-// var fs = require('fs');
-// var logFile = fs.createWriteStream('./myLogFile.log', { flags: 'a' }); //use {flags: 'w'} to open in write mode
+var fs = require('fs');
+var morgan = require('morgan');
+var path = require('path');
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
 // gọi hamf connectDb
 // const connectDB = require("./config/connectdbMysql");
@@ -103,7 +106,8 @@ app.use("/", initWebRoutes);
 // });
 // log log log log
 
-// app.use(express.logger({ stream: logFile }));
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }));
 // log log log log
 
 
