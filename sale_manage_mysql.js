@@ -40,7 +40,7 @@ console.log(__base);
 const options = require(__pathConfig + 'options');
 const viewEngine = require(__pathConfig + "viewEngine");
 const initWebRoutes = require(__pathRoutes + "web");
-const logging = require(__pathServices + 'winston_logging');
+const logging = require(__pathServices + 'winston_logging').logger_a;
 logging.info(__base);
 let app = express();
 
