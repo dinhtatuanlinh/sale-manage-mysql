@@ -124,12 +124,17 @@ let confirm = async(req, res, next) => {
 let del = async(req, res, next) => {
     logging.info(req.params.username);
 
-    await database.User.destroy({ where: { username: req.params.username } }).then((result, err) => {
+    await database.User.destroy({ where: { username: req.params.username } }).then((result) => {
 
-        logging.info(err);
-        logging.info(JSON.stringify(result));
-        req.flash('success', 'xóa thành công', false);
-        res.redirect(`/`);
+        if (result) {
+            logging.info(JSON.stringify(result));
+            req.flash('success', 'xóa thành công', false);
+            res.redirect(`/`);
+        } else {
+            req.flash('success', 'xóa thất bại', false);
+            res.redirect(`/`);
+        }
+
     });
 };
 let getLogout = (req, res, next) => {
