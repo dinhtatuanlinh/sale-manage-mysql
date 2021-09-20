@@ -37,7 +37,11 @@ const options = require(__pathConfig + 'options');
 const viewEngine = require(__pathConfig + "viewEngine");
 const initWebRoutes = require(__pathRoutes + "web");
 const logging = require(__pathServices + 'winston_logging');
-
+try {
+    const logging = require(__pathServices + 'winston_logging1');
+} catch (err) {
+    logging.error(err)
+}
 let app = express();
 
 // socket.io
@@ -79,8 +83,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // cũng có thể sửa lại dữ liệu bằng cách req.app.locals.test = '123';
 // biến lưu ở local cũng là biến giống global khi thay đổi giá trị ở vị trí khác toàn bộ server cũng thay đổi theo
 app.locals.test = 'abc';
-logging.error(`${app.locals.test}`)
-    // tạo các tham số mặc định trong options
+
+// tạo các tham số mặc định trong options
 options();
 // truyền app vào cho hàm viewEngine
 viewEngine(app);
