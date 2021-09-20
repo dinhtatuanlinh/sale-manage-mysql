@@ -8,7 +8,8 @@ const MD5 = require(__pathServices + 'md5');
 const systemConfig = require(__pathConfig + 'localVariable');
 // database
 const database = require(__pathModels + "database")
-
+    // logging
+const logging = require(__pathServices + 'winston_logging');
 
 
 let getLoginPage = async(req, res, next) => {
@@ -47,8 +48,10 @@ let postRegister = async(req, res, next) => {
         avatarPath = __pathIMGS + value[0].avatarPath;
         fileSizeMB = value[0].fileSizeMB;
         types = value[0].types;
+    }).catch(err => {
+        logging.error(err);
     });
-    console.log(field, avatarPath, fileSizeMB, types);
+
     let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
     await upload(req, res, async(errUpload) => {
 
@@ -92,7 +95,7 @@ let postRegister = async(req, res, next) => {
             registerData.name = '';
             // console.log(registerData);
             database.User.create(registerData).then(async(result) => {
-                // console.log(result);
+                logging.info(result);
                 let from = "Đinh Tạ Tuấn Linh";
                 let to = result.email;
                 let subject = "Email kích hoạt tài khoản từ salemanage";
@@ -100,12 +103,16 @@ let postRegister = async(req, res, next) => {
                 await email.sendemail(from, to, subject, body);
                 req.flash('success', 'Bạn đã đăng ký tài khoản thành công. Một đường link kích hoạt đã được gửi vào email của bạn', false); // tham số thứ nhất là info là biến title truyền ra ngoài view, tham số thứ 2 là câu thông báo truyền ra ngoài view, nếu ko render ra giao diện thì phải thêm tham số thứ 3 là false
                 res.redirect(`/`);
+            }).catch(err => {
+                logging.error(err);
             });
         }
     });
 };
 let confirm = async(req, res, next) => {
-    let result = await database.User.update({ active: true }, { where: { id: req.params.id } })
+    let result = await database.User.update({ active: true }, { where: { id: req.params.id } }).then(result => {}).catch(err => {
+        logging.error(err);
+    });
     req.flash('success', 'Tài khoản của bạn đã được kích hoạt thành công', false);
     res.redirect(`/`);
 };

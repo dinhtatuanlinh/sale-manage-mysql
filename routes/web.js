@@ -1,9 +1,6 @@
 const express = require("express");
 // const { check, oneOf, validationResult } = require("express-validator");
 
-
-
-
 // goi controller xu ly router homepage
 const registerController = require(__pathControllers + "registerController");
 
