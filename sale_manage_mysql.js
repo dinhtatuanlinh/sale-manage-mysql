@@ -13,10 +13,11 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 // show logs 
 var fs = require('fs');
-var morgan = require('morgan');
+// var morgan = require('morgan');
 var path = require('path');
+const winston = require('winston');
 // create a write stream (in append mode)
-var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+// var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
 // gọi hamf connectDb
 // const connectDB = require("./config/connectdbMysql");
@@ -108,7 +109,7 @@ app.use("/", initWebRoutes);
 // log log log log
 
 // setup the logger
-app.use(morgan('combined', { stream: accessLogStream }));
+// app.use(morgan('combined', { stream: accessLogStream }));
 
 logging.add(new winston.transports.Console({
     format: winston.format.simple(),
