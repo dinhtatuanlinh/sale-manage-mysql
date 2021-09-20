@@ -2,6 +2,8 @@
 const Sequelize = require('sequelize');
 // tạo kết nối tới database
 require('dotenv').config();
+// logging
+const logging = require(__pathServices + 'winston_logging');
 const connection = new Sequelize(
     process.env.DATABASE_NAME,
     process.env.DATABASE_USERNAME,
@@ -15,9 +17,10 @@ let connectDB = async() => {
     try {
         // test kết nối tới database thành công thì in ra sai thì chạy hàm catch
         await connection.authenticate();
-        console.log('Connection has been established successfully.');
+        logging.info(`Connection has been established successfully.`)
+
     } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        logging.info(`Unable to connect to the database:${error}`)
     }
 };
 connectDB();

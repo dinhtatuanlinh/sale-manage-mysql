@@ -2,7 +2,7 @@
 // const optionsModel = require(__pathSchema + "database").optionsModel;
 
 const database = require(__pathModels + "database");
-
+const logging = require(__pathServices + 'winston_logging');
 module.exports = async() => {
 
     // tạo các biên setting cho avatar
@@ -22,15 +22,16 @@ module.exports = async() => {
     // kiểm tra option avatar đã tồn tại chưa nếu chwua thì tạo ra
     await database.Option.findOne({ where: { name: 'avatar' } }).then(async result => {
         if (result !== null) {
-            console.log('bản ghi avatar đã tồn tại');
+            logging.info(`bản ghi avatar đã tồn tại`)
 
         } else {
 
             // insert data into table option
             await database.Option.create(avatar).then(saveResult => {
-                console.log(saveResult);
+                logging.info(saveResult)
+
             })
-            console.log('bản ghi avatar đã được tạo thành công');
+            logging.info('bản ghi avatar đã được tạo thành công')
         }
     });
 

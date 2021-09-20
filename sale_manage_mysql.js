@@ -12,12 +12,8 @@ const flash = require('express-flash-notification');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 // show logs 
-var fs = require('fs');
 var morgan = require('morgan');
-var path = require('path');
-const winston = require('winston');
-// create a write stream (in append mode)
-var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+
 
 // gọi hamf connectDb
 // const connectDB = require("./config/connectdbMysql");
@@ -35,13 +31,13 @@ global.__pathViews = __base + 'views/';
 global.__pathServices = __base + 'services/';
 global.__pathValidations = __base + 'validations/';
 global.__pathIMGS = __base + 'public/imgs/';
-console.log(__base);
+
 
 const options = require(__pathConfig + 'options');
 const viewEngine = require(__pathConfig + "viewEngine");
 const initWebRoutes = require(__pathRoutes + "web");
-const logging = require(__pathServices + 'winston_logging').logger_a;
-logging.info(__base);
+const logging = require(__pathServices + 'winston_logging');
+
 let app = express();
 
 // socket.io
@@ -83,8 +79,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // cũng có thể sửa lại dữ liệu bằng cách req.app.locals.test = '123';
 // biến lưu ở local cũng là biến giống global khi thay đổi giá trị ở vị trí khác toàn bộ server cũng thay đổi theo
 app.locals.test = 'abc';
-
-// tạo các tham số mặc định trong options
+logging.info(`${app.locals.test}`)
+    // tạo các tham số mặc định trong options
 options();
 // truyền app vào cho hàm viewEngine
 viewEngine(app);
@@ -120,5 +116,5 @@ let port = process.env.PORT || 6969; // ||hoặc
 // PORT === undefined thì gán vào 6969
 
 app.listen(port, () => {
-    console.log("app is running at port: http://localhost:" + port);
+    logging.info(`app is running at port: http://localhost:${port}`);
 })
