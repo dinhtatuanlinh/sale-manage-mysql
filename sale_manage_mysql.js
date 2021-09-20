@@ -41,7 +41,10 @@ const options = require(__pathConfig + 'options');
 const viewEngine = require(__pathConfig + "viewEngine");
 const initWebRoutes = require(__pathRoutes + "web");
 const logging = require(__pathServices + 'winston_logging');
-
+logging.log({
+    level: 'info',
+    msg: __base
+})
 let app = express();
 
 // socket.io
@@ -111,9 +114,7 @@ app.use("/", initWebRoutes);
 // setup the logger
 app.use(morgan('dev', { stream: accessLogStream }));
 
-logging.add(new winston.transports.Console({
-    format: winston.format.simple(),
-}));
+
 // log log log log
 
 
