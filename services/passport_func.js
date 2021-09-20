@@ -3,9 +3,10 @@ const passport = require("passport"),
     // cai them package passport-local
     LocalStrategy = require("passport-local").Strategy;
 // database
-const database = require(__pathModels + "database")
-    // tạo các phương thức login
-
+const database = require(__pathModels + "database");
+// tạo các phương thức login
+// logging
+const logging = require(__pathServices + 'winston_logging');
 
 let app = express();
 let auth = passport.authenticate(
@@ -55,6 +56,8 @@ let use = passport.use(
 
             // return done(null, user); // truyen vao user toi serializeUser
             // });
+        }).catch(err => {
+            logging.error(err);
         });
     }));
 let serialize = passport.serializeUser((user, done) => {
@@ -66,7 +69,9 @@ let deserialize = passport.deserializeUser(async(id, done) => {
         // console.log('1');
         // console.log(user.dataValues);
         done(null, user.dataValues);
-    })
+    }).catch(err => {
+        logging.error(err);
+    });
 });
 
 module.exports = {

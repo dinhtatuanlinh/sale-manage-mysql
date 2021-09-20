@@ -11,8 +11,7 @@ const passport = require('passport');
 const flash = require('express-flash-notification');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-// show logs 
-var morgan = require('morgan');
+
 
 
 // gọi hamf connectDb

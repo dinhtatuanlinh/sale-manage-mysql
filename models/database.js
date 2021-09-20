@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 // k
 const connection = require(__pathConfig + 'connection');
+// logging
+const logging = require(__pathServices + 'winston_logging');
 // option table
 const Option = connection.define('Option', {
     // định nghĩa các trường dữ liệu trong bảng
@@ -122,7 +124,9 @@ let createTable = () => {
                 await Role.sync();
             };
             res('success');
-        });
+        }).catch(err => {
+            logging.error(err);
+        });;
 
     })
 }

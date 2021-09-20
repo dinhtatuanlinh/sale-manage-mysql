@@ -33,7 +33,9 @@ module.exports = async() => {
             })
             logging.info('bản ghi avatar đã được tạo thành công')
         }
-    });
+    }).catch(err => {
+        logging.error(err);
+    });;
 
 
 

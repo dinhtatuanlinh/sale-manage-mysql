@@ -15,11 +15,5 @@ const logConfiguration = {
 };
 // tạo log bằng hàm createLogger
 const logger = winston.createLogger(logConfiguration);
-//
-// If we're not in production then log to the `console` with the format:
-// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
-module.exports = logger;
-// if (process.env.NODE_ENV !== 'production') {
 
-// }
+module.exports = logger;
