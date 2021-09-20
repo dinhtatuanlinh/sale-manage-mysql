@@ -105,7 +105,7 @@ app.use("/", initWebRoutes);
 // log log log log
 
 // setup the logger
-app.use(morgan('dev', { stream: accessLogStream }));
+// app.use(morgan('dev', { stream: accessLogStream }));
 
 
 // log log log log
