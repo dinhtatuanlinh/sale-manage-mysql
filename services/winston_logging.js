@@ -1,11 +1,16 @@
 const winston = require('winston');
-
+let date = new Date();
+date = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 const logConfiguration = {
     'transports': [
         new winston.transports.File({
             level: 'info',
-            filename: 'logs/example.log'
-        })
+            filename: `logs/${date}.log`
+        }),
+        new winston.transports.File({
+            level: 'error',
+            filename: `logs/${date}.log`
+        }),
     ]
 };
 const logger = winston.createLogger(logConfiguration);
