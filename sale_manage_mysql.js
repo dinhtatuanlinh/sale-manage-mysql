@@ -27,7 +27,7 @@ global.__pathViews = __base + 'views/';
 global.__pathServices = __base + 'services/';
 global.__pathValidations = __base + 'validations/';
 global.__pathIMGS = __base + 'public/imgs/';
-
+console.log(__base);
 
 const options = require(__pathConfig + 'options');
 const viewEngine = require(__pathConfig + "viewEngine");
