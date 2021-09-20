@@ -95,10 +95,10 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-    logging.info(res.locals.error)
-        // render the error page
+    logging.info(req.app.get('env'));
+    // render the error page
     res.status(err.status || 500);
-    res.render('error'); ///khi không tìm được trang sẽ trả về trang báo lỗi có thông báo lỗi đầy đủ
+    res.render('404'); ///khi không tìm được trang sẽ trả về trang báo lỗi có thông báo lỗi đầy đủ
     // res.render('error', { title: 'errorPage' });
 });
 // log log log log
