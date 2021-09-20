@@ -110,6 +110,7 @@ let port = process.env.PORT || 6969; // ||hoặc
 let time = new Date();
 time = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
 logging.info(`###################################`);
+logging.info(time);
 logging.info(`###################################`);
 app.listen(port, () => {
     logging.info(`app is running at port: http://localhost:${port}`);
