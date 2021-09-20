@@ -108,7 +108,7 @@ app.use(function(err, req, res, next) {
 let port = process.env.PORT || 6969; // ||hoặc
 // PORT === undefined thì gán vào 6969
 let time = new Date();
-time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+time = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
 logging.info(`###################################`);
 logging.info(`###################################`);
 app.listen(port, () => {
