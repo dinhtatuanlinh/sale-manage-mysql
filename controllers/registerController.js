@@ -122,6 +122,7 @@ let confirm = async(req, res, next) => {
 
 };
 let del = async(req, res, next) => {
+    logging.info('abc');
     await User.destroy({ where: { username: req.params.username } }).then(result => {
         logging.info(JSON.stringify(result));
         req.flash('success', 'xóa thành công', false);
