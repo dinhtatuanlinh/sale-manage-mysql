@@ -109,7 +109,10 @@ app.use("/", initWebRoutes);
 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }));
-logging.info('log to file');
+
+logging.add(new winston.transports.Console({
+    format: winston.format.simple(),
+}));
 // log log log log
 
 
