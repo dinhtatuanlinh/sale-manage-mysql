@@ -6,7 +6,7 @@ let configViewEngine = (app) => {
     // cấu hình view engine
     app.set("view engine", "ejs");
     // cấu hình đường link tới thư mục views
-    app.set("views", "./src/views");
+    app.set("views", "./views");
     // set layout
     app.use(expressLayouts);
     app.set('layout', __pathViews + 'layout');
