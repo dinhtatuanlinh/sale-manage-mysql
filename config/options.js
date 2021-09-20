@@ -37,6 +37,4 @@ module.exports = async() => {
         logging.error(err);
     });
 
-
-
 }
