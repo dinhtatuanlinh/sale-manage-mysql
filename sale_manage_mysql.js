@@ -39,6 +39,7 @@ console.log(__base);
 const options = require(__pathConfig + 'options');
 const viewEngine = require(__pathConfig + "viewEngine");
 const initWebRoutes = require(__pathRoutes + "web");
+const logging = require(__pathServices + 'winston_logging');
 
 let app = express();
 
@@ -108,6 +109,7 @@ app.use("/", initWebRoutes);
 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }));
+logging.info('log to file');
 // log log log log
 
 
