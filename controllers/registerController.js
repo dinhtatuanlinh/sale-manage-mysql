@@ -95,7 +95,8 @@ let postRegister = async(req, res, next) => {
             registerData.name = '';
             // console.log(registerData);
             database.User.create(registerData).then(async(result) => {
-                logging.info(result);
+
+                logging.info(JSON.stringify(result));
                 let from = "Đinh Tạ Tuấn Linh";
                 let to = result.email;
                 let subject = "Email kích hoạt tài khoản từ salemanage";
