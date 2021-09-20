@@ -11,6 +11,10 @@ const passport = require('passport');
 const flash = require('express-flash-notification');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+// show logs bằng morgan
+var fs = require('fs');
+var morgan = require('morgan');
+var path = require('path');
 // gọi hamf connectDb
 // const connectDB = require("./config/connectdbMysql");
 // Importing the database model
@@ -97,7 +101,18 @@ app.use(function(err, req, res, next) {
     res.render('error'); ///khi không tìm được trang sẽ trả về trang báo lỗi có thông báo lỗi đầy đủ
     // res.render('error', { title: 'errorPage' });
 });
+// log log log log
+// log only 4xx and 5xx responses to console
+app.use(morgan('dev', {
+    skip: function(req, res) { return res.statusCode < 400 }
+}));
 
+// log all requests to access.log
+app.use(morgan('common', {
+    stream: fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+}));
+
+// log log log log
 // lấy tham số trong file .env môi trường
 let port = process.env.PORT || 6969; // ||hoặc
 // PORT === undefined thì gán vào 6969
