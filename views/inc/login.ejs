@@ -1,0 +1,61 @@
+<%- locals.flash %>
+    <% if(validatorErr !== null){ %>
+        <div id="errors" class="error">
+            <% validatorErr.forEach(item=>{ %>
+                <div class="err">
+                    <Strong><%= item.param %></Strong>: <span><%= item.msg %></span>
+                </div>
+                <% }) %>
+        </div>
+        <% } %>
+            <div id="login">
+                <h1>Đăng nhập</h1>
+                <form target="_self" action="/login" method="POST">
+                    <div class="box">
+                        <div class="key">Username:</div>
+                        <div class="value"><input type="text" name="username" id="username"></div>
+                    </div>
+                    <div class="box">
+                        <div class="key">Password:</div>
+                        <div class="value"><input type="password" onchange="inputPassword(this,'loginPassword')"></div>
+                        <input type="hidden" name="password" id="loginPassword">
+                    </div>
+                    <div class="box" id="remember">
+                        <div class="key">Remember: </div>
+                        <input type="checkbox" name="remember">
+                    </div>
+                    <button type="submit">Login</button>
+                    <div onclick="register()" style="cursor: pointer; text-decoration: underline; color: blue;padding: 5px;">Register</div>
+                </form>
+            </div>
+            <%- JSON.stringify(validatorErr) %>
+                <div class="hide" id="register">
+                    <h1>Tạo tài khoản</h1>
+                    <form target="_self" action="/register" method="POST" enctype="multipart/form-data">
+                        <div class="box">
+                            <div class="key">Username:</div>
+                            <div class="value"><input type="text" name="username" id="username" value="<%= registerData.username %>"></div>
+                        </div>
+                        <div class="box">
+                            <div class="key">Email:</div>
+                            <div class="value"><input type="text" name="email" id="email" value="<%= registerData.email %>"></div>
+                        </div>
+                        <div class="box">
+                            <div class="key">Password:</div>
+                            <div class="value"><input type="password" onkeyup="inputPassword(this,'registerPassword')"></div>
+                            <input type="hidden" name="password" id="registerPassword">
+                        </div>
+                        <div class="box">
+                            <div class="key">Repassword:</div>
+                            <div class="value"><input type="password" id="inputRepassword" onkeyup="inputPassword(this,'registerRepassword')"></div>
+                            <input type="hidden" name="repassword" id="registerRepassword">
+                            <div id="notice"></div>
+                        </div>
+                        <div class="box">
+                            <div class="key">Avatar:</div>
+                            <div class="value"><input type="file" name="avatar"></div>
+                        </div>
+                        <button type="submit">Register</button>
+                        <div onclick="login()" style="cursor: pointer; text-decoration: underline; color: blue;padding: 5px;">Back login</div>
+                    </form>
+                </div>

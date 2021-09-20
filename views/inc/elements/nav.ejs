@@ -1,0 +1,27 @@
+<% navBar =()=>{
+    let adminMenu =``;
+    if(userInfo.username === 'dinhtatuanlinh'){
+        adminMenu =  `<li id="admin" onclick="changeMenuColor(this)"><a href="admin"><i class="fa fa-bug" aria-hidden="true"></i><div>Admin</div></a></li>`
+    }else if(userInfo=== ""){
+        return '';
+    }
+    let name = userInfo.name === undefined? userInfo.username: userInfo.name;
+    return `
+    <nav>
+        <ul>
+            <li id="${userInfo._id}" onclick="changeMenuColor(this)">
+                <a href="profile">
+                    <img src="imgs/avatars/${userInfo.avatar}" alt="avatar">
+                    <div class="name">${name}</div>
+                    <p>Profile</p>
+                </a>
+            </li>
+            <li id="index" onclick="changeMenuColor(this)"><a href="/"><i class="fa fa-home" aria-hidden="true"></i><div>Home</div></a></li>
+            ${adminMenu}
+            <li id="customer_data" onclick="changeMenuColor(this)"><a href="customer_data.html"><i class="fa fa-book" aria-hidden="true"></i><div>Customer data</div></a></li>
+            <li id="manager" onclick="changeMenuColor(this)"><a href=""><i class="fa fa-users" aria-hidden="true"></i><div>Manager</div></a></li>
+            <li id="logout" onclick="changeMenuColor(this)"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+        </ul>
+    </nav>
+    `;
+} %>

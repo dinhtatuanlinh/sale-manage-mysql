@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li id="profile" onclick="changeMenuColor(this)">
+                <a href="">
+                    <img src="imgs/a.jpg" alt="avatar">
+                    <div class="name"></div>
+                    <p>Profile</p>
+                </a>
+            </li>
+            <li id="index" onclick="changeMenuColor(this)"><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i><div>Home</div></a></li>
+            <li id="admin" onclick="changeMenuColor(this)"><a href=""><i class="fa fa-bug" aria-hidden="true"></i><div>Admin</div></a></li>
+            <li id="customer_data" onclick="changeMenuColor(this)"><a href="customer_data.html"><i class="fa fa-book" aria-hidden="true"></i><div>Customer data</div></a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="tabs">
+            <div onclick="tab('admin_user')">
+                User
+            </div>
+        </div>
+        <div id="admin_users">
+            <div class="user">
+                <div class="box">
+                    <div>Name: </div>
+                    <div>Đinh Tạ Tuấn Linh</div>
+                </div>
+                <div class="box">
+                    <div>Username: </div>
+                    <div>dinhtatuanlinh</div>
+                </div>
+                <div class="box">
+                    <div>Email: </div>
+                    <div>dinhtatuanlinh@gmail.com</div>
+                </div>
+                <div class="box">
+                    <div>Phone: </div>
+                    <div>0945078855</div>
+                </div>
+                <div class="box">
+                    <div>Birthday: </div>
+                    <div>09/01/1990</div>
+                </div>
+                <div class="box">
+                    <div>Avatar: </div>
+                    <div><img src="" alt="Đinh Tạ Tuấn Linh"></div>
+                </div>
+                <div class="box">
+                    <div>Manager: </div>
+                    <div>
+                        <select name="manager" onchange="manager('id')"></select>
+                    </div>
+                </div>
+                <div class="box">
+                    <div>Role: </div>
+                    <div><select name="role" onchange="role('id')">
+                        <option value="admin">Admin</option>
+                        <option value="sale_manager">Sale manager</option>
+                        <option value="basic">Basic</option>
+                    </select></div>
+                </div>
+                <div class="box">
+                    <div>Active: </div>
+                    <div>Actived</div>
+                </div>
+                <div class="box">
+                    <div>Created time: </div>
+                    <div>10/09/2021</div>
+                </div>
+                <div class="box">
+                    <div>Modified time: </div>
+                    <div>10/09/2021</div>
+                </div>
+                <div class="box">
+                    <div>Status: </div>
+                    <div><select name="status" onchange="status('id')">
+                        <option value="none">none</option>
+                        <option value="block">block</option>
+                    </select></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

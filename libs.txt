@@ -1,0 +1,140 @@
+express
+body-parser@1.19.0// lay tham so client gui len
+dotenv@8.2.0// tao bien moi truong lay tham so trong file moi truong
+ejs@3.1.5
+mongoose
+
+// giup xử lý câu lệnh trong es6 như import ** from "**"
+npm install --save-dev @babel/core@7.12.10 @babel/node@7.12.10 @babel/preset-env@7.12.10
+1.
+src
+    server.js
+    controllers
+    services // thao tac database
+    config // cau hinh cac tham so
+    views
+    public // luu tru css js imgs
+    routes
+2.
+tao file moi truong .env chua bien moi truong
+    tao bien PORT =
+.gitignore cau hinh file day len node
+    ignore
+        /node_modules
+        /vendor #ko quan trong
+        /.idea #ko quan trong
+        .idea/ #ko quan trong
+        .env
+3.
+cau hinh viewengine 
+4.
+cấu hình route trong file web.js
+khai báo các router
+5.
+cấu hình file chạy chính data_manager.js
+    import các thư viện cần thiết và các thư viện thiết lập
+6.
+khai báo midleware bodyparser trong file chạy chính
+khai báo biến app express rồi truyền tới các thư viện config và route
+7.
+khai báo port từ biến môi trường rồi truyền vào app.listen()
+8.
+xây dựng model trong controller
+sau đó kéo qua route để truyền hàm controller tới router cần thiết
+9.
+tạo file view của router đang muốn truy cập
+sau đó khai báo view trên controller
+#######
+chú ý: có thể thay từ bước 10 11 12 13 bằng bước 14
+#######
+10.
+cấu hình nodejs tới database xampp mysql
+    sequelize thư viện hỗ trợ mysql
+    cài đặt sequelize
+    cài đặt sequelize-cli
+    npm install --save mysql2@2.2.5
+    npm install --save sequelize@6.6.2
+    cài đặt (cd src) vào thư mục src gõ lệnh (npx sequelize-cli init)
+    tạo file .sequelizerc nếu ko có lỗi
+    nội dung file
+        const path = require('path');
+        module.exports = {
+        'config': path.resolve('./src/config', 'config.json'),
+        'migrations-path': path.resolve('./src', 'migrations'),
+        'models-path': path.resolve('./src', 'models'),
+        'seeders-path': path.resolve('./src', 'seeders')
+        }
+    gõ lệnh (node_modules/.bin/sequelize init) tại thư mục gốc của project
+    nếu lỗi mở powershell bằng run admin gõ lệnh (Set-ExecutionPolicy RemoteSigned -Scope CurrentUser)
+    sau đó gõ lại (node_modules/.bin/sequelize init --force)
+    nhập lệnh (npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string)
+    câu lệnh trên sẽ tạo file user.js trong folder models
+    nhập lệnh (npx sequelize-cli db:migrate) *** trước tiên phải tạo database tên (database_development) trong mysql
+    nhập lệnh (npx sequelize-cli seed:generate --name demo-user)
+    truy cập vào file mới được tạo trong seeders paste vào hàm up
+        return queryInterface.bulkInsert('Users', [{
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'example@example.com',
+        createdAt: new Date(),
+        updatedAt: new Date()
+        }]);
+    hàm up là khi chạy bình thường thêm dữ liệu vào
+    hàm down để cancel việc thêm dữ liệu
+    nhập lệnh (npx sequelize-cli db:seed:all) vào command line
+11.
+kết nối với database mysql ko qua sequelize-cli
+    test kết nối tạo file connectdbMysql.js nhập vào các giữ liệu sau
+        const { Sequelize } = require('sequelize');
+
+        // Option 1: Passing a connection URI
+        // const sequelize = new Sequelize('sqlite::memory:') // Example for sqlite
+        // const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname') // Example for postgres
+
+
+        // Option 2: Passing parameters separately (other dialects)
+        const sequelize = new Sequelize('database', 'username', 'password', {
+            host: 'localhost',
+            dialect: 'mysql
+            });
+    Với option 1 là kết nối qua server online
+    ở đây sử dụng option 2 kết nối với localhost
+    sau khi viết các function connect trong file connectdbMysql.js
+    require vào file chạy chính sau đó chạy hàm connectDB() dưới hàm gọi route
+    test lấy thông tin trong bảng users in ra file views homepage
+    để không hiên ra câu lệnh sql trong logs thì thêm key "logging": false vào file config.json trong folder config
+    hoặc thêm logging: false trong connectdbMysql.js
+12.
+tạo các bảng dữ liệu
+    khai các trường dữ liệu ở file user.js trong models
+    chỉnh sửa các trường trong migrations file create_user.js theo file user.js
+    # do đã bổ xung thêm các trường mới vào file user.js nên phải xóa 2 bàng sequelize và user trong database đi 
+    # sau đó thực hiện câu lệnh (npx sequelize-cli db:migrate)
+    # việc làm trên do sequelize quản lý dữ liệu ko cho phép thay đổi bảng
+    # để thêm trường dữ liệu mới cần bổ xung thêm 1 file migrations để thông bảo cập nhật sự dụng sql addcollum
+tạo table allcode
+    1.tạo model name allcode.js
+    2.copy tất cả dữ liệu từ models/user.js qua
+    3.sửa modelName là Allcode thay User.init() thành Allcode.init
+    4.đưa các trường dữ liệu vào đối tượng bên trong Allcode.init({}) tương tự bên User.init({})
+    # nếu cần dịch dữ liệu từ tiếng việt qua tiếng anh thì bổ xung thêm trường dữ liệu tiêng anh bên cạnh trường dữ liệu tiếng việt
+    5. tạo migrations file mới tên migration_create_allcode.js
+    6.copy tất cả dữ liệu từ bảng migration create_user.js qua
+    7. sửa queryInterface.createTable('',{}) tham số thứ nhất là tên bảng viết chữ thường nếu có chữ hoa mysql sẽ tự chuyển về chữ thường
+    8. đối với hàm down là queryInterface.dropTable('tên bảng muốn xóa')
+    9. các thông số trong đối tượng truyền vào bảng createtable tương tự như các tham sô trong file migration create_user.js
+    10. chạy câu lệnh (npx sequelize-cli db:migrate) để tạo bảng mới allcode trong database
+13.
+File trong thư mục seeders dùng để insert dữ liệu vào bảng thuộc tính bulkInsert() có tác dụng insert nhiều dữ liệu vào bảng
+tạo dữ liệu fake treen file demo-user.js trong seeders
+#######
+14.
+connect database: tạo file connection.js trong folder config
+kiểm tra kết nối bằng connection.authenticate();
+tạo bảng: tạo file database.js trong folder models
+trong file database.js kéo thư viện Sequelize vào, kéo tiếp file connection vừa tạo vào
+định nghĩa các trường dữ liệu trong bảng
+show các bảng đã tồn tại trong database
+nếu chưa có bảng options thì tạo bảng
+hoặc có thể kéo file connection.js vào file chạy chính rồi gọi connection.sync() để tạo đồng loạt các bảng
+các file trong folder models dùng để thao tác dữ liệu trong bảng

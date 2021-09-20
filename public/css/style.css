@@ -1,0 +1,411 @@
+@font-face {
+    font-family: Roboto;
+    src: url(../fonts/Roboto-Regular.ttf);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ :root {
+    --main-bg-color: #0b2139;
+    /* var(--main-bg-color) */
+}
+
+.hide {
+    display: none !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.hide {
+    display: none !important;
+}
+
+body {
+    font-family: Roboto, 'Courier New', Courier, monospace;
+    background-color: #000000;
+    /* background-size: cover; */
+    /* background-image: url(../imgs/B1.jpg); */
+    /* background-repeat: no-repeat;
+    background-attachment: fixed; */
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+}
+
+nav {
+    border-right: 1px solid #333;
+    background-color: #202328;
+    height: 100vh;
+}
+
+nav ul {
+    padding-left: 0;
+}
+
+nav ul li {
+    padding: 10px;
+    border-bottom: #333 1px solid;
+}
+
+nav ul li a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav ul li a i {
+    font-size: 30px;
+    display: block;
+    text-align: center;
+}
+
+nav ul li:nth-child(1) a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul li a img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+nav ul li a span {
+    color: #dddddd;
+    text-transform: capitalize;
+}
+
+main {
+    color: #ccc;
+    display: flex;
+    flex: 1;
+}
+
+main #general {
+    border-right: #333;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+main #general #sort {
+    display: flex;
+    width: 100%;
+    background-color: #202328;
+    justify-content: space-between;
+    align-items: center;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+}
+
+main #general #sort_icon {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 5px;
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    top: -22px;
+    background-color: #202328;
+    border-radius: 20px 20px 20px 20px;
+    border: 1px solid #fff;
+    z-index: 5;
+}
+
+main #general #customer_list {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+main #general #customer_list #list_header {
+    display: flex;
+    border-bottom: 1px solid #333;
+}
+
+main #general #customer_list #list_header div {
+    text-transform: capitalize;
+}
+
+main #general #customer_list .customer {
+    display: flex;
+    border-bottom: 1px solid #333;
+    height: 60px;
+}
+
+main #general #customer_list .customer:hover {
+    background-color: #202328;
+}
+
+main #general #customer_list .no {
+    width: 20px;
+    text-align: center;
+}
+
+main #general #customer_list .mark {
+    width: 20px;
+    text-align: center;
+}
+
+main #general #customer_list .status {
+    width: 70px;
+    height: 25px;
+    text-align: center;
+    background-color: #202328;
+    color: #ccc
+}
+
+main #general #customer_list .info {
+    width: 200px;
+    text-align: center;
+    overflow: auto;
+}
+
+main #general #customer_list .track {
+    width: 200px;
+    text-align: center;
+    overflow: auto;
+}
+
+main #general #customer_list .note {
+    width: 300px;
+    text-align: center;
+    overflow: auto;
+}
+
+main #general #customer_list .time {
+    width: 100px;
+    overflow: auto;
+}
+
+main #general #customer_list .saler {
+    width: 100px;
+    overflow: auto;
+}
+
+main #detail {
+    flex: 1;
+    padding: 10px;
+    border-left: 1px solid #333;
+}
+
+main #detail .info div {
+    text-align: center;
+}
+
+main #detail .other {
+    display: flex;
+    justify-content: space-between;
+}
+
+main #detail .other .status {
+    background-color: #202328;
+    color: #ccc;
+}
+
+main #detail .note {
+    padding: 10px;
+}
+
+main #detail .note textarea {
+    width: 100%;
+    background-color: #202328;
+}
+
+main #detail button {
+    margin: 0 auto;
+    display: block;
+    background-color: #202328;
+    color: #ccc;
+}
+
+#errors {
+    max-width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid #ff6161;
+    background-color: #202328;
+    margin-bottom: 10px;
+}
+
+#flash_notif {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+}
+
+.success {
+    color: #14ba25;
+    border: 1px solid #4cbe83;
+    background-color: #202328;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.error {
+    color: #bd191a;
+    border: 1px solid #e37b66;
+    background-color: #202328;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.warning {
+    color: #facf53;
+    border: 1px solid #feb743;
+    background-color: #202328;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.notice {
+    color: #025ab8;
+    border: 1px solid #77d3e0;
+    background-color: #202328;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+#errors .err strong {
+    text-transform: uppercase;
+}
+
+#errors .err span {
+    font-style: italic;
+}
+
+#login .key,
+#register .key {
+    color: #ccc;
+}
+
+#login {
+    color: #ccc;
+    max-width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background-color: #202328;
+}
+
+#register {
+    color: #ccc;
+    max-width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background-color: #202328;
+}
+
+input {
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+}
+
+#remember {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#login .box,
+#register .box {
+    padding: 5px 0;
+}
+
+#admin {
+    display: flex;
+    flex-direction: column;
+}
+
+#admin_users .user {
+    display: flex;
+    justify-content: space-between;
+}
+
+#admin_users .user .box {
+    border-right: 1px solid #333;
+    border-top: 1px solid #333;
+}
+
+#admin_users .user .box img {
+    width: 80px;
+    height: auto;
+    object-fit: contain;
+}
+
+#profile {
+    padding: 10px;
+}
+
+#profile .edit {
+    cursor: pointer;
+    color: blue
+}
+
+#profile .cancel {
+    cursor: pointer;
+    color: blue;
+}
+
+#profile .avatar img {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+}
+
+#profile>div {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+#profile>div .box {
+    display: flex;
+}
+
+#profile>div .box .value {
+    width: 150px;
+    margin-left: 5px;
+}
+
+.profile_fields {
+    display: none;
+}
+
+@media screen and (min-width: 1201px) {
+    .desktop-hide {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+    .tablet-hide {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .mobile-hide {
+        display: none !important;
+    }
+}

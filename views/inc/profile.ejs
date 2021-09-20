@@ -1,0 +1,131 @@
+<%- locals.flash %>
+
+    <main>
+        <form id="profile" action="/profile/edit/<%= userInfo._id %>" enctype="multipart/form-data" method="POST">
+
+            <h1>Profile</h1>
+            <div class="edit" onclick="edit()">Edit your profile</div>
+            <div class="avatar">
+                <div class="key">Avatar:</div>
+                <div class="box">
+                    <div class="value">
+                        <img src="imgs/avatars/<%= userInfo.avatar %>" alt="avatar" />
+                    </div>
+                    <input type="file" name="avatar" class="profile_fields" />
+                </div>
+            </div>
+            <div class="name">
+                <div class="key">Name:</div>
+                <div class="box">
+                    <div class="value">
+                        <%= userInfo.name %>
+                    </div>
+                    <input type="text" name="name" class="profile_fields" value="<%= userInfo.name %>" />
+                </div>
+            </div>
+            <div class="username">
+                <div class="key">Username:</div>
+                <div class="box">
+                    <div class="value">
+                        <%= userInfo.username %>
+                    </div>
+                </div>
+            </div>
+            <div class="username profile_fields">
+                <div>
+                    <div class="key">Password:</div>
+                    <div class="box">
+                        <input type="password" onkeyup="inputPassword(this,'registerPassword')" />
+                        <input type="hidden" name="password" id="registerPassword" class="profile_fields" value="" />
+                    </div>
+
+                    <div class="key">Repassword:</div>
+                    <div class="box">
+                        <input type="password" class="profile_fields" onkeyup="inputPassword(this,'registerRepassword')" />
+                        <input type="hidden" name="repassword" id="registerRepassword" class="profile_fields" value="" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="phone">
+                <div class="key">Phone:</div>
+                <div class="box">
+                    <div class="value">
+                        <%= userInfo.phone %>
+                    </div>
+                    <input type="text" name="phone" class="profile_fields" value="<%= userInfo.phone %>" />
+                </div>
+            </div>
+            <div class="birthday">
+                <div class="key">Birthday:</div>
+                <div class="box">
+                    <div class="value">
+                        <%= userInfo.birthday %>
+                    </div>
+                    <input class="profile_fields" type="date" id="birthday" name="birthday" value="<%= userInfo.birthday %>">
+                </div>
+            </div>
+            <div class="email">
+                <div class="key">Email:</div>
+                <div class="box">
+                    <div class="value">
+                        <%= userInfo.email %>
+                    </div>
+
+                </div>
+            </div>
+            <div class="role">
+                <div class="key">Role:</div>
+                <div class="box">
+                    <div class="value">
+                        <%= userInfo.role %>
+                    </div>
+
+                </div>
+            </div>
+            <div class="manager">
+                <div class="key">Manager:</div>
+                <div class="box">
+                    <div class="value">
+                        <%= userInfo.manager %>
+                    </div>
+
+                </div>
+            </div>
+            <div class="team">
+                <div class="key">Team:</div>
+                <div class="box">
+                    <div class="value">
+                        <%= userInfo.team %>
+                    </div>
+                    <input type="text" name="team" class="profile_fields" value="<%= userInfo.team %>" />
+                </div>
+            </div>
+            <div class="createdtime">
+                <div class="key">Created time:</div>
+                <div class="box">
+                    <div class="value">
+                        <%- new Date(userInfo.createdtime).getFullYear() + '/' +  (new Date(userInfo.createdtime).getMonth() +1) + '/' + new Date(userInfo.createdtime).getDate() %>
+                    </div>
+                </div>
+            </div>
+            <div class="modifiedtime">
+                <div class="key">Modified time:</div>
+                <div class="box">
+                    <div class="value">
+                        <%- new Date(userInfo.modifiedtime).getFullYear() + '/' + (new Date(userInfo.modifiedtime).getMonth() +1) + '/' + new Date(userInfo.modifiedtime).getDate() %>
+                    </div>
+                </div>
+            </div>
+            <div class="profile_fields">
+                <button type="submit">Save</button ><div class="cancel" onclick="cancel_edit()">Cancel</div>
+                    </div>
+                </form>
+                
+                <div id="achievement">
+                    <div class="customer_total">
+                        <div class="key">Tổng số khách:</div>
+                        <div class="value">123</div>
+                    </div>
+                </div>
+            </main>

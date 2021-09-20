@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css?ver=1.00">
+    <title>Profile</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li id="profile" onclick="changeMenuColor(this)">
+                <a href="">
+                    <img src="imgs/a.jpg" alt="avatar">
+                    <div class="name"></div>
+                    <p>Profile</p>
+                </a>
+            </li>
+            <li id="index" onclick="changeMenuColor(this)"><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i><div>Home</div></a></li>
+            <li id="admin" onclick="changeMenuColor(this)"><a href=""><i class="fa fa-bug" aria-hidden="true"></i><div>Admin</div></a></li>
+            <li id="customer_data" onclick="changeMenuColor(this)"><a href="customer_data.html"><i class="fa fa-book" aria-hidden="true"></i><div>Customer data</div></a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="profile">
+            <h1>Profile</h1>
+            <div class="avatar">
+                <div class="key">Avatar:</div>
+                <div class="value"><img src="" alt="avatar"></div>
+            </div>
+            <div class="name">
+                <div class="key">Name:</div>
+                <div class="value">Đinh Tạ Tuấn Linh</div>
+            </div>
+            <div class="username">
+                <div class="key">Username:</div>
+                <div class="value">tuanlinh</div>
+            </div>
+            <div class="phone">
+                <div class="key">Phone:</div>
+                <div class="value">0945078855</div>
+            </div>
+            <div class="email">
+                <div class="key">Email:</div>
+                <div class="value">dinhtatuanlinh@gmail.com</div>
+            </div>
+            <div class="role">
+                <div class="key">Role:</div>
+                <div class="value">Administrator</div>
+            </div>
+            <div class="manager">
+                <div class="key">Manager:</div>
+                <div class="value">Đinh Tạ Tuấn Linh</div>
+            </div>
+            <div class="team">
+                <div class="key">Team:</div>
+                <div class="value">Website</div>
+            </div>
+        </div>
+        <div id="achievement">
+            <div class="customer_total">
+                <div class="key">Tổng số khách:</div>
+                <div class="value">123</div>
+            </div>
+
+
+        </div>
+    </main>
+    <script src="js/cookie.js"></script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/sort_animation.js"></script>
+    <script src="js/menu_effection.js"></script>
+</body>
+
+</html>

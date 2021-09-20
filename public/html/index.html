@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css?ver=1.00">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li id="profile" onclick="changeMenuColor(this)">
+                <a href="">
+                    <img src="imgs/a.jpg" alt="avatar">
+                    <div class="name"></div>
+                    <p>Profile</p>
+                </a>
+            </li>
+            <li id="index" onclick="changeMenuColor(this)"><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i><div>Home</div></a></li>
+            <li id="admin" onclick="changeMenuColor(this)"><a href=""><i class="fa fa-bug" aria-hidden="true"></i><div>Admin</div></a></li>
+            <li id="customer_data" onclick="changeMenuColor(this)"><a href="customer_data.html"><i class="fa fa-book" aria-hidden="true"></i><div>Customer data</div></a></li>
+            <li id="manager" onclick="changeMenuColor(this)"><a href="">Manager</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="general">
+            <div id="sort_icon" data-openclose="0" onclick="sort_open_close(this);">
+                <i class="fa fa-filter" aria-hidden="true"></i>
+            </div>
+            <div id="sort">
+                <div id="calendar_sort"></div>
+                <div id="bookmark_sort">Bookmark</div>
+                <select name="status_sort" id="status_sort">
+                    <option value="thuebao">Thuê bao</option>
+                    <option value="khongnghe">Không nghe</option>
+                    <option value="mayban">Máy bận</option>
+                    <option value="addzalo">Add zalo</option>
+                    <option value="tiemnang">Tiềm năng</option>
+                </select>
+                <div id="tag_sort">Tag</div>
+                <div id="location_sort">Location</div>
+                <select id="saler_sort" name="saler">
+                    <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="opel">Opel</option>
+                        <option value="audi">Audi</option>
+                </select>
+                <input type="text" id="url_search" placeholder="search url ...">
+                <input type="text" id="search" placeholder="search ...">
+            </div>
+            <div id="customer_list">
+                <div id="list_header">
+                    <div class="no">#</div>
+                    <div class="mark"><i class="fa fa-star" aria-hidden="true"></i></div>
+                    <div class="status">status</div>
+                    <div class="info">info</div>
+                    <div class="track">track</div>
+                    <div class="note">note</div>
+                    <div class="time">time</div>
+                    <div class="saler">saler</div>
+                </div>
+                <div class="customer" data-id="">
+                    <div class="no">1</div>
+                    <div class="mark"><i class="fa fa-star" aria-hidden="true"></i></div>
+
+                    <select name="status_sort" class="status_sort">
+                        <option value="thuebao">Thuê bao</option>
+                        <option value="khongnghe">Không nghe</option>
+                        <option value="mayban">Máy bận</option>
+                        <option value="addzalo">Add zalo</option>
+                        <option value="tiemnang">Tiềm năng</option>
+                    </select>
+
+                    <div class="info">
+                        <div class="phone">0945078855</div>
+                        <div class="name">Đinh Tạ Tuấn Linh</div>
+                        <div class="email">dinhtatuanlinh@gmail.com</div>
+                    </div>
+                    <div class="track">
+                        <div class="tag">abc</div>
+                        <div class="url">jemmia.vn</div>
+                        <div class="location">Ninh Bình</div>
+                    </div>
+
+                    <div class="note">orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+                        book.
+                    </div>
+                    <div class="time">dd/mm/yy</div>
+                    <div class="saler">Linh</div>
+                </div>
+            </div>
+        </div>
+        <div id="detail">
+            <div class="info">
+                <div class="name">Đinh Tạ Tuấn Linh</div>
+                <div class="email">dinhtatuanlinh@gmail.com</div>
+                <div class="phone">0945078855</div>
+            </div>
+            <div class="track">
+                <div class="tag">Tag: <span>abc</span></div>
+                <div class="url">Url: <span>jemmia.vn</span></div>
+                <div class="location">Location: <span>Ninh Bình</span></div>
+            </div>
+            <div class="other">
+                <div class="time">Date: <span>dd/mm/yy</span></div>
+                <select name="status_sort" class="status_sort">
+                    <option value="thuebao">Thuê bao</option>
+                    <option value="khongnghe">Không nghe</option>
+                    <option value="mayban">Máy bận</option>
+                    <option value="addzalo">Add zalo</option>
+                    <option value="tiemnang">Tiềm năng</option>
+                </select>
+                <div class="saler">Sale: <span>Linh</span></div>
+            </div>
+
+            <div class="note"><textarea name="" id="" cols="30" rows="10"></textarea></div>
+            <button>Save</button>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="js/cookie.js"></script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/sort_animation.js"></script>
+    <script src="js/menu_effection.js"></script>
+
+</body>
+
+</html>

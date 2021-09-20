@@ -1,0 +1,176 @@
+<%- locals.flash %>
+    <% 
+    let userParams = options.filter((option) => option.name === 'user') 
+    let managers = users.filter(user => user.role === 'sale_manager' || user.role === 'admin')
+    %>
+        <% userParams = userParams.length === 0? {roles: [],status: []}:userParams[0].value[0] %>
+
+
+            <main id="admin">
+                <div id="tabs">
+                    <div onclick="tab('admin_user')">User</div>
+                    <div onclick="tab('admin_settings')">Settings</div>
+                </div>
+                <div id="admin_users">
+                    <% users.forEach(user=>{ %>
+                        <div class="user">
+                            <div class="box">
+                                <div>Name:</div>
+                                <div>
+                                    <%= user.name %>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Username:</div>
+                                <div>
+                                    <%= user.username %>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Email:</div>
+                                <div>
+                                    <%= user.email %>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Phone:</div>
+                                <div>
+                                    <%= user.phone %>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Birthday:</div>
+                                <div>
+                                    <%= user.birthday %>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Avatar:</div>
+                                <div>
+                                    <img src="imgs/avatars/<%= user.avatar %>" alt="Đinh Tạ Tuấn Linh" />
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Manager:</div>
+                                <div>
+
+                                    <select name="manager" onchange="manager(this,'<%= user._id %>','<%= url %>')">
+                                            <% let none = user.manager === 'none'? '<option value="none" selected>none</option>': '<option value="none">none</option>' %> 
+                                            <%- none %> 
+                                        <% managers.forEach(manager=>{ %>
+                                            <% let selected = manager.username === user.manager? 'selected': '' %>
+                                            <% if(manager.username !== user.username){ %> 
+                                                <option value="<%= manager.username %>" <%= selected %>><%= manager.username %></option> 
+                                                <% } }) %> 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Role:</div>
+                                <div>
+                                    <select name="role" onchange="role(this,'<%= user._id %>','<%= url %>')">
+                                        <% userParams.roles.forEach(role=>{ %>
+                                            <% let selected = role === user.role? 'selected': '' %>
+                                            <option value="<%= role %>" <%= selected %>><%= role.replace(' ', '_') %></option> 
+                                        <% }) %> 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Active:</div>
+                                <div>
+                                    <%- user.active? 'actived': 'inactived' %>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Created time:</div>
+                                <div>
+                                    <%- new Date(user.createdtime).getFullYear() + '/' + (new
+                    Date(user.createdtime).getMonth() +1) + '/' + new
+                    Date(user.createdtime).getDate() %>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Modified time:</div>
+                                <div>
+                                    <%- new Date(user.modifiedtime).getFullYear() + '/' + (new
+                    Date(user.modifiedtime).getMonth() +1) + '/' + new
+                    Date(user.modifiedtime).getDate() %>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div>Status:</div>
+                                <div>
+                                    <select name="status" onchange="status(this,'<%= user._id %>','<%= url %>')">
+                                        <% userParams.status.forEach(sta=>{ %>
+                                            <% let selected = sta === user.status? 'selected': '' %>
+                                            <option value="<%= sta %>" <%= selected %>><%= sta.replace('_',' ') %></option> 
+                                        <% }) %> 
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+                <div id="admin_settings">
+                    <h2>Setting</h2>
+
+                    <form class="avatar" action="admin/editsetting" method="POST">
+
+                        <div class="edit" onclick="edit('avatarEdit')">Edit</div>
+                        <h3>Avatar</h3>
+                        <% let avatarParams = options.filter((option) => option.name === 'avatar')[0].value[0] %>
+                            <div class="fields">
+                                <div class="box">
+                                    <label>Avatar path: </label>
+                                    <div>
+                                        <%= avatarParams.avatarPath %>
+                                            <input class="profile_fields" type="text" name="avatarPath" value="<%= avatarParams.avatarPath %>">
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <label>File size (MB): </label>
+                                    <div>
+                                        <%= avatarParams.fileSizeMB %>
+                                            <input class="profile_fields" type="text" name="fileSizeMB" value="<%= avatarParams.fileSizeMB %>">
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <label>Types: </label>
+                                    <div>
+                                        <%= avatarParams.types %>
+                                            <input class="profile_fields" type="text" name="types" value="<%= avatarParams.types %>">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <h3>User</h3>
+
+                            <div class="fields">
+                                <div class="box">
+                                    <label>Roles: </label>
+                                    <div>
+                                        <%= userParams.roles %>
+                                            <textarea class="profile_fields" name="roles"></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="box">
+                                    <label>Status: </label>
+                                    <div>
+                                        <%= userParams.status %>
+
+                                            <textarea class="profile_fields" name="status"></textarea>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="profile_fields">
+                                <button type="submit">Save</button ><div class="cancel" onclick="cancel_edit()">Cancel</div>
+                    </div>
+            </form>
+            
+        </div>
+    </main>
