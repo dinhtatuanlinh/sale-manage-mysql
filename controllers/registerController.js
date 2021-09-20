@@ -100,7 +100,7 @@ let postRegister = async(req, res, next) => {
                 let from = "Đinh Tạ Tuấn Linh";
                 let to = result.email;
                 let subject = "Email kích hoạt tài khoản từ salemanage";
-                let body = "Nhấn vào đường link để kích hoạt http://localhost:8080/confirm/" + result.id;
+                let body = `Nhấn vào đường link để kích hoạt ${req.get('host')}/confirm/` + result.id;
                 await email.sendemail(from, to, subject, body);
                 req.flash('success', 'Bạn đã đăng ký tài khoản thành công. Một đường link kích hoạt đã được gửi vào email của bạn', false); // tham số thứ nhất là info là biến title truyền ra ngoài view, tham số thứ 2 là câu thông báo truyền ra ngoài view, nếu ko render ra giao diện thì phải thêm tham số thứ 3 là false
                 res.redirect(`/`);
@@ -111,18 +111,33 @@ let postRegister = async(req, res, next) => {
     });
 };
 let confirm = async(req, res, next) => {
-    let result = await database.User.update({ active: true }, { where: { id: req.params.id } }).then(result => {}).catch(err => {
+    await database.User.update({ active: true }, { where: { id: req.params.id } }).then(result => {
+        req.flash('success', 'Tài khoản của bạn đã được kích hoạt thành công', false);
+        res.redirect(`/`);
+    }).catch(err => {
         logging.error(err);
+        req.flash('error', 'active thất bại', false);
+        res.redirect(`/`);
     });
-    req.flash('success', 'Tài khoản của bạn đã được kích hoạt thành công', false);
-    res.redirect(`/`);
+
+};
+let del = async(req, res, next) => {
+    await User.destroy({ where: { username: req.params.username } }).then(result => {
+        logging.info(JSON.stringify(result));
+        req.flash('success', 'xóa thành công', false);
+        res.redirect(`/`);
+    }).catch(err => {
+        logging.error(err);
+        req.flash('error', 'xóa thất bại', false);
+        res.redirect(`/`);
+    });
+
+
 };
 let getLogout = (req, res, next) => {
     req.logOut(); // để logout tài khoản
     res.redirect(`/`);
 };
-
-
 
 
 
@@ -133,4 +148,5 @@ module.exports = {
     getLogout: getLogout,
     confirm: confirm,
     postLogin: postLogin,
+    del: del,
 };

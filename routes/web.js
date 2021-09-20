@@ -38,6 +38,10 @@ router.get(
     '/confirm/:id',
     (req, res, next) => { registerController.confirm(req, res, next) }
 );
+router.get(
+    '/del/:usernname',
+    (req, res, next) => { registerController.del(req, res, next) }
+);
 // END login and register
 
 // đang viết theo chuẩn rest api
