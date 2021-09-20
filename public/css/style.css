@@ -36,6 +36,12 @@ body {
     position: relative;
 }
 
+#errors {
+    color: #fff;
+    width: 500px;
+    margin: 0 auto;
+}
+
 nav {
     border-right: 1px solid #333;
     background-color: #202328;
