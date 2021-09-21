@@ -17,6 +17,7 @@ let getLoginPage = async(req, res, next) => {
     let validatorErr = null;
     let registerData = { username: '', email: '' };
     // console.log(req.flash('message'));
+    req.flash('success', req.app.locals.loginErr, false);
     res.render(`${systemConfig.pathInc}login`, {
         validatorErr,
         registerData
@@ -53,6 +54,7 @@ let postRegister = async(req, res, next) => {
 
     let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
     await upload(req, res, async(errUpload) => {
+        logging.info('###########');
         logging.info(JSON.stringify(req.file));
         let registerData = {};
         registerData = req.body;
