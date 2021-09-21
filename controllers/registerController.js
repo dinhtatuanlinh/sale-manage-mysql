@@ -94,7 +94,7 @@ let postRegister = async(req, res, next) => {
             registerData.modifiedtime = 0;
             registerData.achievement = '';
             registerData.team = '';
-            // console.log(registerData);
+            logging.info(JSON.stringify(registerData));
             database.User.create(registerData).then(async(result) => {
 
                 let from = "Đinh Tạ Tuấn Linh";
