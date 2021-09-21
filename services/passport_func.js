@@ -16,7 +16,7 @@ let auth = passport.authenticate(
         failureRedirect: `/`,
     }
 );
-let use = passport.use(
+let Use = passport.use(
     new LocalStrategy(async(username, password, done) => {
         logging.info(username);
         await database.User.findOne({ where: { username: username } }).then(result => {
@@ -52,7 +52,7 @@ let deserialize = passport.deserializeUser(async(id, done) => {
 
 module.exports = {
     auth: auth,
-    use: use,
+    Use: Use,
     serialize: serialize,
     deserialize: deserialize,
 }

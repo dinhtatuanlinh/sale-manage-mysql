@@ -47,7 +47,7 @@ router.get(
 // update thông tin dùng action push
 
 
-check_login.use;
+check_login.Use;
 check_login.serialize;
 check_login.deserialize;
 
