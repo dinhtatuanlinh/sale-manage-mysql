@@ -119,56 +119,57 @@
 
                         <div class="edit" onclick="edit('avatarEdit')">Edit</div>
                         <h3>Avatar</h3>
-                        <% let avatarParams = options.filter((option) => option.name === 'avatar')[0].value[0] %>
-                            <div class="fields">
-                                <div class="box">
-                                    <label>Avatar path: </label>
-                                    <div>
-                                        <%= avatarParams.avatarPath %>
-                                            <input class="profile_fields" type="text" name="avatarPath" value="<%= avatarParams.avatarPath %>">
+                        <% let avatarParams = options.filter((option) => option.name === 'avatar')[0].value %>
+                            <% avatarParams = JSON.parse(avatarParams)[0] %>
+                                <div class="fields">
+                                    <div class="box">
+                                        <label>Avatar path: </label>
+                                        <div>
+                                            <%= avatarParams.avatarPath %>
+                                                <input class="profile_fields" type="text" name="avatarPath" value="<%= avatarParams.avatarPath %>">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="box">
-                                    <label>File size (MB): </label>
-                                    <div>
-                                        <%= avatarParams.fileSizeMB %>
-                                            <input class="profile_fields" type="text" name="fileSizeMB" value="<%= avatarParams.fileSizeMB %>">
+                                    <div class="box">
+                                        <label>File size (MB): </label>
+                                        <div>
+                                            <%= avatarParams.fileSizeMB %>
+                                                <input class="profile_fields" type="text" name="fileSizeMB" value="<%= avatarParams.fileSizeMB %>">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="box">
-                                    <label>Types: </label>
-                                    <div>
-                                        <%= avatarParams.types %>
-                                            <input class="profile_fields" type="text" name="types" value="<%= avatarParams.types %>">
+                                    <div class="box">
+                                        <label>Types: </label>
+                                        <div>
+                                            <%= avatarParams.types %>
+                                                <input class="profile_fields" type="text" name="types" value="<%= avatarParams.types %>">
+                                        </div>
                                     </div>
+
                                 </div>
+                                <h3>User</h3>
 
-                            </div>
-                            <h3>User</h3>
+                                <div class="fields">
+                                    <div class="box">
+                                        <label>Roles: </label>
+                                        <div>
+                                            <%= userParams.roles %>
+                                                <textarea class="profile_fields" name="roles"></textarea>
 
-                            <div class="fields">
-                                <div class="box">
-                                    <label>Roles: </label>
-                                    <div>
-                                        <%= userParams.roles %>
-                                            <textarea class="profile_fields" name="roles"></textarea>
-
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="box">
-                                    <label>Status: </label>
-                                    <div>
-                                        <%= userParams.status %>
+                                    <div class="box">
+                                        <label>Status: </label>
+                                        <div>
+                                            <%= userParams.status %>
 
-                                            <textarea class="profile_fields" name="status"></textarea>
+                                                <textarea class="profile_fields" name="status"></textarea>
+                                        </div>
                                     </div>
+
+
                                 </div>
 
-
-                            </div>
-
-                            <div class="profile_fields">
-                                <button type="submit">Save</button ><div class="cancel" onclick="cancel_edit()">Cancel</div>
+                                <div class="profile_fields">
+                                    <button type="submit">Save</button ><div class="cancel" onclick="cancel_edit()">Cancel</div>
                     </div>
             </form>
             
