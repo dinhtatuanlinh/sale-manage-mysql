@@ -82,9 +82,9 @@ const User = connection.define('User', {
     // Name of Column #3: birthday
     birthday: { type: Sequelize.STRING, allowNull: false },
     // Name of Column #3: createdtime
-    createdtime: { type: Sequelize.INTEGER, allowNull: false },
+    createdtime: { type: Sequelize.BIGINT, allowNull: false },
     // Name of Column #3: modifiedtime
-    modifiedtime: { type: Sequelize.INTEGER, allowNull: false },
+    modifiedtime: { type: Sequelize.BIGINT, allowNull: false },
     // Name of Column #3: achievement
     achievement: { type: Sequelize.STRING, allowNull: false },
     // Name of Column #3: active
