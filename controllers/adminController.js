@@ -116,6 +116,7 @@ let adminEditSetting = async(req, res, next) => {
 
 }
 let adminChangeProperties = async(req, res, next) => {
+    console.log('change properties');
     check_login(req, res);
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
         logging.info(req.params.param);
