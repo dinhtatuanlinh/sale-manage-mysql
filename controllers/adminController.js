@@ -69,22 +69,28 @@ let adminEditSetting = async(req, res, next) => {
             logging.info(`kiểm tra kết quả trả ra khi find giá trị user ở bẳng option là loại gì ${result}`);
             if (result === null) {
                 let saveUser = { name: 'user', value: user }
-                await database.Option.create(avatar).then(saveResult => {
+                await database.Option.create(saveUser).then(saveResult => {
+                    if (saveResult) {
+                        req.flash('success', 'Thêm mới row user ở bảng option thành công', false);
+                    } else {
+                        req.flash('error', 'Thêm mới row user ở bảng option thất bại', false);
+                    }
                     saveResult = JSON.stringify(saveResult);
                     logging.info(saveResult);
                 })
             } else {
                 await database.Option.update({ value: user }, { where: { name: 'user' } }).then(saveResult => {
+                    if (saveResult) {
+                        req.flash('success', 'Update row user ở bảng option thành công', false);
+                    } else {
+                        req.flash('error', 'Update row user ở bảng option thất bại', false);
+                    }
                     saveResult = JSON.stringify(saveResult);
                     logging.info(saveResult);
                 });
             }
-        })
-        await database.Option.update({ value: user }, { where: { name: 'user' } }).then(result => {
-            result = JSON.stringify(result);
-            logging.info(result);
         });
-        req.flash('success', 'Thông tin thay đổi thành công', false);
+        // req.flash('success', 'Thông tin thay đổi thành công', false);
         res.redirect(`/admin`);
     }
 
@@ -105,26 +111,7 @@ let adminChangeProperties = async(req, res, next) => {
         // res.redirect(`/admin`);
         // trả lại data cho ajax
         res.send(true);
-        // let users;
-        // let options;
-        // await usersModel.find().then(results => {
-        //     // console.log(results);
-        //     users = results;
-        // });
-        // await optionsModel.find().then(results => {
-        //         options = results;
-        //         // console.log(results[1].value);
-        //     })
-        //     // get url host
-        // let url = req.get('host');
 
-        // res.render(
-        //     `${systemConfig.pathInc}admin`, {
-        //         users,
-        //         options,
-        //         url
-        //     },
-        // );
 
     } else {
         req.flash('warning', 'Bạn không có quyền truy cập vào trang này', false);
