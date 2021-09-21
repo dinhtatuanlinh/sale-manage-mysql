@@ -5,7 +5,7 @@ const check_login = require(__pathServices + 'check_login');
 const systemConfig = require(__pathConfig + 'localVariable');
 const editProfileValidator = require(__pathValidations + 'editProfileValidator');
 // database
-const database = require(__pathSchema + "database");
+const database = require(__pathModels + "database");
 // logging
 const logging = require(__pathServices + 'winston_logging');
 
