@@ -9,8 +9,10 @@ const database = require(__pathSchema + "database");
 const logging = require(__pathServices + 'winston_logging');
 
 let adminPage = async(req, res, next) => {
+
     // kiểm tra xem đã login chưa
     if (check_login(req, res)) {
+        logging.info(req.user.username);
         if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
             let users;
             let options;
