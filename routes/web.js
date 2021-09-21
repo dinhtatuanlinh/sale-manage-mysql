@@ -5,7 +5,8 @@ const express = require("express");
 const registerController = require(__pathControllers + "registerController");
 
 const check_login = require(__pathServices + "passport_func");
-
+// logging
+const logging = require(__pathServices + 'winston_logging');
 
 let router = express.Router();
 
