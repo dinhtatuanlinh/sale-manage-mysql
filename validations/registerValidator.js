@@ -16,8 +16,6 @@ module.exports = async(req) => {
                 throw new Error('Username đã đăng ký');
             }
             return true;
-        }).catch(err => {
-            logging.error(err);
         });
     }).run(req);
     await check('email', 'Email không hợp lệ').isEmail().run(req);
@@ -29,8 +27,6 @@ module.exports = async(req) => {
                 throw new Error('Email đã đăng ký');
             }
             return true;
-        }).catch(err => {
-            logging.error(err);
         });
     }).run(req);
     await check('password').custom(value => {

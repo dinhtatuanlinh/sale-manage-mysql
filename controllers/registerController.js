@@ -50,8 +50,6 @@ let postRegister = async(req, res, next) => {
         avatarPath = __pathIMGS + value[0].avatarPath;
         fileSizeMB = value[0].fileSizeMB;
         types = value[0].types;
-    }).catch(err => {
-        logging.error(err);
     });
 
     let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
@@ -60,7 +58,8 @@ let postRegister = async(req, res, next) => {
         let registerData = {};
         registerData = req.body;
         let validatorErr = await registerValidator(req);
-        console.log(validatorErr);
+
+        logging.info(JSON.stringify(validatorErr));
         if (errUpload) {
             // A Multer error occurred when uploading.
             validatorErr.push({ param: 'avatar', msg: errUpload });
@@ -106,8 +105,6 @@ let postRegister = async(req, res, next) => {
                 await email.sendemail(from, to, subject, body);
                 req.flash('success', 'Bạn đã đăng ký tài khoản thành công. Một đường link kích hoạt đã được gửi vào email của bạn', false); // tham số thứ nhất là info là biến title truyền ra ngoài view, tham số thứ 2 là câu thông báo truyền ra ngoài view, nếu ko render ra giao diện thì phải thêm tham số thứ 3 là false
                 res.redirect(`/`);
-            }).catch(err => {
-                logging.error(err);
             });
         }
     });
@@ -115,10 +112,6 @@ let postRegister = async(req, res, next) => {
 let confirm = async(req, res, next) => {
     await database.User.update({ active: true }, { where: { id: req.params.id } }).then(result => {
         req.flash('success', 'Tài khoản của bạn đã được kích hoạt thành công', false);
-        res.redirect(`/`);
-    }).catch(err => {
-        logging.error(err);
-        req.flash('error', 'active thất bại', false);
         res.redirect(`/`);
     });
 
