@@ -27,13 +27,11 @@ html {
 body {
     font-family: Roboto, 'Courier New', Courier, monospace;
     background-color: #000000;
-    /* background-size: cover; */
-    /* background-image: url(../imgs/B1.jpg); */
-    /* background-repeat: no-repeat;
-    background-attachment: fixed; */
     margin: 0 auto;
     display: flex;
     position: relative;
+    align-items: center;
+    justify-content: center;
 }
 
 #errors {
