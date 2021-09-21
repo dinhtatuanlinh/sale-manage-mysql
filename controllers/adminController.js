@@ -89,7 +89,8 @@ let adminEditSetting = async(req, res, next) => {
             result = JSON.stringify(result);
             logging.info(`kiểm tra kết quả trả ra khi find giá trị user ở bẳng option là loại gì ${result}`);
             logging.info(`${result}`);
-            if (result === null) {
+            if (!result) {
+                logging.info('create row user')
                 let saveUser = { name: 'user', value: user }
                 await database.Option.create(saveUser).then(saveResult => {
                     if (saveResult) {
