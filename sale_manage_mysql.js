@@ -35,13 +35,7 @@ const viewEngine = require(__pathConfig + "viewEngine");
 const initWebRoutes = require(__pathRoutes + "web");
 // tạo module ghi logs ra file bằng winston
 const logging = require(__pathServices + 'winston_logging');
-try {
-    const passport = require("passport"),
-        // cai them package passport-local
-        LocalStrategy = require("passport-local").Strategy;
-} catch (err) {
-    logging.error(err);
-}
+
 
 let app = express();
 
@@ -84,8 +78,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // cũng có thể sửa lại dữ liệu bằng cách req.app.locals.test = '123';
 // biến lưu ở local cũng là biến giống global khi thay đổi giá trị ở vị trí khác toàn bộ server cũng thay đổi theo
 app.locals.test = 'abc';
-
-// tạo các tham số mặc định trong options
+logging.info('run')
+    // tạo các tham số mặc định trong options
 options();
 // truyền app vào cho hàm viewEngine
 viewEngine(app);
