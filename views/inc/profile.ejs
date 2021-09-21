@@ -1,7 +1,7 @@
 <%- locals.flash %>
 
     <main>
-        <form id="profile" action="/profile/edit/<%= userInfo.id %>" enctype="multipart/form-data" method="POST">
+        <form target="_self" id="profile" action="/profile/edit/<%= userInfo.id %>" enctype="multipart/form-data" method="POST">
 
             <h1>Profile</h1>
             <div class="edit" onclick="edit()">Edit your profile</div>
