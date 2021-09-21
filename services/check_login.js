@@ -3,20 +3,17 @@ const systemConfig = require(__pathConfig + 'localVariable');
 const logging = require(__pathServices + 'winston_logging');
 module.exports = (req, res, next) => {
 
-    if (!req.isAuthenticated()) { // isAuthenticated để xác định đã được login rồi hay chưa rồi sẽ trả về true chưa trả về false
-        // tạo biến userInfo để truyền tới view nếu chưa đăng nhập thì đặt là rỗng
-
-        res.locals.userInfo = '';
-        let validatorErr = null;
-        let registerData = { username: '', email: '' };
-        // console.log(req.flash('message'));
-        res.render(`${systemConfig.pathInc}login`, {
-            validatorErr,
-            registerData
-        });
-        // return false;
+    if (req.isAuthenticated()) { // isAuthenticated để xác định đã được login rồi hay chưa rồi sẽ trả về true chưa trả về false
+        res.locals.userInfo = req.user;
+        next();
     }
-
-    res.locals.userInfo = req.user;
-    next();
+    // tạo biến userInfo để truyền tới view nếu chưa đăng nhập thì đặt là rỗng
+    res.locals.userInfo = '';
+    let validatorErr = null;
+    let registerData = { username: '', email: '' };
+    // console.log(req.flash('message'));
+    res.render(`${systemConfig.pathInc}login`, {
+        validatorErr,
+        registerData
+    });
 }
