@@ -46,39 +46,38 @@ let adminEditSetting = async(req, res, next) => {
     // kiểm tra xem đã login chưa
     check_login(req, res);
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
-        // console.log(req.body);
-        // console.log(req.body.roles.split(',').length);
-        // await database.Option.findOne({ where: { name: 'avatar' } }).then(async result => {
-        //     let value = JSON.parse(result.value);
-        //     avatarPath = value[0].avatarPath;
-        //     fileSizeMB = value[0].fileSizeMB;
-        //     types = value[0].types;
-        //     if (req.body.avatarPath.length > 0) {
-        //         avatarPath = req.body.avatarPath.length;
-        //     }
-        //     if (req.body.fileSizeMB.length > 0) {
-        //         fileSizeMB = parseInt(req.body.fileSizeMB);
-        //     }
-        //     if (req.body.types.length > 0) {
-        //         types = req.body.types;
-        //     }
-        //     let avatar = [];
-        //     avatar[0] = {}
-        //     avatar[0].avatarPath = avatarPath;
-        //     avatar[0].fileSizeMB = fileSizeMB;
-        //     avatar[0].types = types;
-        //     avatar = JSON.stringify(avatar);
-        //     await database.Option.update({ value: avatar }, { where: { name: 'avatar' } }).then(updateResult => {
-        //         if (updateResult) {
-        //             req.flash('success', 'Update row avatar ở bảng option thành công', false);
-        //         } else {
-        //             req.flash('error', 'Update row avatar ở bảng option thất bại', false);
-        //         }
-        //         result = JSON.stringify(updateResult);
-        //         logging.info(updateResult);
 
-        //     })
-        // });
+        await database.Option.findOne({ where: { name: 'avatar' } }).then(async result => {
+            let value = JSON.parse(result.value);
+            avatarPath = value[0].avatarPath;
+            fileSizeMB = value[0].fileSizeMB;
+            types = value[0].types;
+            if (req.body.avatarPath.length > 0) {
+                avatarPath = req.body.avatarPath.length;
+            }
+            if (req.body.fileSizeMB.length > 0) {
+                fileSizeMB = parseInt(req.body.fileSizeMB);
+            }
+            if (req.body.types.length > 0) {
+                types = req.body.types;
+            }
+            let avatar = [];
+            avatar[0] = {}
+            avatar[0].avatarPath = avatarPath;
+            avatar[0].fileSizeMB = fileSizeMB;
+            avatar[0].types = types;
+            avatar = JSON.stringify(avatar);
+            await database.Option.update({ value: avatar }, { where: { name: 'avatar' } }).then(updateResult => {
+                if (updateResult) {
+                    req.flash('success', 'Update row avatar ở bảng option thành công', false);
+                } else {
+                    req.flash('error', 'Update row avatar ở bảng option thất bại', false);
+                }
+                result = JSON.stringify(updateResult);
+                logging.info(updateResult);
+
+            })
+        });
 
         let user = [];
         user[0] = {};
@@ -89,7 +88,7 @@ let adminEditSetting = async(req, res, next) => {
 
             if (result === null) {
                 logging.info('create row user')
-                let saveUser = { name: 'user', value: user }
+                let saveUser = { name: 'user', value: user, status: true }
                 await database.Option.create(saveUser).then(saveResult => {
                     if (saveResult) {
                         req.flash('success', 'Thêm mới row user ở bảng option thành công', false);
@@ -100,7 +99,7 @@ let adminEditSetting = async(req, res, next) => {
                     logging.info(saveResult);
                 })
             } else {
-                await database.Option.update({ value: user }, { where: { name: 'user' } }).then(saveResult => {
+                await database.Option.update({ value: user, status: true }, { where: { name: 'user' } }).then(saveResult => {
                     if (saveResult) {
                         req.flash('success', 'Update row user ở bảng option thành công', false);
                     } else {
