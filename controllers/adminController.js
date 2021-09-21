@@ -1,7 +1,7 @@
 const express = require("express");
 
 
-
+const check_login = require(__pathServices + 'check_login');
 const systemConfig = require(__pathConfig + 'localVariable');
 // database
 const database = require(__pathSchema + "database");
@@ -9,12 +9,11 @@ const database = require(__pathSchema + "database");
 const logging = require(__pathServices + 'winston_logging');
 
 let adminPage = async(req, res, next) => {
-    logging.info('admin')
-    logging.info(req.app.locals.userInfo.username);
+    logging.info(JSON.stringify(res.locals.userInfo));
     // kiểm tra xem đã login chưa
     if (check_login(req, res)) {
 
-        if (req.app.locals.userInfo.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
+        if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
             let users;
             let options;
             await database.User.findAll().then(results => {
