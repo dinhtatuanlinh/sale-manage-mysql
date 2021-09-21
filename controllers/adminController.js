@@ -48,7 +48,7 @@ let adminEditSetting = async(req, res, next) => {
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
         // console.log(req.body);
         // console.log(req.body.roles.split(',').length);
-        await database.Option.findOne({ where: { name: 'avatar' } }).then(result => {
+        await database.Option.findOne({ where: { name: 'avatar' } }).then(async result => {
             let value = JSON.parse(result.value);
             avatarPath = value[0].avatarPath;
             fileSizeMB = value[0].fileSizeMB;
