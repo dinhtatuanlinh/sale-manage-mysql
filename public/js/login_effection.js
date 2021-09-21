@@ -1,11 +1,14 @@
-if (document.getElementById('login') !== null) {
-    document.getElementById("registerPassword").value = '';
-    document.getElementById("registerRepassword").value = '';
-    document.getElementsByTagName("body")[0].style.height = '100vh';
-    document.getElementsByTagName("body")[0].style.justifyContent = 'center';
-    document.getElementsByTagName("body")[0].style.alignItems = 'center';
-    document.getElementsByTagName("body")[0].style.flexDirection = 'column';
-};
+window.onload = () => {
+    if (document.getElementById('login') !== null) {
+        document.getElementById("registerPassword").value = '';
+        document.getElementById("registerRepassword").value = '';
+        document.getElementsByTagName("body")[0].style.height = '100vh';
+        document.getElementsByTagName("body")[0].style.justifyContent = 'center';
+        document.getElementsByTagName("body")[0].style.alignItems = 'center';
+        document.getElementsByTagName("body")[0].style.flexDirection = 'column';
+    };
+}
+
 
 var inputPassword = (element, id) => {
     var hiddenInput = document.getElementById(id);

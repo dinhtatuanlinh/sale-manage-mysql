@@ -30,8 +30,6 @@ body {
     margin: 0 auto;
     display: flex;
     position: relative;
-    align-items: center;
-    justify-content: center;
 }
 
 #errors {
