@@ -5,9 +5,9 @@ const check_login = require(__pathServices + 'check_login');
 const systemConfig = require(__pathConfig + 'localVariable');
 const editProfileValidator = require(__pathValidations + 'editProfileValidator');
 // database
-const usersModel = require(__pathSchema + "database").usersModel;
-// lấy các biến trong optionsModel
-const optionsModel = require(__pathSchema + "database").optionsModel;
+const database = require(__pathSchema + "database");
+// logging
+const logging = require(__pathServices + 'winston_logging');
 
 
 
@@ -25,7 +25,7 @@ let profileEdit = async(req, res, next) => {
     let avatarPath = '';
     let fileSizeMB;
     let types = '';
-    await optionsModel.findOne({ name: 'avatar' }).then(result => {
+    await database.Option.findOne({ where: { name: 'avatar' } }).then(result => {
         field = result.name;
         avatarPath = __pathIMGS + result.value[0].avatarPath;
         fileSizeMB = result.value[0].fileSizeMB;
@@ -33,7 +33,8 @@ let profileEdit = async(req, res, next) => {
     })
     let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
     upload(req, res, async(errUpload) => {
-        // console.log(req.user._id, req.params.id);
+        logging.info(`${req.user._id}, ${req.params.id}`);
+
         if (check_login(req, res) && req.user._id.toString() === req.params.id) {
 
             let avatar;
@@ -73,7 +74,7 @@ let profileEdit = async(req, res, next) => {
                     password = req.user.password;
                 }
                 // console.log(req.body.birthday);
-                await usersModel.updateOne({ _id: req.user._id.toString() }, {
+                await database.User.update({
                     name: req.body.name,
                     avatar: avatar,
                     password: password,
@@ -81,8 +82,8 @@ let profileEdit = async(req, res, next) => {
                     phone: req.body.phone,
                     birthday: req.body.birthday,
                     team: req.body.team,
-                    modifiedtime: Date.now()
-                }).then(result => {
+                    modifiedtime: Date.now(),
+                }, { where: { id: req.user._id.toString() } }).then(result => {
                     // console.log(result);
                     res.redirect(`/profile`);
                 })
