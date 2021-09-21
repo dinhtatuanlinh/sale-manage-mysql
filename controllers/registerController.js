@@ -53,7 +53,7 @@ let postRegister = async(req, res, next) => {
 
     let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
     await upload(req, res, async(errUpload) => {
-
+        logging.info(JSON.stringify(req.file));
         let registerData = {};
         registerData = req.body;
         let validatorErr = await registerValidator(req);
