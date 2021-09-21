@@ -118,7 +118,7 @@ let adminEditSetting = async(req, res, next) => {
 let adminChangeProperties = async(req, res, next) => {
     check_login(req, res);
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
-        // console.log(req.params.param);
+        logging.info(req.params.param);
         if (req.params.param === 'role') {
             await database.User.update({ role: req.body.value }, { where: { id: req.body.id } })
         } else if (req.params.param === 'status') {
