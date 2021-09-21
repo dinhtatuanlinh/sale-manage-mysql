@@ -1,7 +1,7 @@
 const express = require("express");
 
 
-const check_login = require(__pathServices + 'check_login');
+
 const systemConfig = require(__pathConfig + 'localVariable');
 // database
 const database = require(__pathSchema + "database");
