@@ -9,7 +9,7 @@ const check_login = require(__pathServices + "passport_func");
 
 let router = express.Router();
 
-// let initWebRoutes = (app) => {
+
 // cau hình router trang chủ
 // ##################
 router.use(
@@ -50,7 +50,7 @@ router.get(
 // xóa thông tin dùng action delete
 // update thông tin dùng action push
 
-
+logging.info(`abc`);
 check_login.use;
 check_login.serialize;
 check_login.deserialize;
