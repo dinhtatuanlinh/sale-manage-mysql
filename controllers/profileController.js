@@ -69,7 +69,7 @@ let profileEdit = async(req, res, next) => {
                     password = req.body.password;
 
                 }
-
+                let updateTime = Date.now();
                 await database.User.update({
                     name: req.body.name,
                     avatar: avatar,
@@ -79,7 +79,7 @@ let profileEdit = async(req, res, next) => {
                     phone: req.body.phone,
                     birthday: req.body.birthday,
                     team: req.body.team,
-                    modifiedtime: Date.now(),
+                    modifiedtime: updateTime,
                     email: req.user.email,
                     manager: req.user.manager,
                     createdtime: req.user.createdtime,

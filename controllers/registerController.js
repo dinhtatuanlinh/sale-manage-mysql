@@ -85,7 +85,7 @@ let postRegister = async(req, res, next) => {
             registerData.id = MD5(`${id}`);
             registerData.role = 'basic';
             registerData.active = 0;
-            registerData.createdtime = Date.now();
+            registerData.createdtime = id;
             registerData.status = 'none';
             registerData.manager = 'none';
             registerData.phone = 0;
