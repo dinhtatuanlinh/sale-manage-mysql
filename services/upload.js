@@ -33,6 +33,7 @@ let uploadFile = (field, avatarPath, fileSizeMB, types) => { //avatarPath = __pa
         },
         fileFilter: (req, file, cb) => {
             // console.log(file);
+            logging.info(fileSizeMB);
             logging.info('fileFilter');
             logging.info(JSON.stringify(file));
             //kéo class kiểm tra phần mở rộng của file
