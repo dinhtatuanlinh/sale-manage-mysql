@@ -1,9 +1,8 @@
 const systemConfig = require(__pathConfig + 'localVariable');
 // logging
 const logging = require(__pathServices + 'winston_logging');
-module.exports = (req, res, next) => {
-    logging.info('check login');
-    logging.info(req.isAuthenticated());
+module.exports = (req, res) => {
+
     if (!req.isAuthenticated()) { // isAuthenticated để xác định đã được login rồi hay chưa rồi sẽ trả về true chưa trả về false
         // tạo biến userInfo để truyền tới view nếu chưa đăng nhập thì đặt là rỗng
 
@@ -18,6 +17,6 @@ module.exports = (req, res, next) => {
         // return false;
     }
 
-    req.app.locals.userInfo = req.user;
-    next();
+    res.locals.userInfo = req.user;
+    return true;
 }
