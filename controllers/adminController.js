@@ -9,7 +9,8 @@ const database = require(__pathSchema + "database");
 const logging = require(__pathServices + 'winston_logging');
 
 let adminPage = async(req, res, next) => {
-    logging.info(JSON.stringify(req.app.locals.userInfo));
+    logging.info('admin')
+    logging.info(req.app.locals.userInfo.username);
     // kiểm tra xem đã login chưa
     if (check_login(req, res)) {
 

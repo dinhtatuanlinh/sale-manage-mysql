@@ -58,7 +58,7 @@ let postRegister = async(req, res, next) => {
         registerData = req.body;
         let validatorErr = await registerValidator(req);
 
-        logging.info(JSON.stringify(validatorErr));
+
         if (errUpload) {
             // A Multer error occurred when uploading.
             validatorErr.push({ param: 'avatar', msg: errUpload });
