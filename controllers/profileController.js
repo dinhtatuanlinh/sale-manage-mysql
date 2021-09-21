@@ -85,7 +85,7 @@ let profileEdit = async(req, res, next) => {
                     createdtime: req.user.createdtime,
                     achievement: req.user.achievement,
                     active: req.user.active
-                }, { where: { id: req.user.id } }).then(result => {
+                }, { where: { id: req.user.id } }).then(async result => {
                     // console.log(result);
                     let time = new Date();
                     time = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
