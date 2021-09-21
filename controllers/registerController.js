@@ -56,6 +56,7 @@ let postRegister = async(req, res, next) => {
     await upload(req, res, async(errUpload) => {
         logging.info('###########');
         logging.info(JSON.stringify(req.file));
+        logging.info(JSON.stringify(req.body));
         let registerData = {};
         registerData = req.body;
         let validatorErr = await registerValidator(req);
