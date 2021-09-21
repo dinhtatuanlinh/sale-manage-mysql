@@ -21,77 +21,82 @@ let profileDataPage = async(req, res, next) => {
     }
 };
 let profileEdit = async(req, res, next) => {
-    let field = '';
-    let avatarPath = '';
-    let fileSizeMB;
-    let types = '';
-    await database.Option.findOne({ where: { name: 'avatar' } }).then(result => {
-        field = result.name;
-        avatarPath = __pathIMGS + result.value[0].avatarPath;
-        fileSizeMB = result.value[0].fileSizeMB;
-        types = result.value[0].types;
-    })
-    let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
-    upload(req, res, async(errUpload) => {
-        logging.info('edit profile');
-        logging.info(`${req.user.id}, ${req.params.id}`);
 
-        if (check_login(req, res) && req.user.id.toString() === req.params.id) {
+    if (check_login(req, res)) {
 
-            let avatar;
-            let password;
-            // registerData = req.user;
-            let validatorErr = await editProfileValidator(req);
+        let field = '';
+        let avatarPath = '';
+        let fileSizeMB;
+        let types = '';
+        await database.Option.findOne({ where: { name: 'avatar' } }).then(result => {
+            field = result.name;
+            avatarPath = __pathIMGS + result.value[0].avatarPath;
+            fileSizeMB = result.value[0].fileSizeMB;
+            types = result.value[0].types;
+        })
+        let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
+        upload(req, res, async(errUpload) => {
+            logging.info('edit profile');
+            logging.info(`${req.user.id}, ${req.params.id}`);
 
-            if (errUpload) {
-                // A Multer error occurred when uploading.
-                validatorErr.push({ param: 'avatart', msg: errUpload });
-            };
-            // console.log(req.body);
-            if (req.body.password !== req.body.repassword) {
-                validatorErr.push({ param: 'password', msg: 'Password và repassword không khớp' });
-            }
-            // console.log(validatorErr);
-            if (validatorErr.length > 0) {
-                if (req.file !== undefined) {
-                    fs.unlinkSync(__pathIMGS + "avatars/" + req.file.filename);
+            if (check_login(req, res) && req.user.id.toString() === req.params.id) {
+
+                let avatar;
+                let password;
+                // registerData = req.user;
+                let validatorErr = await editProfileValidator(req);
+
+                if (errUpload) {
+                    // A Multer error occurred when uploading.
+                    validatorErr.push({ param: 'avatart', msg: errUpload });
+                };
+                // console.log(req.body);
+                if (req.body.password !== req.body.repassword) {
+                    validatorErr.push({ param: 'password', msg: 'Password và repassword không khớp' });
                 }
-                res.render(`${systemConfig.pathInc}profile`, {
-                    validatorErr,
-                    // registerData
-                })
-            } else {
-                if (req.file !== undefined) {
-                    avatar = req.file.filename;
-                    fs.unlinkSync(__pathIMGS + "avatars/" + req.user.avatar);
+                // console.log(validatorErr);
+                if (validatorErr.length > 0) {
+                    if (req.file !== undefined) {
+                        fs.unlinkSync(__pathIMGS + "avatars/" + req.file.filename);
+                    }
+                    res.render(`${systemConfig.pathInc}profile`, {
+                        validatorErr,
+                        // registerData
+                    })
                 } else {
-                    avatar = req.user.avatar;
-                }
+                    if (req.file !== undefined) {
+                        avatar = req.file.filename;
+                        fs.unlinkSync(__pathIMGS + "avatars/" + req.user.avatar);
+                    } else {
+                        avatar = req.user.avatar;
+                    }
 
-                if (req.body.password !== '') {
-                    password = req.body.password;
-                } else {
-                    password = req.body.password;
-                    password = req.user.password;
-                }
-                // console.log(req.body.birthday);
-                await database.User.update({
-                    name: req.body.name,
-                    avatar: avatar,
-                    password: password,
-                    repassword: password,
-                    phone: req.body.phone,
-                    birthday: req.body.birthday,
-                    team: req.body.team,
-                    modifiedtime: Date.now(),
-                }, { where: { id: req.user._id.toString() } }).then(result => {
-                    // console.log(result);
-                    res.redirect(`/profile`);
-                })
+                    if (req.body.password !== '') {
+                        password = req.body.password;
+                    } else {
+                        password = req.body.password;
+                        password = req.user.password;
+                    }
+                    // console.log(req.body.birthday);
+                    await database.User.update({
+                        name: req.body.name,
+                        avatar: avatar,
+                        password: password,
+                        repassword: password,
+                        phone: req.body.phone,
+                        birthday: req.body.birthday,
+                        team: req.body.team,
+                        modifiedtime: Date.now(),
+                    }, { where: { id: req.user._id.toString() } }).then(result => {
+                        // console.log(result);
+                        res.redirect(`/profile`);
+                    })
 
+                }
             }
-        }
-    })
+        });
+    };
+
 }
 module.exports = {
     profileDataPage: profileDataPage,
