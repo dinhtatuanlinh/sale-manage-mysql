@@ -59,7 +59,7 @@
                                             <% let none = user.manager === 'none'? '<option value="none" selected>none</option>': '<option value="none">none</option>' %> 
                                             <%- none %> 
                                         <% managers.forEach(manager=>{ %>
-                                            <%= manager.username %> 
+                                
                                             <% let selected = manager.username === user.manager? 'selected': '' %>
                                             <% if(manager.username !== user.username){ %> 
                                                 <option value="<%= manager.username %>" <%= selected %>><%= manager.username %></option> 
