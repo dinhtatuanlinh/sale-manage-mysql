@@ -1,11 +1,12 @@
 const winston = require('winston');
+// const { createLogger, format, transports } = require("winston");
 let date = new Date();
 date = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 const logConfiguration = {
-    'format': format.combine(
-        format.simple(),
-        format.timestamp(),
-        format.printf(info => `[${info.timestamp}] ${info.level} ${info.message}`)
+    'format': winston.format.combine(
+        winston.format.simple(),
+        winston.format.timestamp(),
+        winston.format.printf(info => `[${info.timestamp}] ${info.level} ${info.message}`)
     ),
     'transports': [
         new winston.transports.File({
