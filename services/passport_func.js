@@ -1,17 +1,12 @@
+const express = require("express");
+const passport = require("passport"),
+    // cai them package passport-local
+    LocalStrategy = require("passport-local").Strategy;
+// database
+const database = require(__pathModels + "database");
+// tạo các phương thức login
 // logging
 const logging = require(__pathServices + 'winston_logging');
-try {
-    const express = require("express");
-    const passport = require("passport"),
-        // cai them package passport-local
-        LocalStrategy = require("passport-local").Strategy;
-    // database
-    const database = require(__pathModels + "database");
-    // tạo các phương thức login
-
-} catch (err) {
-    logging.error(err);
-}
 
 
 let app = express();

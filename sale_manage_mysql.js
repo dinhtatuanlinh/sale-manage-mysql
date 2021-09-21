@@ -35,7 +35,13 @@ const viewEngine = require(__pathConfig + "viewEngine");
 const initWebRoutes = require(__pathRoutes + "web");
 // tạo module ghi logs ra file bằng winston
 const logging = require(__pathServices + 'winston_logging');
-
+try {
+    const passport = require("passport"),
+        // cai them package passport-local
+        LocalStrategy = require("passport-local").Strategy;
+} catch (err) {
+    logging.error(err);
+}
 
 let app = express();
 
