@@ -7,8 +7,8 @@ const email = require(__pathServices + 'sendemail');
 const MD5 = require(__pathServices + 'md5');
 const systemConfig = require(__pathConfig + 'localVariable');
 // database
-const database = require(__pathModels + "database")
-    // logging
+const database = require(__pathModels + "database");
+// logging
 const logging = require(__pathServices + 'winston_logging');
 
 

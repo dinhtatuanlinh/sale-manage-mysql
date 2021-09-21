@@ -4,7 +4,8 @@ const { check, validationResult } = require("express-validator");
 // đối với trường hợp ko có file upload thì validation có thể viết theo kiểu middleware
 // database
 const database = require(__pathModels + "database");
-
+// logging
+const logging = require(__pathServices + 'winston_logging');
 module.exports = async(req) => {
     await check('username', 'Phải có 8 tới 30 ký tự').isLength({ min: 8, max: 30 }).run(req);
     await check('username').custom(async value => {
