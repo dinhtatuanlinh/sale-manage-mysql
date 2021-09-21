@@ -9,11 +9,11 @@ const database = require(__pathSchema + "database");
 const logging = require(__pathServices + 'winston_logging');
 
 let adminPage = async(req, res, next) => {
-
+    logging.info(JSON.stringify(req.app.locals.userInfo));
     // kiểm tra xem đã login chưa
     if (check_login(req, res)) {
-        logging.info(req.user.username);
-        if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
+
+        if (req.app.locals.userInfo.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
             let users;
             let options;
             await database.User.findAll().then(results => {

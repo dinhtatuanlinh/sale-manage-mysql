@@ -33,7 +33,7 @@ let postLogin = (req, res, next) => {
     }
     // khi đăng nhập thành công thì truyền giá trị vào userInfo biến này 
     // logging.info(req.user);
-    res.locals.userInfo = req.user;
+    req.app.locals.userInfo = req.user;
     res.redirect('/');
 }
 let postRegister = async(req, res, next) => {
