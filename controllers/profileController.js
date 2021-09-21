@@ -70,7 +70,7 @@ let profileEdit = async(req, res, next) => {
 
                 }
                 let updateTime = Date.now();
-                await database.User.update({
+                let updateData = {
                     name: req.body.name,
                     avatar: avatar,
                     password: password,
@@ -85,8 +85,11 @@ let profileEdit = async(req, res, next) => {
                     createdtime: req.user.createdtime,
                     achievement: req.user.achievement,
                     active: req.user.active
-                }, { where: { id: req.user.id } }).then(async result => {
+                };
+                logging.info(JSON.stringify(updateData));
+                await database.User.update(updateData, { where: { id: req.user.id } }).then(async result => {
                     // console.log(result);
+                    logging.info(JSON.stringify(result));
                     let time = new Date();
                     time = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
                     let from = "Đinh Tạ Tuấn Linh";
