@@ -20,7 +20,7 @@ let use = passport.use(
         // console.log(username, password);
         // logging.info(`${username}-${username}`);
         await database.User.findOne({ where: { username: username } }).then(result => {
-            logging.info(JSON.stringify(result));
+            // logging.info(JSON.stringify(result));
             if (result === null) {
                 app.locals.loginErr = "Incorrect username or password.";
                 return done(null, false);
@@ -37,26 +37,6 @@ let use = passport.use(
             // console.log(result.dataValues);
             return done(null, result.dataValues); // truyen vao user toi serializeUser
 
-            // if (!user.active) {
-            //     return done(null, false, { message: "your account is not active" });
-            // }
-            // if (err) {
-            //     return done(err);
-            // }
-            // if (user == undefined || user.length == 0) {
-            //     // console.log('user ko dung');
-            //     return done(null, false, { message: "Incorrect username or password." });
-            // }
-            // if (password !== user.password) {
-            //     // console.log('pass ko dung');
-            //     return done(null, false, { message: "Incorrect username or password." });
-            // }
-            // if (!user.active) {
-            //     return done(null, false, { message: "your account is not active" });
-            // }
-
-            // return done(null, user); // truyen vao user toi serializeUser
-            // });
         });
     }));
 let serialize = passport.serializeUser((user, done) => {
