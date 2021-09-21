@@ -86,9 +86,7 @@ let adminEditSetting = async(req, res, next) => {
         user[0].status = req.body.status === '' ? [] : req.body.status.split(',');
         user = JSON.stringify(user);
         await database.Option.findOne({ where: { name: 'user' } }).then(async result => {
-            result = JSON.stringify(result);
-            logging.info(`kiểm tra kết quả trả ra khi find giá trị user ở bẳng option là loại gì ${result}`);
-            logging.info(`${result === null}`);
+
             if (result === null) {
                 logging.info('create row user')
                 let saveUser = { name: 'user', value: user }
