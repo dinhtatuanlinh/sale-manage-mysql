@@ -3,7 +3,7 @@ const express = require("express");
 
 // goi controller xu ly router homepage
 const registerController = require(__pathControllers + "registerController");
-const check_login = require(__pathServices + 'check_login');
+
 const passport_func = require(__pathServices + "passport_func");
 // logging
 const logging = require(__pathServices + 'winston_logging');
@@ -15,12 +15,6 @@ let router = express.Router();
 router.use('/', require('./main'));
 // ##################
 
-router.use('/admin', (req, res, next) => {
-    check_login(req, res, next);
-}, require('./admin'));
-router.use('/profile', (req, res, next) => {
-    check_login(req, res, next);
-}, require('./profile'));
 
 
 

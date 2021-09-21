@@ -112,5 +112,6 @@ logging.info(`###################################`);
 logging.info(time);
 logging.info(`###################################`);
 app.listen(port, () => {
+    console.log(`app is running at port: http://localhost:${port}`);
     logging.info(`app is running at port: http://localhost:${port}`);
 });

@@ -23,7 +23,7 @@ module.exports = async() => {
     await database.Option.findOne({ where: { name: 'avatar' } }).then(async result => {
         if (result !== null) {
             logging.info(`bản ghi avatar đã tồn tại`)
-
+            console.log(`bản ghi avatar đã tồn tại`);
         } else {
 
             // insert data into table option
@@ -32,6 +32,7 @@ module.exports = async() => {
 
             })
             logging.info('bản ghi avatar đã được tạo thành công')
+            console.log('bản ghi avatar đã được tạo thành công');
         }
     }).catch(err => {
         logging.error(err);
