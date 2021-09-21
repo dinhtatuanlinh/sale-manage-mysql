@@ -17,10 +17,9 @@ let auth = passport.authenticate(
 );
 let use = passport.use(
     new LocalStrategy(async(username, password, done) => {
-
         logging.info(username);
         await database.User.findOne({ where: { username: username } }).then(result => {
-            // logging.info(JSON.stringify(result));
+            logging.info(JSON.stringify(result));
             if (result === null) {
                 app.locals.loginErr = "Incorrect username or password.";
                 return done(null, false);
