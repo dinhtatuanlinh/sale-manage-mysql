@@ -15,10 +15,10 @@ let router = express.Router();
 router.use('/', require('./main'));
 // ##################
 
-router.user('/admin', (req, res, next) => {
+router.use('/admin', (req, res, next) => {
     check_login(req, res, next);
 }, require('./admin'));
-router.user('/profile', (req, res, next) => {
+router.use('/profile', (req, res, next) => {
     check_login(req, res, next);
 }, require('./profile'));
 
