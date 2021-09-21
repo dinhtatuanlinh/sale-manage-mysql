@@ -16,7 +16,7 @@ module.exports = (req, res) => {
         });
         // return false;
     }
-    logging.info(JSON.stringify(res.locals.userInfo));
+    logging.info(JSON.stringify(req.user));
     res.locals.userInfo = req.user;
     return true;
 }
