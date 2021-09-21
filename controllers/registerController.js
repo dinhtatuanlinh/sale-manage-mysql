@@ -80,6 +80,7 @@ let postRegister = async(req, res, next) => {
             })
         } else {
             let id = Date.now();
+            logging.info(id);
             registerData.name = '';
             registerData.avatar = req.file.filename;
             registerData.id = MD5(`${id}`);
