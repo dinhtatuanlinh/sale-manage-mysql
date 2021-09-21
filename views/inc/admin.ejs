@@ -70,7 +70,7 @@
                                 <div class="box">
                                     <div>Role:</div>
                                     <div>
-                                        <select name="role" onchange="role(this,'<%= user._id %>','<%= url %>')">
+                                        <select name="role" onchange="role(this,'<%= user.id %>','<%= url %>')">
                                         <% userParams.roles.forEach(role=>{ %>
                                             <% let selected = role === user.role? 'selected': '' %>
                                             <option value="<%= role %>" <%= selected %>><%= role.replace(' ', '_') %></option> 
@@ -103,7 +103,7 @@
                                 <div class="box">
                                     <div>Status:</div>
                                     <div>
-                                        <select name="status" onchange="status(this,'<%= user._id %>','<%= url %>')">
+                                        <select name="status" onchange="status(this,'<%= user.id %>','<%= url %>')">
                                         <% userParams.status.forEach(sta=>{ %>
                                             <% let selected = sta === user.status? 'selected': '' %>
                                             <option value="<%= sta %>" <%= selected %>><%= sta.replace('_',' ') %></option> 
