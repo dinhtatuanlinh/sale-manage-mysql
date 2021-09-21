@@ -22,6 +22,7 @@ let adminPage = async(req, res, next) => {
         });
         await database.Option.findAll().then(results => {
             options = results;
+            logging.info(JSON.stringify(options));
             // console.log(results[1].value);
         });
         // get url host
