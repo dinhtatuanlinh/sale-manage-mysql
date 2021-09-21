@@ -22,8 +22,6 @@ let adminPage = async(req, res, next) => {
         });
         await database.Option.findAll().then(results => {
             options = results;
-            logging.info('#############');
-            logging.info(JSON.stringify(options));
             // console.log(results[1].value);
         });
         // get url host
@@ -55,7 +53,7 @@ let adminEditSetting = async(req, res, next) => {
             fileSizeMB = value[0].fileSizeMB;
             types = value[0].types;
             if (req.body.avatarPath.length > 0) {
-                avatarPath = req.body.avatarPath.length;
+                avatarPath = req.body.avatarPath;
             }
             if (req.body.fileSizeMB.length > 0) {
                 fileSizeMB = parseInt(req.body.fileSizeMB);
