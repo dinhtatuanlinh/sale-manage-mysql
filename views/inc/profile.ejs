@@ -1,7 +1,7 @@
 <%- locals.flash %>
 
     <main>
-        <form id="profile" action="/profile/edit/<%= userInfo._id %>" enctype="multipart/form-data" method="POST">
+        <form id="profile" action="/profile/edit/<%= userInfo.id %>" enctype="multipart/form-data" method="POST">
 
             <h1>Profile</h1>
             <div class="edit" onclick="edit()">Edit your profile</div>
@@ -33,13 +33,13 @@
             </div>
             <div class="username profile_fields">
                 <div>
-                    <div class="key">Password:</div>
+                    <div class="key profile_fields">Password:</div>
                     <div class="box">
                         <input type="password" class="profile_fields" onkeyup="inputPassword(this,'registerPassword')" />
                         <input type="hidden" name="password" id="registerPassword" class="profile_fields" value="" />
                     </div>
 
-                    <div class="key">Repassword:</div>
+                    <div class="key profile_fields">Repassword:</div>
                     <div class="box">
                         <input type="password" class="profile_fields" onkeyup="inputPassword(this,'registerRepassword')" />
                         <input type="hidden" name="repassword" id="registerRepassword" class="profile_fields" value="" />

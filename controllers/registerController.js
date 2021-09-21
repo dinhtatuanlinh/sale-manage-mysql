@@ -80,8 +80,9 @@ let postRegister = async(req, res, next) => {
             })
         } else {
             let id = Date.now();
-            registerData.id = MD5(`${id}`);
+            registerData.name = '';
             registerData.avatar = req.file.filename;
+            registerData.id = MD5(`${id}`);
             registerData.role = 'basic';
             registerData.active = 0;
             registerData.createdtime = Date.now();
@@ -92,7 +93,6 @@ let postRegister = async(req, res, next) => {
             registerData.modifiedtime = 0;
             registerData.achievement = '';
             registerData.team = '';
-            registerData.name = '';
             // console.log(registerData);
             database.User.create(registerData).then(async(result) => {
 

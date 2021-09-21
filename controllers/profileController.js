@@ -33,9 +33,10 @@ let profileEdit = async(req, res, next) => {
     })
     let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
     upload(req, res, async(errUpload) => {
-        logging.info(`${req.user._id}, ${req.params.id}`);
+        logging.info('edit profile');
+        logging.info(`${req.user.id}, ${req.params.id}`);
 
-        if (check_login(req, res) && req.user._id.toString() === req.params.id) {
+        if (check_login(req, res) && req.user.id.toString() === req.params.id) {
 
             let avatar;
             let password;
