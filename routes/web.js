@@ -7,13 +7,12 @@ const registerController = require(__pathControllers + "registerController");
 const passport_func = require(__pathServices + "passport_func");
 // logging
 const logging = require(__pathServices + 'winston_logging');
-const check_login = require(__pathServices + 'check_login');
 let router = express.Router();
 
 
 // cau hình router trang chủ
 // ##################
-router.use('/', check_login(req, res, next), require('./main'));
+router.use('/', require('./main'));
 // ##################
 // login and register
 
