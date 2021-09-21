@@ -17,8 +17,8 @@ let auth = passport.authenticate(
 );
 let use = passport.use(
     new LocalStrategy(async(username, password, done) => {
-        // console.log(username, password);
-        logging.info(`passport user`);
+
+        logging.info(username);
         await database.User.findOne({ where: { username: username } }).then(result => {
             // logging.info(JSON.stringify(result));
             if (result === null) {

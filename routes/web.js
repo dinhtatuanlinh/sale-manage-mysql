@@ -13,12 +13,7 @@ let router = express.Router();
 
 // cau hình router trang chủ
 // ##################
-router.use(
-    '/',
-
-    require('./main')
-
-);
+router.use('/', require('./main'));
 // ##################
 // login and register
 
