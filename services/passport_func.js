@@ -62,13 +62,13 @@ let use = passport.use(
         });
     }));
 let serialize = passport.serializeUser((user, done) => {
-    // console.log(user);
+    logging.info(`${user}-serialize`);
     done(null, user.id);
 });
 let deserialize = passport.deserializeUser(async(id, done) => {
     await database.User.findOne({ where: { id: id } }).then(user => {
-        // console.log('1');
-        // console.log(user.dataValues);
+        logging.info(`1`);
+        logging.info(`${user.dataValues}-deserialize`);
         done(null, user.dataValues);
     }).catch(err => {
         logging.error(err);
