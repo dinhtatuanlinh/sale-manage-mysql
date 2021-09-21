@@ -4,24 +4,25 @@ const express = require("express");
 const check_login = require(__pathServices + 'check_login');
 const systemConfig = require(__pathConfig + 'localVariable');
 // database
-const usersModel = require(__pathSchema + "database").usersModel;
-// lấy các biến trong optionsModel
-const optionsModel = require(__pathSchema + "database").optionsModel;
+const database = require(__pathSchema + "database");
+// logging
+const logging = require(__pathServices + 'winston_logging');
+
 let adminPage = async(req, res, next) => {
     // kiểm tra xem đã login chưa
     if (check_login(req, res)) {
         if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
             let users;
             let options;
-            await usersModel.find().then(results => {
+            await database.User.findAll().then(results => {
                 // console.log(results);
                 users = results;
             });
-            await optionsModel.find().then(results => {
-                    options = results;
-                    // console.log(results[1].value);
-                })
-                // get url host
+            await database.Option.findAll().then(results => {
+                options = results;
+                // console.log(results[1].value);
+            });
+            // get url host
             let url = req.get('host');
 
             res.render(
@@ -50,28 +51,36 @@ let adminEditSetting = async(req, res, next) => {
             avatar[0].avatarPath = req.body.avatarPath;
             avatar[0].fileSizeMB = parseInt(req.body.fileSizeMB);
             avatar[0].types = req.body.types;
-            await optionsModel.updateOne({ name: 'avatar' }, { value: avatar }).then(result => {
-                console.log(result);
+            avatar = JSON.stringify(avatar);
+            await database.Option.update({ value: avatar }, { where: { name: 'avatar' } }).then(result => {
+                result = JSON.stringify(result);
+                logging.info(result);
+
             })
             let user = [];
             user[0] = {};
             user[0].roles = req.body.roles === '' ? [] : req.body.roles.split(',');
             user[0].status = req.body.status === '' ? [] : req.body.status.split(',');
-            // console.log(user);
-            await optionsModel.findOne({ name: 'user' }).then(async result => {
+            user = JSON.stringify(user);
+            await database.Option.findOne({ where: { name: 'user' } }).then(async result => {
+                result = JSON.stringify(result);
+                logging.info(`kiểm tra kết quả trả ra khi find giá trị user ở bẳng option là loại gì ${result}`);
                 if (result === null) {
                     let saveUser = { name: 'user', value: user }
-                    await optionsModel(saveUser).save().then(saveResult => {
-                        console.log(saveResult);
+                    await database.Option.create(avatar).then(saveResult => {
+                        saveResult = JSON.stringify(saveResult);
+                        logging.info(saveResult);
                     })
                 } else {
-                    await optionsModel.updateOne({ name: 'user' }, { value: user }).then(result => {
-                        console.log(result);
+                    await database.Option.update({ value: user }, { where: { name: 'user' } }).then(saveResult => {
+                        saveResult = JSON.stringify(saveResult);
+                        logging.info(saveResult);
                     });
                 }
             })
-            await optionsModel.updateOne({ name: 'user' }, { value: user }).then(result => {
-                console.log(result);
+            await database.Option.update({ value: user }, { where: { name: 'user' } }).then(result => {
+                result = JSON.stringify(result);
+                logging.info(result);
             });
             req.flash('success', 'Thông tin thay đổi thành công', false);
             res.redirect(`/admin`);
@@ -83,17 +92,11 @@ let adminChangeProperties = async(req, res, next) => {
         if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
             // console.log(req.params.param);
             if (req.params.param === 'role') {
-                await usersModel.updateOne({ _id: req.body.id }, {
-                    role: req.body.value
-                })
+                await database.User.update({ role: req.body.value }, { where: { id: req.body.id } })
             } else if (req.params.param === 'status') {
-                await usersModel.updateOne({ _id: req.body.id }, {
-                    status: req.body.value
-                })
+                await database.User.update({ status: req.body.value }, { where: { id: req.body.id } })
             } else if (req.params.param === 'manager') {
-                await usersModel.updateOne({ _id: req.body.id }, {
-                    manager: req.body.value
-                })
+                await database.User.update({ manager: req.body.value }, { where: { id: req.body.id } })
             }
             // console.log(req.body);
             req.flash('success', 'Thay đổi thành công', false);
