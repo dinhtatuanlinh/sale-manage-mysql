@@ -4,16 +4,16 @@ const express = require("express");
 // goi controller xu ly router homepage
 const registerController = require(__pathControllers + "registerController");
 
-const check_login = require(__pathServices + "passport_func");
+const passport_func = require(__pathServices + "passport_func");
 // logging
 const logging = require(__pathServices + 'winston_logging');
-
+const check_login = require(__pathServices + 'check_login');
 let router = express.Router();
 
 
 // cau hình router trang chủ
 // ##################
-router.use('/', require('./main'));
+router.use('/', check_login(req, res, next), require('./main'));
 // ##################
 // login and register
 
@@ -23,7 +23,7 @@ router.get(
 );
 router.post(
     '/login',
-    check_login.auth,
+    passport_func.auth,
     (req, res, next) => { registerController.postLogin(req, res, next) }
 );
 router.post(
@@ -47,8 +47,8 @@ router.get(
 // update thông tin dùng action push
 
 
-check_login.Use;
-check_login.serialize;
-check_login.deserialize;
+passport_func.Use;
+passport_func.serialize;
+passport_func.deserialize;
 
 module.exports = router;
