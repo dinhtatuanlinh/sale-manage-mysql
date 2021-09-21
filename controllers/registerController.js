@@ -38,6 +38,7 @@ let postLogin = (req, res, next) => {
     res.redirect('/');
 }
 let postRegister = async(req, res, next) => {
+    logging.info(JSON.stringify(req.file));
     let field = '';
     let avatarPath = '';
     let fileSizeMB;
@@ -55,7 +56,7 @@ let postRegister = async(req, res, next) => {
     let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
     await upload(req, res, async(errUpload) => {
         logging.info('###########');
-        logging.info(JSON.stringify(req.file));
+
         logging.info(JSON.stringify(req.body));
         let registerData = {};
         registerData = req.body;
