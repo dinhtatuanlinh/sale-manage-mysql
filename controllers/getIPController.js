@@ -21,6 +21,7 @@ let getclientIP = (req, res, next) => {
     //   }
     logging.info(geo.country);
     let clientInfo = JSON.stringify(geo);
+    res.setHeader("Content-Type", "text/html");
     res.send(clientInfo);
 }
 module.exports = {
