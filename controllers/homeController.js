@@ -1,5 +1,6 @@
 const axios = require('axios');
 var getIP = require('ipware')().get_ip;
+var geoip = require('geoip-lite');
 
 const systemConfig = require(__pathConfig + 'localVariable');
 const check_login = require(__pathServices + 'check_login');
@@ -15,6 +16,9 @@ let homePage = async(req, res, next) => {
     var ipInfo = getIP(req);
     console.log(ipInfo);
     logging.info(JSON.stringify(ipInfo));
+    var geo = geoip.lookup(req.ip);
+
+    logging.info(JSON.stringify(geo));
     // ########################################
     // get data from novaon
     // ########################################
