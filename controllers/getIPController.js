@@ -4,8 +4,8 @@ var geoip = require('geoip-lite');
 const logging = require(__pathServices + 'winston_logging');
 let getclientIP = (req, res, next) => {
     // logging.info(res.body.token);
-    logging.info(JSON.stringify(res.body));
-    if (res.body.token === 'dinh ta tuan linh') {
+    logging.info(res.params.token);
+    if (res.params.token === 'dinhtatuanlinh') {
         var ipInfo = getIP(req);
         console.log(ipInfo);
         logging.info(JSON.stringify(ipInfo));
