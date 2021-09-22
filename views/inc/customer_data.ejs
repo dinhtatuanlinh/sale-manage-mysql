@@ -73,7 +73,7 @@
                                                     <%= clientData.saler %>
                                                 </div>
                                                 <% } %>
-                                                    <% if(userInfo.role!=="admin" || userInfo.role!=="sale_manager"){ %>
+                                                    <% if(userInfo.role!=="admin" && userInfo.role!=="sale_manager"){ %>
                                                         <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`, '<%= customerStatus[0].status %>')">Chọn</button>
                                                         <% } %>
 
