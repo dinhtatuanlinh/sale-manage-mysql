@@ -175,13 +175,13 @@ main #general #customer_list .info {
 }
 
 main #general #customer_list .track {
-    width: 200px;
+    flex: 1;
     text-align: center;
     overflow: auto;
 }
 
 main #general #customer_list .note {
-    width: 300px;
+    flex: 1;
     text-align: center;
     overflow: auto;
 }
@@ -218,11 +218,6 @@ main #detail .other .status {
 
 main #detail .note {
     padding: 10px;
-}
-
-main #detail .note textarea {
-    width: 100%;
-    background-color: #202328;
 }
 
 main #detail button {
