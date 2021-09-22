@@ -39,7 +39,7 @@ let select_cus = (url, status) => {
             
         </div>
 
-        <div class="note"><textarea name="note"cols="30" rows="10">${data.note}</textarea></div>
+        <div class="note"><textarea name="note" cols="30" rows="10">${data.note}</textarea></div>
         <button type="submit">Save</button>
         </form>
         `;
