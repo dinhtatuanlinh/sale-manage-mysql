@@ -14,6 +14,7 @@ let homePage = async(req, res, next) => {
     let datas;
     await axios({
         method: 'post',
+        headers: { "Content-Type": "application/json; charset=utf-8" },
         url: 'https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts',
         data: {
             guid: 'FB057E6D-E772-4282-9BA4-F5B6334AA66D',
