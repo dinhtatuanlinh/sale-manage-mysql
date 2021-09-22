@@ -96,54 +96,35 @@ const User = connection.define('User', {
     status: { type: Sequelize.STRING, allowNull: false },
 
 });
-// const client_info = connection.define('User', {
-//     // định nghĩa các trường dữ liệu trong bảng
-//     // Name of Column #1 and its properties defined: id
-//     id: {
-//         // Integer Datatype
-//         type: Sequelize.STRING,
-//         // Increment the value automatically
-//         autoIncrement: false,
-//         // id can not be null.
-//         allowNull: false,
-//         // To uniquely identify user
-//         primaryKey: true
-//     },
-//     // Name of Column #2: name
-//     name: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: username
-//     username: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: email
-//     email: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: password
-//     password: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: repassword
-//     repassword: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: avatar
-//     avatar: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: phone
-//     phone: { type: Sequelize.INTEGER, allowNull: false },
-//     // Name of Column #3: role
-//     role: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: manager
-//     manager: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: birthday
-//     birthday: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: createdtime
-//     createdtime: { type: Sequelize.BIGINT, allowNull: false },
-//     // Name of Column #3: modifiedtime
-//     modifiedtime: { type: Sequelize.BIGINT, allowNull: false },
-//     // Name of Column #3: achievement
-//     achievement: { type: Sequelize.STRING, allowNull: false },
-//     // Name of Column #3: active
-//     active: { type: Sequelize.BOOLEAN, allowNull: false },
-//     // Name of Column #3: team
-//     team: { type: Sequelize.STRING, allowNull: false },
-
-//     // Name of Column #3: status
-//     status: { type: Sequelize.STRING, allowNull: false },
-
-// });
+const client_info = connection.define('User', {
+    // định nghĩa các trường dữ liệu trong bảng
+    // Name of Column #1 and its properties defined: id
+    id: {
+        // Integer Datatype
+        type: Sequelize.INTEGER,
+        // Increment the value automatically
+        autoIncrement: true,
+        // id can not be null.
+        allowNull: false,
+        // To uniquely identify user
+        primaryKey: true
+    },
+    // Name of Column #2: name
+    name: { type: Sequelize.STRING, allowNull: false },
+    email: { type: Sequelize.STRING, allowNull: false },
+    phone: { type: Sequelize.STRING, allowNull: false },
+    url: { type: Sequelize.STRING, allowNull: false },
+    device: { type: Sequelize.STRING, allowNull: false },
+    formData: { type: Sequelize.STRING, allowNull: false },
+    event: { type: Sequelize.STRING, allowNull: false },
+    location: { type: Sequelize.STRING, allowNull: false },
+    mark: { type: Sequelize.BOOLEAN, allowNull: false },
+    tags: { type: Sequelize.STRING, allowNull: false },
+    saler: { type: Sequelize.STRING, allowNull: false },
+    status: { type: Sequelize.STRING, allowNull: false },
+    note: { type: Sequelize.STRING, allowNull: false },
+    createdtime: { type: Sequelize.BIGINT, allowNull: false },
+});
 // Show tất cả các tables trong database
 let createTable = () => {
     return new Promise((res, rej) => {

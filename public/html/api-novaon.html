@@ -11,31 +11,31 @@
 <body>
 
     <script>
-        // let data = {
-        //     guid: 'FB057E6D-E772-4282-9BA4-F5B6334AA66D',
-        //     from_date: '17/09/2021',
-        //     to_date: '18/09/2021'
-        // };
-        // data = JSON.stringify(data);
-        // let url = "https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts";
-        // let xhtml = new XMLHttpRequest();
-        // xhtml.open('POST', url, false);
-        // xhtml.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        // xhtml.send(data);
-        // let result = xhtml.response;
-        // result = JSON.parse(result).Data;
-
-        // console.log(result);
-
-        let url = "https://salemanage.noteatext.com/ip/dinhtatuanlinh";
+        let data = {
+            guid: 'FB057E6D-E772-4282-9BA4-F5B6334AA66D',
+            from_date: '17/09/2021',
+            to_date: '18/09/2021'
+        };
+        data = JSON.stringify(data);
+        let url = "https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts";
         let xhtml = new XMLHttpRequest();
-        xhtml.open('GET', url, false);
+        xhtml.open('POST', url, false);
         xhtml.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        xhtml.send();
+        xhtml.send(data);
         let result = xhtml.response;
-        result = JSON.parse(result);
+        result = JSON.parse(result).Data;
 
         console.log(result);
+        // get ip address
+        // let url = "https://salemanage.noteatext.com/ip/dinhtatuanlinh";
+        // let xhtml = new XMLHttpRequest();
+        // xhtml.open('GET', url, false);
+        // xhtml.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        // xhtml.send();
+        // let result = xhtml.response;
+        // result = JSON.parse(result);
+
+        // console.log(result);
     </script>
 </body>
 
