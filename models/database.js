@@ -168,5 +168,6 @@ module.exports = {
     Option,
     User,
     Role,
+    Client_info,
     createTable: createTable,
 }
