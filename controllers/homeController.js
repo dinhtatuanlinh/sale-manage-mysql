@@ -32,10 +32,11 @@ let homePage = async(req, res, next) => {
     }
 
     request().then(data => {
-        datas = data.data.data;
+        datas = data.data.Data;
     });
-    // logging.info('++++++++++++++++');
-    // logging.info(JSON.stringify(datas));
+    let arr = datas.length;
+    logging.info('++++++++++++++++');
+    logging.info(JSON.stringify(arr));
     // await axios({
     //     method: 'POST',
     //     headers: { 'content-type': 'application/json; charset=utf-8' },
