@@ -9,7 +9,7 @@ const homeController = require(__pathControllers + "homeController");
 
 /* GET users listing. */
 router.get('/', (req, res, next) => { homeController.homePage(req, res, next) });
-router.get('/novaon', (req, res, next) => { homeController.novaon(req, res, next) });
+
 
 router.get('/customer-data', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
 

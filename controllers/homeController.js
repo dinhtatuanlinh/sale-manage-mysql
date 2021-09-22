@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Json } = require('sequelize/types/lib/utils');
+
 
 const systemConfig = require(__pathConfig + 'localVariable');
 const check_login = require(__pathServices + 'check_login');
@@ -47,5 +47,5 @@ let homePage = async(req, res, next) => {
 
 module.exports = {
     homePage: homePage,
-    novaon: novaon,
+
 };
