@@ -118,12 +118,13 @@ const Client_info = connection.define('Client_info', {
     formData: { type: Sequelize.STRING, allowNull: false },
     event: { type: Sequelize.STRING, allowNull: false },
     location: { type: Sequelize.STRING, allowNull: false },
+    root: { type: Sequelize.STRING, allowNull: false },
     mark: { type: Sequelize.BOOLEAN, allowNull: false },
     tags: { type: Sequelize.STRING, allowNull: false },
     saler: { type: Sequelize.STRING, allowNull: false },
     status: { type: Sequelize.STRING, allowNull: false },
     note: { type: Sequelize.STRING, allowNull: false },
-    createdtime: { type: Sequelize.BIGINT, allowNull: false },
+    createdtime: { type: Sequelize.STRING, allowNull: false },
 });
 // Show tất cả các tables trong database
 let createTable = () => {
