@@ -5,6 +5,7 @@ var router = express.Router();
 const customerDataController = require(__pathControllers + "customerDataController");
 const profileController = require(__pathControllers + "profileController");
 const adminController = require(__pathControllers + "adminController");
+const homeController = require(__pathControllers + "homeController");
 
 /* GET users listing. */
 router.get('/', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });

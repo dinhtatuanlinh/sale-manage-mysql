@@ -9,14 +9,12 @@
 </head>
 
 <body>
-    <form action="/">
-        <input type="text" name="name" id="">
-    </form>
+
     <script>
         let data = {
             guid: 'FB057E6D-E772-4282-9BA4-F5B6334AA66D',
-            from_date: '01/09/2021',
-            to_date: '21/09/2021'
+            from_date: '17/09/2021',
+            to_date: '18/09/2021'
         };
         data = JSON.stringify(data);
         let url = "https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts";
@@ -27,7 +25,7 @@
         let result = xhtml.response;
         result = JSON.parse(result).Data;
 
-        console.log(result.filter(data => data.Phones == '84914998279'));
+        console.log(result);
     </script>
 </body>
 

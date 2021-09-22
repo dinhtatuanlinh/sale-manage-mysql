@@ -394,6 +394,24 @@ h1 {
     display: none;
 }
 
+#homepage {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+#homepage .users {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 23%;
+    margin: 10px 1%;
+    padding: 5px;
+    border: 1px solid #333;
+    background-color: #202328;
+    border-radius: 10px;
+}
+
 @media screen and (min-width: 1201px) {
     .desktop-hide {
         display: none !important;
