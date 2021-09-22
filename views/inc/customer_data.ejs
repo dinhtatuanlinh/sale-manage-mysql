@@ -83,5 +83,8 @@
 
                         </div>
                 </div>
-                <%- include('elements/detail') %>
+                <% if(userInfo.role!=="admin" && userInfo.role!=="sale_manager"){ %>
+                    <%- include('elements/detail') %>
+                        <% } %>
+
             </main>
