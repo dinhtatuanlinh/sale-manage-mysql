@@ -12,19 +12,24 @@ let homePage = async(req, res, next) => {
         users = results;
     });
     let datas;
+    axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+    let axiosData = {
+        guid: 'FB057E6D-E772-4282-9BA4-F5B6334AA66D',
+        from_date: '17/09/2021',
+        to_date: '18/09/2021'
+    }
+    axiosData = JSON.stringify(axiosData);
     await axios({
-        method: 'post',
-        headers: { "Content-Type": "application/json; charset=utf-8" },
+        method: 'POST',
         url: 'https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts',
-        data: {
-            guid: 'FB057E6D-E772-4282-9BA4-F5B6334AA66D',
-            from_date: '17/09/2021',
-            to_date: '18/09/2021'
-        }
+        data: axiosData
     }).then(function(response) {
         datas = response;
         logging.info("---novaon----");
         logging.info(JSON.stringify(datas));
+    }).catch(function(error) {
+        console.log(error);
+        logging.info(JSON.stringify(error));
     });
 
     res.setHeader("Content-Type", "text/html");
