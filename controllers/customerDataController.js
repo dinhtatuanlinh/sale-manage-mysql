@@ -15,7 +15,7 @@ let customerDataPage = async(req, res, next) => {
     });
     let url = req.get('host');
     let customerStatus = await database.Option.findOne({ where: { name: 'customer' } })
-    logging.info(customerStatus.value);
+
     customerStatus = JSON.parse(customerStatus.value);
 
     res.setHeader("Content-Type", "text/html");

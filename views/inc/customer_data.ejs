@@ -1,44 +1,44 @@
 <%- locals.flash %>
     <% include('elements/nav') %>
         <%- navBar(userInfo) %>
-            <%= JSON.stringify(customerStatus) %>
-                <main id="main_customer_data">
-                    <div id="general">
-                        <%- include('elements/sort') %>
-                            <div id="customer_list">
-                                <div id="list_header">
-                                    <div class="no">#</div>
-                                    <div class="mark"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                    <div class="status">status</div>
-                                    <div class="info">info</div>
-                                    <div class="track">track</div>
-                                    <div class="note">note</div>
-                                    <div class="time">time</div>
-                                    <% if(clientDatas[0].saler !== userInfo.username){ %>
-                                        <div class="saler">saler</div>
-                                        <% } %>
 
-                                </div>
-                                <% let i = 1 %>
-                                    <% let star = '' %>
-                                        <% clientDatas.forEach(clientData=>{ %>
+            <main id="main_customer_data">
+                <div id="general">
+                    <%- include('elements/sort') %>
+                        <div id="customer_list">
+                            <div id="list_header">
+                                <div class="no">#</div>
+                                <div class="mark"><i class="fa fa-star" aria-hidden="true"></i></div>
+                                <div class="status">status</div>
+                                <div class="info">info</div>
+                                <div class="track">track</div>
+                                <div class="note">note</div>
+                                <div class="time">time</div>
+                                <% if(clientDatas[0].saler !== userInfo.username){ %>
+                                    <div class="saler">saler</div>
+                                    <% } %>
 
-                                            <div class="customer" data-id="">
-                                                <div class="no">
-                                                    <%= i %>
-                                                </div>
-                                                <div class="mark">
-                                                    <% if(clientData.mark){
+                            </div>
+                            <% let i = 1 %>
+                                <% let star = '' %>
+                                    <% clientDatas.forEach(clientData=>{ %>
+
+                                        <div class="customer" data-id="">
+                                            <div class="no">
+                                                <%= i %>
+                                            </div>
+                                            <div class="mark">
+                                                <% if(clientData.mark){
                                             star = '<i class="fa fa-star" aria-hidden="true"></i>'  
                                         }else{
                                             star = '<i class="fa fa-star-o" aria-hidden="true"></i>'
                                         } %>
-                                                        <%- star %>
-                                                </div>
-                                                <div class="status">
-                                                    <%= clientData.status %>
-                                                </div>
-                                                <select name="status" class="status">
+                                                    <%- star %>
+                                            </div>
+                                            <div class="status">
+                                                <%= clientData.status %>
+                                            </div>
+                                            <select name="status" class="status">
                                                 
                                                 <%# let status_check = ''
                                                     customerStatus.forEach(status =>{ 
@@ -50,46 +50,46 @@
 
                                             </select>
 
-                                                <div class="info">
-                                                    <div class="phone">
-                                                        <%= clientData.phone %>
-                                                    </div>
-                                                    <div class="name">
-                                                        <%= clientData.name %>
-                                                    </div>
-                                                    <div class="email">
-                                                        <%= clientData.email %>
-                                                    </div>
+                                            <div class="info">
+                                                <div class="phone">
+                                                    <%= clientData.phone %>
                                                 </div>
-                                                <div class="track">
-                                                    <div class="tags">
-                                                        <%= clientData.tags %>
-                                                    </div>
-                                                    <div class="url">
-                                                        <%= clientData.url %>
-                                                    </div>
-                                                    <div class="location">
-                                                        <%= clientData.location %>
-                                                    </div>
+                                                <div class="name">
+                                                    <%= clientData.name %>
                                                 </div>
-
-                                                <div class="note">
-                                                    <%= clientData.note %>
+                                                <div class="email">
+                                                    <%= clientData.email %>
                                                 </div>
-                                                <div class="time">
-                                                    <%= clientData.createdtime %>
-                                                </div>
-                                                <% if(clientData.saler !== userInfo.username){ %>
-                                                    <div class="saler">
-                                                        <%= clientData.saler %>
-                                                    </div>
-                                                    <% } %>
-                                                        <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`, '')">Chọn</button>
                                             </div>
-                                            <% i++ %>
-                                                <% }) %>
+                                            <div class="track">
+                                                <div class="tags">
+                                                    <%= clientData.tags %>
+                                                </div>
+                                                <div class="url">
+                                                    <%= clientData.url %>
+                                                </div>
+                                                <div class="location">
+                                                    <%= clientData.location %>
+                                                </div>
+                                            </div>
 
-                            </div>
-                    </div>
-                    <%- include('elements/detail') %>
-                </main>
+                                            <div class="note">
+                                                <%= clientData.note %>
+                                            </div>
+                                            <div class="time">
+                                                <%= clientData.createdtime %>
+                                            </div>
+                                            <% if(clientData.saler !== userInfo.username){ %>
+                                                <div class="saler">
+                                                    <%= clientData.saler %>
+                                                </div>
+                                                <% } %>
+                                                    <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`, '<%= customerStatus[0].status %>')">Chọn</button>
+                                        </div>
+                                        <% i++ %>
+                                            <% }) %>
+
+                        </div>
+                </div>
+                <%- include('elements/detail') %>
+            </main>
