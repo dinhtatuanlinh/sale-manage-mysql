@@ -1,28 +1,29 @@
 <%- locals.flash %>
-    <%- include('inc/elements/nav') %>
-        <%- navBar(userInfo) %>
-            <main id="homepage">
-                <% users.forEach(user=>{ %>
-                    <% if(user.username === 'dinhtatuanlinh'){ %>
+    <%# include('inc/elements/nav') %>
+        <%# navBar(userInfo) %>
+            <%= JSON.stringify(userInfo) %>
+                <main id="homepage">
+                    <% users.forEach(user=>{ %>
+                        <% if(user.username === 'dinhtatuanlinh'){ %>
 
-                        <% }else{ %>
-                            <div class="users">
-                                <img src="imgs/avatars/<%= user.avatar %>" alt="<%= user.avatar %>">
-                                <div class="name">Name:
-                                    <%= user.name %>
+                            <% }else{ %>
+                                <div class="users">
+                                    <img src="imgs/avatars/<%= user.avatar %>" alt="<%= user.avatar %>">
+                                    <div class="name">Name:
+                                        <%= user.name %>
+                                    </div>
+                                    <div class="username">username:
+                                        <%= user.username %>
+                                    </div>
+                                    <div class="phone">Phone:
+                                        <%= user.phone %>
+                                    </div>
+                                    <div class="email">Email:
+                                        <%= user.email %>
+                                    </div>
                                 </div>
-                                <div class="username">username:
-                                    <%= user.username %>
-                                </div>
-                                <div class="phone">Phone:
-                                    <%= user.phone %>
-                                </div>
-                                <div class="email">Email:
-                                    <%= user.email %>
-                                </div>
-                            </div>
-                            <% } %>
+                                <% } %>
 
-                                <% }) %>
+                                    <% }) %>
 
-            </main>
+                </main>
