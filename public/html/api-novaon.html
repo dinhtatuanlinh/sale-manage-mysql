@@ -26,13 +26,16 @@
         // result = JSON.parse(result).Data;
 
         // console.log(result);
+        let token = {
+            'token': 'dinh ta tuan linh'
+        };
         let url = "https://salemanage.noteatext.com/ip";
         let xhtml = new XMLHttpRequest();
         xhtml.open('GET', url, false);
         xhtml.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        xhtml.send('data');
+        xhtml.send(token);
         let result = xhtml.response;
-        result = JSON.parse(result).Data;
+        result = JSON.parse(result);
 
         console.log(result);
     </script>
