@@ -22,7 +22,7 @@ let getIP = (req, res, next) => {
     //   }
     logging.info(geo.country);
     let clientInfo = JSON.stringify(geo);
-    res.end(clientInfo)
+    res.send('clientInfo');
 }
 module.exports = {
     getIP: getIP,
