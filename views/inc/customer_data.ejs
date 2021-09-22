@@ -2,7 +2,7 @@
     <% include('elements/nav') %>
         <%- navBar(userInfo) %>
 
-            <main>
+            <main id="main_customer_data">
                 <div id="general">
                     <%- include('elements/sort') %>
                         <div id="customer_list">
@@ -36,7 +36,7 @@
                                                     <%- star %>
                                             </div>
 
-                                            <select name="status_sort" class="status_sort">
+                                            <select name="status" class="status">
                                         <option value="thuebao">Thuê bao</option>
                                         <option value="khongnghe">Không nghe</option>
                                         <option value="mayban">Máy bận</option>
@@ -78,6 +78,7 @@
                                                     <%= clientData.saler %>
                                                 </div>
                                                 <% } %>
+                                                    <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`)">Chọn</button>
                                         </div>
                                         <% i++ %>
                                             <% }) %>

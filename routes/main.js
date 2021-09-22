@@ -14,6 +14,8 @@ router.get('/', (req, res, next) => { homeController.homePage(req, res, next) })
 router.get('/ip/:token', (req, res, next) => { getIPController.getclientIP(req, res, next) });
 
 router.get('/customer-data', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
+router.get('/customer-data/single-client/:id', (req, res, next) => { customerDataController.singleCustomer(req, res, next) });
+// router.get('/customer-data/edit/:id', (req, res, next) => { customerDataController.singleCustomer(req, res, next) });
 
 router.get('/admin', (req, res, next) => { adminController.adminPage(req, res, next) });
 router.post('/admin/editsetting', (req, res, next) => { adminController.adminEditSetting(req, res, next) });
