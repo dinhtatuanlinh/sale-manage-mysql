@@ -8,8 +8,9 @@ const adminController = require(__pathControllers + "adminController");
 const homeController = require(__pathControllers + "homeController");
 
 /* GET users listing. */
-router.get('/', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
+router.get('/', (req, res, next) => { homeController.homePage(req, res, next) });
 
+router.get('/customer-data', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
 
 router.get('/admin', (req, res, next) => { adminController.adminPage(req, res, next) });
 router.post('/admin/editsetting', (req, res, next) => { adminController.adminEditSetting(req, res, next) });
