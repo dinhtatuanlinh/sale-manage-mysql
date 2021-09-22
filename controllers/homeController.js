@@ -16,12 +16,16 @@ let homePage = async(req, res, next) => {
     // ########################################
     let date = new Date();
     let to_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
-    date.setDate(1 - 1);
+    date.setDate(date.getDate() - 1);
     let from_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
-    logging.info(from_date);
-    logging.info('to');
-    logging.info(to_date);
+    // logging.info(from_date);
+    // logging.info('to');
+    // logging.info(to_date);
     let datas = await axios(from_date, to_date);
+    datas = datas.data.Data;
+    // for(i=0; i<datas.length; i++){
+    //     await database.
+    // }
 
 
 

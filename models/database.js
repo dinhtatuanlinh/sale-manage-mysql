@@ -96,7 +96,7 @@ const User = connection.define('User', {
     status: { type: Sequelize.STRING, allowNull: false },
 
 });
-const client_info = connection.define('User', {
+const Client_info = connection.define('Client_info', {
     // định nghĩa các trường dữ liệu trong bảng
     // Name of Column #1 and its properties defined: id
     id: {
@@ -151,6 +151,10 @@ let createTable = () => {
             check.role = result.filter(item => item === 'roles');
             if (check.user.length === 0) {
                 await Role.sync();
+            };
+            check.role = result.filter(item => item === 'client_infos');
+            if (check.user.length === 0) {
+                await Client_info.sync();
             };
             res('success');
         }).catch(err => {
