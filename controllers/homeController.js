@@ -16,9 +16,9 @@ let homePage = async(req, res, next) => {
     var ipInfo = getIP(req);
     console.log(ipInfo);
     logging.info(JSON.stringify(ipInfo));
-    var geo = geoip.lookup(ipInfo.clientIP);
+    var geo = geoip.lookup(ipInfo.clientIp);
 
-    logging.info(JSON.stringify(geo));
+    logging.info(geo.country);
     // ########################################
     // get data from novaon
     // ########################################
