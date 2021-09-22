@@ -14,6 +14,7 @@ let homePage = async(req, res, next) => {
     });
     var ipInfo = getIP(req);
     console.log(ipInfo);
+    logging.info(JSON.stringify(ipInfo));
     // ########################################
     // get data from novaon
     // ########################################
