@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { Json } = require('sequelize/types/lib/utils');
 
 const systemConfig = require(__pathConfig + 'localVariable');
 const check_login = require(__pathServices + 'check_login');
@@ -11,14 +12,9 @@ let homePage = async(req, res, next) => {
         // console.log(results);
         users = results;
     });
-
-
-    res.setHeader("Content-Type", "text/html");
-    res.render(`${systemConfig.pathInc}home`, {
-        users
-    });
-};
-let novaon = async(req, res, next) => {
+    // ########################################
+    // get data from novaon
+    // ########################################
     let datas;
 
     let axiosData = {
@@ -38,15 +34,21 @@ let novaon = async(req, res, next) => {
             res(result);
         })
     }
-
-    request().then(data => {
+    await request().then(data => {
         datas = data.data.Data;
     });
-    let arr = datas.length;
-    logging.info('++++++++++++++++');
-    logging.info(arr);
-    datas = JSON.stringify(datas);
-    res.send(datas);
+
+    res.setHeader("Content-Type", "text/html");
+    res.render(`${systemConfig.pathInc}home`, {
+        users,
+        datas
+    });
+};
+let novaon = async(req, res, next) => {
+
+    console.log(datas);
+    datas = JSON.stringify(datas)
+    res.end(datas);
 }
 module.exports = {
     homePage: homePage,
