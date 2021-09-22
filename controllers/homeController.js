@@ -5,6 +5,7 @@ const axios = require(__pathServices + 'axios');
 const logging = require(__pathServices + 'winston_logging');
 let homePage = async(req, res, next) => {
     await check_login(req, res);
+    logging.info(JSON.stringify(req.user))
     let userInfo = req.user;
     let users;
     await database.User.findAll().then(results => {
