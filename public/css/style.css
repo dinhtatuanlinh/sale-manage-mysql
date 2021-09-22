@@ -420,6 +420,10 @@ h1 {
     object-fit: contain;
 }
 
+#main_customer_data .note textarea {
+    color: #ccc;
+}
+
 @media screen and (min-width: 1201px) {
     .desktop-hide {
         display: none !important;
