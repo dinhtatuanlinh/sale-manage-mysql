@@ -25,7 +25,7 @@ let customerDataPage = async(req, res, next) => {
 let singleCustomer = async(req, res, next) => {
 
     let clientData = await database.Client_info.findOne({ where: { id: req.params.id } });
-    let clientData = JSON.stringify(clientData);
+    clientData = JSON.stringify(clientData);
 
     res.send(clientData);
 }
