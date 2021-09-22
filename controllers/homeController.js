@@ -16,7 +16,7 @@ let homePage = async(req, res, next) => {
     var ipInfo = getIP(req);
     console.log(ipInfo);
     logging.info(JSON.stringify(ipInfo));
-    var geo = geoip.lookup(req.ip);
+    var geo = geoip.lookup(ipInfo.clientIP);
 
     logging.info(JSON.stringify(geo));
     // ########################################
