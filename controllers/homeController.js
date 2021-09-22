@@ -33,9 +33,9 @@ let homePage = async(req, res, next) => {
 
     request().then(data => {
         datas = data.data.data;
-    })
-    logging.info('++++++++++++++++');
-    logging.info(JSON.stringify(datas));
+    });
+    // logging.info('++++++++++++++++');
+    // logging.info(JSON.stringify(datas));
     // await axios({
     //     method: 'POST',
     //     headers: { 'content-type': 'application/json; charset=utf-8' },
