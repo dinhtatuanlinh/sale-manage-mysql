@@ -3,7 +3,7 @@ var geoip = require('geoip-lite');
 const { info } = require('winston');
 
 const logging = require(__pathServices + 'winston_logging');
-let getIP = (req, res, next) => {
+let getclientIP = (req, res, next) => {
     // get ipclient
     // var ipInfo = getIP(req);
     // console.log(ipInfo);
@@ -25,5 +25,5 @@ let getIP = (req, res, next) => {
     res.send('clientInfo');
 }
 module.exports = {
-    getIP: getIP,
+    getclientIP: getclientIP,
 }

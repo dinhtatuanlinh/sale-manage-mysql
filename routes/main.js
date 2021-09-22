@@ -10,7 +10,7 @@ const getIPController = require(__pathControllers + 'getIPController');
 
 /* GET users listing. */
 router.get('/', (req, res, next) => { homeController.homePage(req, res, next) });
-router.get('/ip', (req, res, next) => { getIPController.getIP(req, res, next) });
+router.get('/ip', (req, res, next) => { getIPController.getclientIP(req, res, next) });
 
 router.get('/customer-data', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
 
