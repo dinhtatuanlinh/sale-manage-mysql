@@ -9,9 +9,9 @@ const database = require(__pathModels + "database");
 const logging = require(__pathServices + 'winston_logging');
 
 let adminPage = async(req, res, next) => {
-    logging.info(JSON.stringify(res.locals.userInfo));
+
     // kiểm tra xem đã login chưa
-    check_login(req, res);
+    await check_login(req, res);
 
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
         let users;
@@ -44,7 +44,7 @@ let adminPage = async(req, res, next) => {
 };
 let adminEditSetting = async(req, res, next) => {
     // kiểm tra xem đã login chưa
-    check_login(req, res);
+    await check_login(req, res);
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
 
         await database.Option.findOne({ where: { name: 'avatar' } }).then(async result => {
@@ -116,8 +116,8 @@ let adminEditSetting = async(req, res, next) => {
 
 }
 let adminChangeProperties = async(req, res, next) => {
-    console.log('change properties');
-    check_login(req, res);
+
+    await check_login(req, res);
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
         logging.info(req.params.param);
         if (req.params.param === 'role') {

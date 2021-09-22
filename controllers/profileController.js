@@ -13,7 +13,7 @@ const logging = require(__pathServices + 'winston_logging');
 
 
 let profileDataPage = async(req, res, next) => {
-    check_login(req, res);
+    await check_login(req, res);
     // kiểm tra xem đã login chưa
     // console.log(req.user);
     res.setHeader("Content-Type", "text/html");
@@ -21,7 +21,7 @@ let profileDataPage = async(req, res, next) => {
 
 };
 let profileEdit = async(req, res, next) => {
-    check_login(req, res);
+    await check_login(req, res);
     let field = '';
     let avatarPath = '';
     let fileSizeMB;

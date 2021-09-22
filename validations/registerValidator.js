@@ -9,9 +9,8 @@ const logging = require(__pathServices + 'winston_logging');
 module.exports = async(req) => {
     await check('username', 'Phải có 8 tới 30 ký tự').isLength({ min: 8, max: 30 }).run(req);
     await check('username').custom(async value => {
-
         await database.User.findOne({ where: { username: value } }).then((result) => {
-            // console.log(result);// trả về null nếu ko tìm thấy
+            console.log(result); // trả về null nếu ko tìm thấy
             if (result !== null) {
                 throw new Error('Username đã đăng ký');
             }
