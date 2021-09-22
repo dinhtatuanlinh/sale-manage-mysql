@@ -13,12 +13,7 @@ let homePage = async(req, res, next) => {
         // console.log(results);
         users = results;
     });
-    var ipInfo = getIP(req);
-    console.log(ipInfo);
-    logging.info(JSON.stringify(ipInfo));
-    var geo = geoip.lookup(ipInfo.clientIp);
 
-    logging.info(geo.country);
     // ########################################
     // get data from novaon
     // ########################################

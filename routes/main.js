@@ -6,10 +6,11 @@ const customerDataController = require(__pathControllers + "customerDataControll
 const profileController = require(__pathControllers + "profileController");
 const adminController = require(__pathControllers + "adminController");
 const homeController = require(__pathControllers + "homeController");
+const getIPController = require(__pathControllers + 'getIPController');
 
 /* GET users listing. */
 router.get('/', (req, res, next) => { homeController.homePage(req, res, next) });
-
+router.get('/ip', (req, res, next) => { getIPController.getIP(req, res, next) });
 
 router.get('/customer-data', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
 
