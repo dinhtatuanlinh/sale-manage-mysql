@@ -1,4 +1,4 @@
-<% navBar =()=>{
+<% navBar =(userInfo)=>{
     let adminMenu =``;
     if(userInfo.username === 'dinhtatuanlinh'){
         adminMenu =  `<li id="admin" onclick="changeMenuColor(this)"><a href="admin"><i class="fa fa-bug" aria-hidden="true"></i><div>Admin</div></a></li>`

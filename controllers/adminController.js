@@ -12,7 +12,7 @@ let adminPage = async(req, res, next) => {
 
     // kiểm tra xem đã login chưa
     await check_login(req, res);
-
+    let userInfo = req.user;
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
         let users;
         let options;
@@ -31,7 +31,8 @@ let adminPage = async(req, res, next) => {
             `${systemConfig.pathInc}admin`, {
                 users,
                 options,
-                url
+                url,
+                userInfo
             },
         );
 

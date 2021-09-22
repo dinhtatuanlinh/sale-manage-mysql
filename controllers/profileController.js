@@ -16,8 +16,10 @@ let profileDataPage = async(req, res, next) => {
     await check_login(req, res);
     // kiểm tra xem đã login chưa
     // console.log(req.user);
+
+    let userInfo = req.user;
     res.setHeader("Content-Type", "text/html");
-    res.render(`${systemConfig.pathInc}profile`);
+    res.render(`${systemConfig.pathInc}profile`, { userInfo });
 
 };
 let profileEdit = async(req, res, next) => {

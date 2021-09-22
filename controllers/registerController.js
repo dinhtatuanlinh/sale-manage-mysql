@@ -33,8 +33,7 @@ let postLogin = (req, res, next) => {
         req.session.cookie.expires = false; // Cookie expires at end of session
     }
     // khi đăng nhập thành công thì truyền giá trị vào userInfo biến này 
-    // logging.info(req.user);
-    req.app.locals.userInfo = req.user;
+
     res.redirect('/');
 }
 let postRegister = async(req, res, next) => {
