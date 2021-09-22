@@ -15,9 +15,9 @@ let homePage = async(req, res, next) => {
     // get data from novaon
     // ########################################
     let date = new Date();
-    let to_date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
-    date.setDate(date.getDate() - 1);
-    let from_date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    let to_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+    date.setDate(1 - 1);
+    let from_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
     logging.info(from_date);
     logging.info('to');
     logging.info(to_date);
