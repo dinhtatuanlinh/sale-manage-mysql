@@ -1,7 +1,7 @@
 <%- locals.flash %>
     <% include('elements/nav') %>
         <%- navBar(userInfo) %>
-            <%= JSON.stringify(userInfo) %>
+            <%= userInfo.username %>
                 <main>
                     <div id="general">
                         <%- include('elements/sort') %>
