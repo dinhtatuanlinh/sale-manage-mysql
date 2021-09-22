@@ -35,14 +35,20 @@
                                         } %>
                                                     <%- star %>
                                             </div>
-
+                                            <div class="status">
+                                                <%= clientData.status %>
+                                            </div>
                                             <select name="status" class="status">
-                                        <option value="thuebao">Thuê bao</option>
-                                        <option value="khongnghe">Không nghe</option>
-                                        <option value="mayban">Máy bận</option>
-                                        <option value="addzalo">Add zalo</option>
-                                        <option value="tiemnang">Tiềm năng</option>
-                                    </select>
+                                                
+                                                <%# let status_check = ''
+                                                    customerStatus.forEach(status =>{ 
+                                                        if(status === clientData.status){status_check = 'checked'}
+                                                        %> 
+                                                        
+                                                    <option value="<%# status %>" <%# status_check %>><%# status %></option>
+                                                <%# }) %> 
+
+                                            </select>
 
                                             <div class="info">
                                                 <div class="phone">
@@ -78,7 +84,7 @@
                                                     <%= clientData.saler %>
                                                 </div>
                                                 <% } %>
-                                                    <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`)">Chọn</button>
+                                                    <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`, '<%= customerStatus %>')">Chọn</button>
                                         </div>
                                         <% i++ %>
                                             <% }) %>

@@ -1,5 +1,5 @@
 let detail = document.getElementById("detail");
-let select_cus = (url) => {
+let select_cus = (url, status) => {
     let ajaxFunc = () => {
         return new Promise((res, rej) => {
             let xhtml = new XMLHttpRequest();
@@ -12,6 +12,8 @@ let select_cus = (url) => {
         })
     }
     ajaxFunc().then(data => {
+        let statusHtml
+        console.log(status);
         let html = `
         <form method="POST" action="customer-data/edit/${data.id}">
         <div class="info">
@@ -27,6 +29,7 @@ let select_cus = (url) => {
         <div class="other">
             <div class="time">Date: <span>${data.createdtime}</span></div>
             <select name="status" class="status">
+
                 <option value="thuebao">Thuê bao</option>
                 <option value="khongnghe">Không nghe</option>
                 <option value="mayban">Máy bận</option>
