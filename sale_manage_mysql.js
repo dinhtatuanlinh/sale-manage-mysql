@@ -85,7 +85,7 @@ app.use((req, res, next) => {
 // và đồng thời có thể gọi ra ở tất cả các file ejs bằng <%= test %>
 // cũng có thể sửa lại dữ liệu bằng cách req.app.locals.test = '123';
 // biến lưu ở local cũng là biến giống global khi thay đổi giá trị ở vị trí khác toàn bộ server cũng thay đổi theo
-app.locals.test = 'abc';
+app.locals.to_date = '';
 logging.info('run')
     // tạo các tham số mặc định trong options
 options();
