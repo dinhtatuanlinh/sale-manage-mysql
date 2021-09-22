@@ -19,19 +19,27 @@ let homePage = async(req, res, next) => {
         to_date: '18/09/2021'
     }
     axiosData = JSON.stringify(axiosData);
-    await axios({
-        method: 'POST',
-        headers: { 'content-type': 'application/json; charset=utf-8' },
-        url: 'https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts',
-        data: axiosData
-    }).then(function(response) {
-        datas = response;
-        logging.info("---novaon----");
-        logging.info(JSON.stringify(datas));
-    }).catch(function(error) {
-        console.log(error);
-        logging.info(JSON.stringify(error));
+    const result = await axios.post('https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts', axiosData, {
+        headers: {
+            // Overwrite Axios's automatically set Content-Type
+            'Content-Type': 'application/json'
+        }
     });
+    logging.info('++++++++++++++++');
+    logging.info(JSON.stringify(result));
+    // await axios({
+    //     method: 'POST',
+    //     headers: { 'content-type': 'application/json; charset=utf-8' },
+    //     url: 'https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts',
+    //     data: axiosData
+    // }).then(function(response) {
+    //     datas = response;
+    //     logging.info("---novaon----");
+    //     logging.info(JSON.stringify(datas));
+    // }).catch(function(error) {
+    //     console.log(error);
+    //     logging.info(JSON.stringify(error));
+    // });
 
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}home`, {
