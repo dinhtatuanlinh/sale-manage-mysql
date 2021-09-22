@@ -14,7 +14,7 @@
                                 <div class="track">track</div>
                                 <div class="note">note</div>
                                 <div class="time">time</div>
-                                <% if(clientDatas[0].saler !== userInfo.username){ %>
+                                <% if(userInfo.role==="admin" || userInfo.role==="sale_manager"){ %>
                                     <div class="saler">saler</div>
                                     <% } %>
 
@@ -68,12 +68,15 @@
                                             <div class="time">
                                                 <%= clientData.createdtime %>
                                             </div>
-                                            <% if(clientData.saler !== userInfo.username){ %>
+                                            <% if(userInfo.role==="admin" || userInfo.role==="sale_manager"){ %>
                                                 <div class="saler">
                                                     <%= clientData.saler %>
                                                 </div>
                                                 <% } %>
-                                                    <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`, '<%= customerStatus[0].status %>')">Chọn</button>
+                                                    <% if(userInfo.role!=="admin" || userInfo.role!=="sale_manager"){ %>
+                                                        <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`, '<%= customerStatus[0].status %>')">Chọn</button>
+                                                        <% } %>
+
                                         </div>
                                         <% i++ %>
                                             <% }) %>

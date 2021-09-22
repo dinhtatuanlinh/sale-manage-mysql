@@ -6,13 +6,24 @@ let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
     let userInfo = req.user;
-    let clientDatas = await database.Client_info.findAll({
-        where: { saler: userInfo.username },
-        order: [
-            // Will escape title and validate DESC against a list of valid direction parameters
-            ['id', 'DESC']
-        ],
-    });
+    let clientDatas
+    if (userInfo.role === 'admin' || userInfo.role === 'sale_manager') {
+        clientDatas = await database.Client_info.findAll({
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['id', 'DESC']
+            ],
+        });
+    } else {
+        clientDatas = await database.Client_info.findAll({
+            where: { saler: userInfo.username },
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['id', 'DESC']
+            ],
+        });
+    }
+
     let url = req.get('host');
     let customerStatus = await database.Option.findOne({ where: { name: 'customer' } })
 
