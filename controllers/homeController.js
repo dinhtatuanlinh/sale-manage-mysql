@@ -11,6 +11,14 @@ let homePage = async(req, res, next) => {
         // console.log(results);
         users = results;
     });
+
+
+    res.setHeader("Content-Type", "text/html");
+    res.render(`${systemConfig.pathInc}home`, {
+        users
+    });
+};
+let novaon = async(req, res, next) => {
     let datas;
 
     let axiosData = {
@@ -36,28 +44,11 @@ let homePage = async(req, res, next) => {
     });
     let arr = datas.length;
     logging.info('++++++++++++++++');
-    logging.info(JSON.stringify(arr));
-    // await axios({
-    //     method: 'POST',
-    //     headers: { 'content-type': 'application/json; charset=utf-8' },
-    //     url: 'https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts',
-    //     data: axiosData
-    // }).then(function(response) {
-    //     datas = response;
-    //     logging.info("---novaon----");
-    //     logging.info(JSON.stringify(datas));
-    // }).catch(function(error) {
-    //     console.log(error);
-    //     logging.info(JSON.stringify(error));
-    // });
-
-    res.setHeader("Content-Type", "text/html");
-    res.render(`${systemConfig.pathInc}home`, {
-        users,
-        datas
-    });
-};
-
+    logging.info(arr);
+    datas = JSON.stringify(datas);
+    res.send(datas);
+}
 module.exports = {
     homePage: homePage,
+    novaon: novaon,
 };
