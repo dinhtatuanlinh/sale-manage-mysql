@@ -12,7 +12,7 @@ let homePage = async(req, res, next) => {
         users = results;
     });
     let datas;
-    axios({
+    await axios({
         method: 'post',
         url: 'https://betaapi.autoads.asia/PushNotification/api/contact/getcontacts',
         data: {
