@@ -82,8 +82,8 @@ let adminEditSetting = async(req, res, next) => {
 
         let user = [];
         user[0] = {};
-        user[0].roles = req.body.roles.length = 0 ? [] : req.body.roles.split(',');
-        user[0].status = req.body.status.length = 0 ? [] : req.body.status.split(',');
+        user[0].roles = req.body.roles.length === 0 ? [] : req.body.roles.split(',');
+        user[0].status = req.body.status.length === 0 ? [] : req.body.status.split(',');
         user = JSON.stringify(user);
         await database.Option.findOne({ where: { name: 'user' } }).then(async result => {
 
@@ -105,6 +105,36 @@ let adminEditSetting = async(req, res, next) => {
                         req.flash('success', 'Update row user ở bảng option thành công', false);
                     } else {
                         req.flash('error', 'Update row user ở bảng option thất bại', false);
+                    }
+                    saveResult = JSON.stringify(saveResult);
+                    logging.info(saveResult);
+                });
+            }
+        });
+        let customer = [];
+        customer[0] = {};
+        customer[0].status = req.body.customer_status.length === 0 ? [] : req.body.customer_status.split(',');
+        customer = JSON.stringify(customer);
+        await database.Option.findOne({ where: { name: 'customer' } }).then(async result => {
+
+            if (result === null) {
+
+                let saveCustomer = { name: 'customer', value: customer, status: true }
+                await database.Option.create(saveCustomer).then(saveResult => {
+                    if (saveResult) {
+                        req.flash('success', 'Thêm mới row customer ở bảng option thành công', false);
+                    } else {
+                        req.flash('error', 'Thêm mới row customer ở bảng option thất bại', false);
+                    }
+                    saveResult = JSON.stringify(saveResult);
+                    logging.info(saveResult);
+                })
+            } else {
+                await database.Option.update({ value: customer, status: true }, { where: { name: 'customer' } }).then(saveResult => {
+                    if (saveResult) {
+                        req.flash('success', 'Update row customer ở bảng option thành công', false);
+                    } else {
+                        req.flash('error', 'Update row customer ở bảng option thất bại', false);
                     }
                     saveResult = JSON.stringify(saveResult);
                     logging.info(saveResult);
