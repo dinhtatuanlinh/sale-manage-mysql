@@ -15,9 +15,9 @@ let select_cus = (url) => {
         let html = `
         <form method="POST" action="customer-data/edit/${data.id}">
         <div class="info">
-            <div class="name">${data.name}</div>
-            <div class="email">${data.email}</div>
-            <div class="phone">${data.phone}</div>
+            <div class="name">Name: ${data.name}</div>
+            <div class="email">Email: ${data.email}</div>
+            <div class="phone">Phone:${data.phone}</div>
         </div>
         <div class="track">
             <div class="tag">Tag: <span>${data.tags}</span></div>
