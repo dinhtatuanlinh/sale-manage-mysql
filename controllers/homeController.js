@@ -1,7 +1,7 @@
 const systemConfig = require(__pathConfig + 'localVariable');
 const check_login = require(__pathServices + 'check_login');
-const database = require(__pathModels + "database");
 const axios = require(__pathServices + 'axios');
+const database = require(__pathModels + "database");
 const logging = require(__pathServices + 'winston_logging');
 let homePage = async(req, res, next) => {
     await check_login(req, res);
@@ -52,8 +52,12 @@ let homePage = async(req, res, next) => {
         }
         req.app.locals.to_date = to_date;
     }
-
-
+    let clientData = await database.Client_info.findAll({ where: { saler: '' } });
+    for (i = 0; i < users.length; i++) {
+        for (j = i; j < clientData.length; j = j + users.length) {
+            await database.Client_info.update({ saler: users[i].username }, { where: { id: clientData[j].id } })
+        }
+    }
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}home`, {
         users,
