@@ -13,7 +13,12 @@
                                 <div class="track">track</div>
                                 <div class="note">note</div>
                                 <div class="time">time</div>
-                                <div class="saler">saler</div>
+                                <% if(clientData[0].saler !== userInfo.username){ %>
+
+                                    <div class="saler">saler</div>
+
+                                    <% }) %>
+
                             </div>
                             <% let i = 1 %>
                                 <% let star = '' %>
@@ -25,9 +30,9 @@
                                             </div>
                                             <div class="mark">
                                                 <% if(clientData.mark){
-                                            star = '<i class="fa fa-star-o" aria-hidden="true"></i>'  
+                                            star = '<i class="fa fa-star" aria-hidden="true"></i>'  
                                         }else{
-                                            star = '<i class="fa fa-star" aria-hidden="true"></i>'
+                                            star = '<i class="fa fa-star-o" aria-hidden="true"></i>'
                                         } %>
                                                     <%- star %>
                                             </div>
@@ -69,9 +74,11 @@
                                             <div class="time">
                                                 <%= clientData.createdtime %>
                                             </div>
-                                            <div class="saler">
-                                                <%= clientData.saler %>
-                                            </div>
+                                            <% if(clientData.saler !== userInfo.username){ %>
+                                                <div class="saler">
+                                                    <%= clientData.saler %>
+                                                </div>
+                                                <% }) %>
                                         </div>
                                         <% i++ %>
                                             <% }) %>
