@@ -44,12 +44,7 @@ let homePage = async(req, res, next) => {
         datas
     });
 };
-let novaon = async(req, res, next) => {
 
-    console.log(datas);
-    datas = JSON.stringify(datas)
-    res.end(datas);
-}
 module.exports = {
     homePage: homePage,
     novaon: novaon,
