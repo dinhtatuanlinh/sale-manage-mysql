@@ -1,9 +1,9 @@
-var pagiFunc = (currentPage, totalItems) => {
+module.exports = (currentPage, totalItems) => {
 
     if (isNaN(currentPage) || currentPage === undefined) currentPage = 1;
 
     var pagiParams = {
-        itemsPerPage: 8,
+        itemsPerPage: 10,
         currentPage: currentPage,
         totalItems: totalItems
     }
@@ -12,7 +12,4 @@ var pagiFunc = (currentPage, totalItems) => {
     var totalPages = Math.ceil(totalItems / pagiParams.itemsPerPage);
     pagiParams.totalPages = totalPages;
     return pagiParams
-}
-module.exports = {
-    pagiFunc
 }

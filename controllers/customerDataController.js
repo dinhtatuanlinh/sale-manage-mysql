@@ -7,6 +7,7 @@ let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
     let userInfo = req.user;
+
     let clientDatas
     if (userInfo.role === 'admin' || userInfo.role === 'sale_manager') {
         clientDatas = await database.Client_info.findAll({
@@ -24,9 +25,19 @@ let customerDataPage = async(req, res, next) => {
             ],
         });
     }
-    clientDatas = clientDatas.filter((element, index) => {
-        0 <= index && index < 13
-    })
+    // get data cua trang hien tai
+    let pagiParams = pagination(parseInt(req.query.p), clientDatas.length);
+    let datasOfPagi = [];
+    for (i = pagiParams.position; i < (pagiParams.position + pagiParams.itemsPerPage); i++) {
+        if (clientDatas[i] !== undefined) {
+            datasOfPagi.push(clientDatas[i]);
+        }
+
+    }
+
+    clientDatas = datasOfPagi;
+
+    console.log(clientDatas);
     let url = req.get('host');
     let customerStatus = await database.Option.findOne({ where: { name: 'customer' } })
 
@@ -38,6 +49,7 @@ let customerDataPage = async(req, res, next) => {
         clientDatas,
         url,
         customerStatus,
+        pagiParams
     });
 
 };
