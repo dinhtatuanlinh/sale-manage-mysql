@@ -54,17 +54,23 @@ let homePage = async(req, res, next) => {
 
         req.app.locals.to_date = to_date;
     }
-    let clientData = await database.Client_info.findAll({
+    // lấy telesaler và manager để phân khác hàng
+    let saleUsers = await database.Client_info.findAll({
         where: {
             role: {
                 [Op.or]: ['telesaler', 'sale_manager']
-            },
+            }
+        }
+    });
+
+    let clientData = await database.Client_info.findAll({
+        where: {
             saler: ''
         }
     });
-    for (i = 0; i < users.length; i++) {
-        for (j = i; j < clientData.length; j = j + users.length) {
-            await database.Client_info.update({ saler: users[i].username }, { where: { id: clientData[j].id } })
+    for (i = 0; i < saleUsers.length; i++) {
+        for (j = i; j < clientData.length; j = j + saleUsers.length) {
+            await database.Client_info.update({ saler: saleUsers[i].username }, { where: { id: clientData[j].id } })
         }
     }
     res.setHeader("Content-Type", "text/html");
