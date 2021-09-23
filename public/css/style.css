@@ -144,6 +144,7 @@ main #general #customer_list .customer {
     display: flex;
     border-bottom: 1px solid #333;
     height: 60px;
+    margin-bottom: 5px;
 }
 
 main #general #customer_list .customer:hover {
