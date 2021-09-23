@@ -2,6 +2,7 @@ const systemConfig = require(__pathConfig + 'localVariable');
 const check_login = require(__pathServices + 'check_login');
 const database = require(__pathModels + "database");
 const logging = require(__pathServices + 'winston_logging');
+const pagination = require(__pathServices + 'pagi_func');
 let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
@@ -23,7 +24,9 @@ let customerDataPage = async(req, res, next) => {
             ],
         });
     }
-
+    clientDatas = clientDatas.filter((element, index) => {
+        0 <= index && index < 13
+    })
     let url = req.get('host');
     let customerStatus = await database.Option.findOne({ where: { name: 'customer' } })
 

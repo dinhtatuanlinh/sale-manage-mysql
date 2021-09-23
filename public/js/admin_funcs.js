@@ -13,7 +13,6 @@ let manager = (element, id, url) => {
 }
 let sendajax = (param, value, id, url) => {
     let data = { id: id, value: value }
-    console.log(data, url, param);
     data = JSON.stringify(data);
     let Dia_chi_Xu_ly = `https://${url}/admin/properties/${param}`;
     // console.log(data);
