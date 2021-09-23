@@ -55,7 +55,7 @@ let homePage = async(req, res, next) => {
         req.app.locals.to_date = to_date;
     }
     // lấy telesaler và manager để phân khác hàng
-    let saleUsers = await database.Client_info.findAll({
+    let saleUsers = await database.User.findAll({
         where: {
             role: {
                 [Op.or]: ['telesaler', 'sale_manager']
