@@ -6,10 +6,10 @@ module.exports = (io) => {
     // let users = new onlineUserManipulation();
     // socket.io events
     io.on("connection", (socket) => {
-        console.log(socket.id);
+        logging.info(socket.id);
         socket.on("connect_notif", (data) => {
             // logging.info(data);
-            console.log(data);
+            logging.info(data);
         });
         socket.emit("server_send_data", socket.id); //trả tin nhắn tới 1 user hiện tại
         // console.log("a user connected");
