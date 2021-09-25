@@ -9,8 +9,10 @@ let customerDataPage = async(req, res, next) => {
     let userInfo = req.user;
 
     let clientDatas
-    let pagiParams = pagination(parseInt(req.query.p), clientDatas.length);
+    let pagiParams
     if (userInfo.role === 'admin' || userInfo.role === 'sale_manager') {
+        let numberOfTable = await database.Client_info.count();
+        pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
@@ -21,6 +23,8 @@ let customerDataPage = async(req, res, next) => {
 
         });
     } else {
+        let numberOfTable = await database.Client_info.count({ where: { saler: userInfo.username } });
+        pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
             where: { saler: userInfo.username },
             offset: pagiParams.position,
