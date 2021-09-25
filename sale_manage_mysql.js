@@ -43,8 +43,7 @@ const logging = require(__pathServices + 'winston_logging');
 let app = express();
 //cấp phép truy cập api
 app.use(cors())
-var io = socket_io();
-app.io = io;
+
 // set cookiePaser
 app.use(cookieParser());
 // set session
@@ -95,6 +94,10 @@ options();
 // truyền app vào cho hàm viewEngine
 viewEngine(app);
 
+var server = http.createServer(app);
+var io = socket_io(server);
+app.io = io;
+// io.attach(server);
 // truyền app vào route
 app.use("/", initWebRoutes(io));
 // catch 404 and forward to error handler
@@ -116,9 +119,7 @@ app.use(function(err, req, res, next) {
 // lấy tham số trong file .env môi trường
 let port = process.env.PORT || 6969; // ||hoặc
 // PORT === undefined thì gán vào 6969
-var server = http.createServer(app);
 
-io.attach(server);
 server.listen(port, () => {
     console.log(`app is running at port: http://localhost:${port}`);
     logging.info(`app is running at port: http://localhost:${port}`);

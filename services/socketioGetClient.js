@@ -6,9 +6,8 @@ module.exports = (io) => {
     // let users = new onlineUserManipulation();
     // socket.io events
     io.on("connection", (socket) => {
-        logging.info(socket.id);
-        console.log(socket.id);
-        socket.on("connect_notif", (data) => {
+
+        socket.on("send_customer_data", (data) => {
             logging.info(data);
             console.log(data);
         });
