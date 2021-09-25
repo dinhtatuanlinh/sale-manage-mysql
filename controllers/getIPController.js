@@ -19,7 +19,6 @@ let getclientIP = (req, res, next) => {
         //     metro: 0,
         //     area: 1000
         //   }
-        logging.info(geo.country);
         geo.ip = ipInfo.clientIp
         let clientInfo = JSON.stringify(geo);
 
