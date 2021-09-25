@@ -97,8 +97,10 @@ viewEngine(app);
 var server = http.createServer(app);
 var io = socket_io(server, {
     origins: ["https://example.com"],
-    handlePreflightRequest: (req, res) => { res.writeHead(200, { "Access-Control-Allow-Origin": "https://example.com", "Access-Control-Allow-Methods": "GET,POST", "Access-Control-Allow-Headers": "my-custom-header", "Access-Control-Allow-Credentials": true });
-        res.end(); }
+    handlePreflightRequest: (req, res) => {
+        res.writeHead(200, { "Access-Control-Allow-Origin": "https://salemanage.noteatext.com", "Access-Control-Allow-Methods": "GET,POST", "Access-Control-Allow-Headers": "my-custom-header", "Access-Control-Allow-Credentials": true });
+        res.end();
+    }
 });
 app.io = io;
 // io.attach(server);
