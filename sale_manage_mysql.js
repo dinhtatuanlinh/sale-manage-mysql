@@ -95,7 +95,7 @@ options();
 viewEngine(app);
 
 var server = http.createServer(app);
-var io = socket_io(server, { cors: { origin: "*.*", methods: ["GET", "POST"], credentials: true } });
+var io = socket_io(server, { cors: { origin: "*", methods: ["GET", "POST"], credentials: true } });
 app.io = io;
 // io.attach(server);
 // truyền app vào route
