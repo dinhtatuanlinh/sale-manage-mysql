@@ -1,6 +1,7 @@
 const express = require("express");
 // thư viện giúp lấy biến truyền bằng phương thức get use?id=?
 var http = require('http');
+
 const bodyParser = require("body-parser");
 // import thu vien dotenv goi ham config() để lấy ra các biến môi trường
 require('dotenv').config();
@@ -74,9 +75,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // set header
 app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
