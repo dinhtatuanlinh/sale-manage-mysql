@@ -9,8 +9,11 @@
 <script src="js/profile_funcs.js"></script>
 <script src="js/admin_funcs.js"></script>
 <script>
-    // let socket = io.connect('http://localhost:8080');
-    // socket.emit("connect_notif", {
-    //     data: 'hello from client'
-    // });
+    let socket = io.connect('http://localhost:8080');
+    socket.emit("connect_notif", {
+        data: 'hello from client'
+    });
+    socket.on("server_send_data", (data) => {
+        console.log(data);
+    });
 </script>

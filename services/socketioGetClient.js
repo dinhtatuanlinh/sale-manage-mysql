@@ -7,9 +7,10 @@ module.exports = (io) => {
     // socket.io events
     io.on("connection", (socket) => {
         logging.info(socket.id);
+        console.log(socket.id);
         socket.on("connect_notif", (data) => {
-            // logging.info(data);
             logging.info(data);
+            console.log(data);
         });
         socket.emit("server_send_data", socket.id); //trả tin nhắn tới 1 user hiện tại
         // console.log("a user connected");
