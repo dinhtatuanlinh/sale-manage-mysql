@@ -6,12 +6,12 @@ module.exports = (io) => {
     // let users = new onlineUserManipulation();
     // socket.io events
     io.on("connection", (socket) => {
-        // console.log(socket.id);
+        console.log(socket.id);
         socket.on("connect_notif", (data) => {
             // logging.info(data);
             console.log(data);
         });
-        // socket.emit("server_send_data", socket.id);//trả tin nhắn tới 1 user hiện tại
+        socket.emit("server_send_data", socket.id); //trả tin nhắn tới 1 user hiện tại
         // console.log("a user connected");
         // socket.on("client_typing", (data) => {
         //   socket.broadcast.emit('server_send_user_typing', { username: data.username }) // send message tới các user ngoại trừ user gửi tin nhắn
