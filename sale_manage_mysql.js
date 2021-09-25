@@ -95,13 +95,7 @@ options();
 viewEngine(app);
 
 var server = http.createServer(app);
-var io = socket_io(server, {
-    origins: ["https://salemanage.noteatext.com"],
-    handlePreflightRequest: (req, res) => {
-        res.writeHead(200, { "Access-Control-Allow-Origin": "https://salemanage.noteatext.com", "Access-Control-Allow-Methods": "GET,POST", "Access-Control-Allow-Headers": "my-custom-header", "Access-Control-Allow-Credentials": true });
-        res.end();
-    }
-});
+var io = socket_io(server, { cors: { origin: "https://salemanage.noteatext.com", methods: ["GET", "POST"], allowedHeaders: ["my-custom-header"], credentials: true } });
 app.io = io;
 // io.attach(server);
 // truyền app vào route
