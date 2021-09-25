@@ -3,12 +3,12 @@
 // const usersModel = require(__pathSchemas + "database").usersModel;
 const logging = require(__pathServices + 'winston_logging');
 module.exports = (io) => {
-    // let users = new onlineUserManipulation();
+    // let users = new onlineUserManipulation()
     // socket.io events
     io.on("connection", (socket) => {
 
         socket.on("send_customer_data", (data) => {
-            logging.info(data);
+            logging.info(JSON.stringify(data));
             console.log(data);
         });
         socket.emit("server_send_data", socket.id); //trả tin nhắn tới 1 user hiện tại
