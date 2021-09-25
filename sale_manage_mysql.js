@@ -95,7 +95,7 @@ options();
 viewEngine(app);
 
 var server = http.createServer(app);
-var io = socket_io(server, { cors: { origin: "https://salemanage.noteatext.com", methods: ["GET", "POST"], allowedHeaders: ["my-custom-header"], credentials: true } });
+var io = socket_io(server, { cors: { origin: "https://jemmiastreetwear.vn", methods: ["GET", "POST"], credentials: true } });
 app.io = io;
 // io.attach(server);
 // truyền app vào route
