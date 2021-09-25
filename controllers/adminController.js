@@ -26,7 +26,7 @@ let adminPage = async(req, res, next) => {
         });
         // get url host
         let url = req.get('host');
-
+        res.locals.title = "Admin Page";
         res.render(
             `${systemConfig.pathInc}admin`, {
                 users,

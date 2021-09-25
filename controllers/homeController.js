@@ -45,9 +45,7 @@ let homePage = async(req, res, next) => {
                     insertData.status = 'none';
                     insertData.note = '';
                     insertData.createdtime = datas[i].CreatedDate;
-                    await database.Client_info.create(insertData).then(saveResult => {
-                        logging.info(`${i}-thanh cong`)
-                    })
+                    await database.Client_info.create(insertData).then(saveResult => {})
                 }
             });
         }
@@ -73,6 +71,7 @@ let homePage = async(req, res, next) => {
             await database.Client_info.update({ saler: saleUsers[i].username }, { where: { id: clientData[j].id } })
         }
     }
+    res.locals.title = "Home Page";
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}home`, {
         users,

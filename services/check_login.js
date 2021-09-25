@@ -9,6 +9,7 @@ let check_login = (req, res) => {
             let validatorErr = null;
             let registerData = { username: '', email: '' };
             // console.log(req.flash('message'));
+            res.locals.title = "Login page";
             res.render(`${systemConfig.pathInc}login`, {
                 validatorErr,
                 registerData

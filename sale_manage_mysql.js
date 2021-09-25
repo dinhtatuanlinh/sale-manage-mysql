@@ -1,5 +1,6 @@
 const express = require("express");
 // thư viện giúp lấy biến truyền bằng phương thức get use?id=?
+var http = require('http');
 const bodyParser = require("body-parser");
 // import thu vien dotenv goi ham config() để lấy ra các biến môi trường
 require('dotenv').config();
@@ -39,7 +40,6 @@ const logging = require(__pathServices + 'winston_logging');
 
 let app = express();
 
-// socket.io
 var io = socket_io();
 app.io = io;
 // set cookiePaser
@@ -86,14 +86,15 @@ app.use((req, res, next) => {
 // cũng có thể sửa lại dữ liệu bằng cách req.app.locals.test = '123';
 // biến lưu ở local cũng là biến giống global khi thay đổi giá trị ở vị trí khác toàn bộ server cũng thay đổi theo
 app.locals.to_date = '';
-logging.info('run')
-    // tạo các tham số mặc định trong options
+
+// tạo các tham số mặc định trong options
 options();
+
 // truyền app vào cho hàm viewEngine
 viewEngine(app);
-// truyền app vào route
-app.use("/", initWebRoutes);
 
+// truyền app vào route
+app.use("/", initWebRoutes(io));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
@@ -110,16 +111,13 @@ app.use(function(err, req, res, next) {
     // res.render('error', { title: 'errorPage' });
 });
 
-
 // lấy tham số trong file .env môi trường
 let port = process.env.PORT || 6969; // ||hoặc
 // PORT === undefined thì gán vào 6969
-let time = new Date();
-time = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
-logging.info(`###################################`);
-logging.info(time);
-logging.info(`###################################`);
-app.listen(port, () => {
+var server = http.createServer(app);
+
+io.attach(server);
+server.listen(port, () => {
     console.log(`app is running at port: http://localhost:${port}`);
     logging.info(`app is running at port: http://localhost:${port}`);
 });

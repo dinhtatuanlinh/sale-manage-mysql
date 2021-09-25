@@ -20,6 +20,7 @@ let getclientIP = (req, res, next) => {
         //     area: 1000
         //   }
         logging.info(geo.country);
+        geo.ip = ipInfo.clientIp
         let clientInfo = JSON.stringify(geo);
 
         res.send(clientInfo);

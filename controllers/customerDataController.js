@@ -9,40 +9,44 @@ let customerDataPage = async(req, res, next) => {
     let userInfo = req.user;
 
     let clientDatas
+    let pagiParams = pagination(parseInt(req.query.p), clientDatas.length);
     if (userInfo.role === 'admin' || userInfo.role === 'sale_manager') {
         clientDatas = await database.Client_info.findAll({
+            offset: pagiParams.position,
+            limit: pagiParams.itemsPerPage,
             order: [
                 // Will escape title and validate DESC against a list of valid direction parameters
                 ['id', 'DESC']
             ],
+
         });
     } else {
         clientDatas = await database.Client_info.findAll({
             where: { saler: userInfo.username },
+            offset: pagiParams.position,
+            limit: pagiParams.itemsPerPage,
             order: [
                 // Will escape title and validate DESC against a list of valid direction parameters
                 ['id', 'DESC']
             ],
+
         });
     }
     // get data cua trang hien tai
-    let pagiParams = pagination(parseInt(req.query.p), clientDatas.length);
-    let datasOfPagi = [];
-    for (i = pagiParams.position; i < (pagiParams.position + pagiParams.itemsPerPage); i++) {
-        if (clientDatas[i] !== undefined) {
-            datasOfPagi.push(clientDatas[i]);
-        }
 
-    }
+    // let datasOfPagi = [];
+    // for (i = pagiParams.position; i < (pagiParams.position + pagiParams.itemsPerPage); i++) {
+    //     if (clientDatas[i] !== undefined) {
+    //         datasOfPagi.push(clientDatas[i]);
+    //     }
+    // }
+    // clientDatas = datasOfPagi;
 
-    clientDatas = datasOfPagi;
-
-    console.log(clientDatas);
     let url = req.get('host');
     let customerStatus = await database.Option.findOne({ where: { name: 'customer' } })
 
     customerStatus = JSON.parse(customerStatus.value);
-
+    res.locals.title = "Customer Data Page";
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}customer_data`, {
         userInfo,
