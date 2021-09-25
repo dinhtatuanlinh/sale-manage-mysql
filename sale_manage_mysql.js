@@ -1,5 +1,6 @@
 const express = require("express");
 // thư viện giúp lấy biến truyền bằng phương thức get use?id=?
+var cors = require('cors')
 var http = require('http');
 
 const bodyParser = require("body-parser");
@@ -40,7 +41,8 @@ const logging = require(__pathServices + 'winston_logging');
 
 
 let app = express();
-
+//cấp phép truy cập api
+app.use(cors())
 var io = socket_io();
 app.io = io;
 // set cookiePaser
@@ -74,11 +76,11 @@ app.use(flash(app, { viewName: 'inc/elements/flash' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // set header
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 
 // tạo biến locals truyền tới tất cả các file
 // gọi ra ở các router bằng các console.log(req.app.locals.test)
