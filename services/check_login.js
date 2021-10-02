@@ -16,6 +16,8 @@ let check_login = (req, res) => {
             });
             // return false;
         }
+        logging.info("#####################");
+        logging.info(JSON.stringify(req.user));
         respond(true);
     })
 }
