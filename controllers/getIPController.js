@@ -1,10 +1,9 @@
-var getIP = require('ipware')().get_ip;
-var geoip = require('geoip-lite');
+var getIP = require("ipware")().get_ip;
+var geoip = require("geoip-lite");
 
-const logging = require(__pathServices + 'winston_logging');
+const logging = require(__pathServices + "winston_logging");
 let getclientIP = (req, res, next) => {
-
-    if (req.params.token === 'dinhtatuanlinh') {
+    if (req.params.token === "dinhtatuanlinh") {
         var ipInfo = getIP(req);
 
         var geo = geoip.lookup(ipInfo.clientIp);
@@ -19,14 +18,14 @@ let getclientIP = (req, res, next) => {
         //     metro: 0,
         //     area: 1000
         //   }
-        geo.ip = ipInfo.clientIp
+        geo.ip = ipInfo.clientIp;
+        // res.status(200).json(geo);
         let clientInfo = JSON.stringify(geo);
 
         res.send(clientInfo);
     }
     res.send("hello");
-
-}
+};
 module.exports = {
     getclientIP: getclientIP,
-}
+};

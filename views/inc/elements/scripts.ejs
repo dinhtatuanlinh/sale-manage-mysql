@@ -9,11 +9,95 @@
 <script src="js/profile_funcs.js"></script>
 <script src="js/admin_funcs.js"></script>
 <script>
-    let socket = io.connect('http://localhost:8080');
-    socket.emit("connect_notif", {
-        data: 'hello from client'
-    });
-    socket.on("server_send_data", (data) => {
-        console.log(data);
-    });
 </script>
+<% if(username !== ''){ %>
+    <script>
+        let user = '<%= username %>';
+        let user_role = '<%= role %>';
+        let notification = document.getElementById("notification");
+
+        notification.innerHTML = `
+        <p>Khách đang đợi</p>
+        <p><span id="pending_No"><%= pending_customers %></span> người</p>
+        `;
+        let pending_No = document.getElementById("pending_No");
+        let socket = io.connect('http://localhost:8080');
+        if (user_role === 'telesaler') {
+            socket.emit("new_telesaler_connection", user);
+        }
+        socket.on("online_notification", data => {
+            console.log(data);
+        })
+        socket.on("server_send_data", data => {
+            console.log(data);
+        });
+        socket.on("server_send_new_customer", data => {
+            console.log(data)
+            let customer_list = document.getElementById("customer_list");
+
+            let pending_createdtime = parseInt(data.createdtime);
+            console.log(pending_createdtime)
+            pending_createdtime = new Date(pending_createdtime);
+
+            let time = `${pending_createdtime.getDate()}/${pending_createdtime.getMonth()+1}/${pending_createdtime.getFullYear()}<br>
+            ${pending_createdtime.getHours()}:${pending_createdtime.getMinutes()}`;
+            let num = parseInt(pending_No.innerHTML);
+            if (customer_list === null) {
+                pending_No.innerHTML = num + 1;
+            } else {
+                pending_No.innerHTML = num + 1;
+
+
+                let list_header = document.getElementById("list_header").outerHTML;
+
+                let main_customer_data_HTML = `
+                ${list_header}
+                <div class="customer" data-id="">
+                    <div class="mark">
+
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="status">
+                        none
+                    </div>
+
+                    <div class="info">
+                        <div class="phone">
+                            ${data.phone}
+                        </div>
+                        <div class="name">
+                            ${data.name}
+                        </div>
+                        <div class="email">
+                            ${data.email}
+                        </div>
+                    </div>
+                    <div class="track">
+                        <div class="tags">
+                            ${data.tags}
+                        </div>
+                        <div class="url">
+                            ${data.url}
+                        </div>
+                        <div class="location">
+                            ${data.location}
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        ${data.note}
+                    </div>
+                    <div class="time">
+                        ${time}
+                    </div>
+
+                        <div class="saler">
+                            ${data.saler}
+                        </div>
+                </div>
+                `;
+                customer_list.innerHTML = main_customer_data_HTML + customer_list.innerHTML.replace(list_header, '');
+            }
+        })
+    </script>
+    <% } %>

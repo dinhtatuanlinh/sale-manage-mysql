@@ -7,6 +7,7 @@ const editProfileValidator = require(__pathValidations + 'editProfileValidator')
 const check_login = require(__pathServices + 'check_login');
 // database
 const database = require(__pathModels + "database");
+const pending_customers = require(__pathServices + 'pending_customers');
 // logging
 const logging = require(__pathServices + 'winston_logging');
 
@@ -18,6 +19,9 @@ let profileDataPage = async(req, res, next) => {
     // console.log(req.user);
     res.locals.title = "Profile Page";
     let userInfo = req.user;
+    res.locals.username = userInfo.username;
+    res.locals.role = userInfo.role;
+    res.locals.pending_customers = await pending_customers(userInfo);
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}profile`, { userInfo });
 
@@ -57,6 +61,9 @@ let profileEdit = async(req, res, next) => {
                 if (req.file !== undefined) {
                     fs.unlinkSync(__pathIMGS + "avatars/" + req.file.filename);
                 }
+                res.locals.title = "Profile Page";
+                res.locals.username = userInfo.username;
+                res.locals.role = userInfo.role;
                 res.render(`${systemConfig.pathInc}profile`, {
                     validatorErr,
                     // registerData

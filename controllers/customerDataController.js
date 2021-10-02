@@ -1,6 +1,7 @@
 const systemConfig = require(__pathConfig + 'localVariable');
 const check_login = require(__pathServices + 'check_login');
 const database = require(__pathModels + "database");
+const pending_customers = require(__pathServices + 'pending_customers');
 const logging = require(__pathServices + 'winston_logging');
 const pagination = require(__pathServices + 'pagi_func');
 let customerDataPage = async(req, res, next) => {
@@ -51,6 +52,9 @@ let customerDataPage = async(req, res, next) => {
 
     customerStatus = JSON.parse(customerStatus.value);
     res.locals.title = "Customer Data Page";
+    res.locals.username = userInfo.username;
+    res.locals.role = userInfo.role;
+    res.locals.pending_customers = await pending_customers(userInfo);
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}customer_data`, {
         userInfo,

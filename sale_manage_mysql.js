@@ -82,11 +82,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 // tạo biến locals truyền tới tất cả các file
-// gọi ra ở các router bằng các console.log(req.app.locals.test)
+// có 2 cách tạo biến locals
+// biến locals sử dụng toàn bộ server ta lưu bằng app.locals.ten_bien tại file chạy chính hoặc req.app.locals.ten_bien tại router
+// cách lưu bên trên áp dụng cho toàn bộ hệ thống biến locals này sẽ giống nhau đối với mọi người truy cập vào
+// lưu biến locals chỉ sử dụng cho 1 user duy nhât chỉ áp dụng lưu tại router res.locals.ten_bien
+// cách lưu bên trên thì mỗi user sẽ có giá trị biến locals riêng ko dùng chung
 // và đồng thời có thể gọi ra ở tất cả các file ejs bằng <%= test %>
 // cũng có thể sửa lại dữ liệu bằng cách req.app.locals.test = '123';
 // biến lưu ở local cũng là biến giống global khi thay đổi giá trị ở vị trí khác toàn bộ server cũng thay đổi theo
 app.locals.to_date = '';
+app.locals.title = '';
+app.locals.username = '';
+app.locals.role = '';
 
 // tạo các tham số mặc định trong options
 options();
@@ -95,11 +102,12 @@ options();
 viewEngine(app);
 
 var server = http.createServer(app);
-var io = socket_io(server, { cors: { origin: "http://localhost/code/wordpress/", methods: ["GET", "POST"], credentials: true } });
+// var io = socket_io(server);
+var io = socket_io(server, { cors: { origin: "https://jemmiasilver.vn", methods: ["GET", "POST"], credentials: true } });
 app.io = io;
 // io.attach(server);
 // truyền app vào route
-app.use("/", initWebRoutes(io));
+app.use("/", initWebRoutes(io, app));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));

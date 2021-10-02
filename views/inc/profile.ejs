@@ -1,6 +1,7 @@
 <%- locals.flash %>
     <% include('elements/nav') %>
         <%- navBar(userInfo) %>
+
             <main>
                 <form target="_self" id="profile" action="/profile/edit/<%= userInfo.id %>" enctype="multipart/form-data" method="POST">
 

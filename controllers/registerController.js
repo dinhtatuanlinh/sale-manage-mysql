@@ -12,18 +12,7 @@ const database = require(__pathModels + "database");
 const logging = require(__pathServices + 'winston_logging');
 
 
-let getLoginPage = async(req, res, next) => {
 
-    let validatorErr = null;
-    let registerData = { username: '', email: '' };
-    // console.log(req.flash('message'));
-    req.flash('success', req.app.locals.loginErr, false);
-    res.render(`${systemConfig.pathInc}login`, {
-        validatorErr,
-        registerData
-    });
-
-};
 let postLogin = (req, res, next) => {
     // nếu người dùng tick vào ô lưu đăng nhập remember
 
@@ -142,7 +131,6 @@ let getLogout = (req, res, next) => {
 
 
 module.exports = {
-    getLoginPage: getLoginPage,
     postRegister: postRegister,
     getLogout: getLogout,
     confirm: confirm,

@@ -1,6 +1,7 @@
 <%- locals.flash %>
     <% include('elements/nav') %>
         <%- navBar(userInfo) %>
+
             <% 
     let userParams = options.filter((option) => option.name === 'user') 
     userParams = userParams.length === 0? {roles: [],status: []}:JSON.parse(userParams[0].value)[0]

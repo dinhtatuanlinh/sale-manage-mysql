@@ -5,6 +5,8 @@ const check_login = require(__pathServices + 'check_login');
 const systemConfig = require(__pathConfig + 'localVariable');
 // database
 const database = require(__pathModels + "database");
+const pending_customers = require(__pathServices + 'pending_customers');
+const { Op } = require("sequelize");
 // logging
 const logging = require(__pathServices + 'winston_logging');
 
@@ -27,6 +29,9 @@ let adminPage = async(req, res, next) => {
         // get url host
         let url = req.get('host');
         res.locals.title = "Admin Page";
+        res.locals.username = userInfo.username;
+        res.locals.role = userInfo.role;
+        res.locals.pending_customers = await pending_customers(userInfo);
         res.render(
             `${systemConfig.pathInc}admin`, {
                 users,
@@ -152,7 +157,23 @@ let adminChangeProperties = async(req, res, next) => {
     if (req.user.username == 'dinhtatuanlinh') { // req.user để lấy thông tin user
         logging.info(req.params.param);
         if (req.params.param === 'role') {
-            await database.User.update({ role: req.body.value }, { where: { id: req.body.id } })
+            await database.User.update({ role: req.body.value }, { where: { id: req.body.id } });
+            if (req.body.value === 'telesaler') {
+
+                let saleUsers = await database.User.findAll({
+                    attributes: ['username'],
+                    where: {
+                        role: {
+                            [Op.or]: ['telesaler']
+                        }
+                    }
+                });
+
+                req.app.locals.telesalers = saleUsers.map(user => {
+                    return user.username;
+                });
+
+            }
         } else if (req.params.param === 'status') {
             await database.User.update({ status: req.body.value }, { where: { id: req.body.id } })
         } else if (req.params.param === 'manager') {

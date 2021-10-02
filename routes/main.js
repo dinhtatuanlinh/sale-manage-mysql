@@ -12,7 +12,7 @@ const socketioGetClient = require(__pathServices + 'socketioGetClient');
 
 
 
-module.exports = (io) => {
+module.exports = (io, app) => {
     /* GET users listing. */
     router.get('/', (req, res, next) => { homeController.homePage(req, res, next) });
 
@@ -29,6 +29,6 @@ module.exports = (io) => {
 
     router.get('/profile', (req, res, next) => { profileController.profileDataPage(req, res, next) });
     router.post('/profile/edit/:id', (req, res, next) => { profileController.profileEdit(req, res, next) });
-    socketioGetClient(io);
+    socketioGetClient(io, app);
     return router;
 }

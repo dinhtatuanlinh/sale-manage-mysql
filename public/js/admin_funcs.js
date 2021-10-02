@@ -14,7 +14,8 @@ let manager = (element, id, url) => {
 let sendajax = (param, value, id, url) => {
     let data = { id: id, value: value }
     data = JSON.stringify(data);
-    let Dia_chi_Xu_ly = `https://${url}/admin/properties/${param}`;
+    // let Dia_chi_Xu_ly = `https://${url}/admin/properties/${param}`;
+    let Dia_chi_Xu_ly = `http://${url}/admin/properties/${param}`;
     // console.log(data);
     // console.log(Dia_chi_Xu_ly);
     let XHTTP = new XMLHttpRequest() || ActiveXObject();

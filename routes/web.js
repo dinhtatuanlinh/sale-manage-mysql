@@ -12,14 +12,11 @@ let router = express.Router();
 
 
 
-module.exports = (io) => {
+module.exports = (io, app) => {
     // cau hình router trang chủ
     // ##################
-    router.use('/', require('./main')(io));
+    router.use('/', require('./main')(io, app));
     // ##################
-
-
-
 
 
     // login and register

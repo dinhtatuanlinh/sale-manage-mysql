@@ -1,17 +1,78 @@
-// const chatController = require(__pathControllers + "chatController");
-// const onlineUserManipulation = require(__pathHelps + "onlineUserManipulation");
-// const usersModel = require(__pathSchemas + "database").usersModel;
+const database = require(__pathModels + "database");
+const telesalersManipulation = require(__pathServices + 'telesalersManipulation');
 const logging = require(__pathServices + 'winston_logging');
-module.exports = (io) => {
-    // let users = new onlineUserManipulation()
+module.exports = async(io, app) => {
+    let telesalersM = new telesalersManipulation;
+    // tạo index cho toàn bộ telesalers để gán khách hàng cho telesaler khi không có ai online
+    app.locals.saleUserIndex = 0;
+    // tạo index cho online telesalers để gán khách hàng cho online telesaler
+    // let on_telesaler_index = 0;
+
     // socket.io events
     io.on("connection", (socket) => {
-
-        socket.on("send_customer_data", (data) => {
-            logging.info(JSON.stringify(data));
-            console.log(data);
+        // add user mới connect vào class telesalersManipulation
+        socket.on("new_telesaler_connection", username => {
+            let online_telesalers = telesalersM.getListUser();
+            let number_of_cus = 0;
+            if (online_telesalers.length !== 0) {
+                // sắp xếp lại mảng theo thứ tự username từ a tới z
+                online_telesalers.sort(function(a, b) {
+                    return a.number_of_cus - b.number_of_cus;
+                });
+                number_of_cus = online_telesalers[online_telesalers.length - 1].number_of_cus;
+            }
+            telesalersM.addUser(socket.id, username, number_of_cus);
+            // console.log(online_telesalers);
+            socket.broadcast.emit('online_notification', "hello")
+                // io.emit("online_notification", "hello")
         });
-        socket.emit("server_send_data", socket.id); //trả tin nhắn tới 1 user hiện tại
+        // remove user mới disconnect khỏi class telesalersManipulation
+        socket.on("disconnect", async() => {
+            telesalersM.removeUser(socket.id);
+        });
+        socket.on("send_customer_data", async data => {
+            data.status = 'none';
+            data.note = '';
+            let online_telesalers = telesalersM.getListUser();
+            // sắp xếp lại mảng theo thứ tự username từ a tới z
+            // online_telesalers.sort(function(a, b) {
+            //     return a.number_of_cus.localeCompare(b.number_of_cus);
+            // });
+            // săp xếp số từ lớn tới bé
+            online_telesalers.sort(function(a, b) {
+                return a.number_of_cus - b.number_of_cus;
+            });
+
+            if (online_telesalers.length === 0) {
+                await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
+                    if (result === null) {
+                        // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
+                        // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
+                        if (app.locals.saleUserIndex < app.locals.telesalers.length) {
+                            data.saler = app.locals.telesalers[app.locals.saleUserIndex];
+                            ++app.locals.saleUserIndex;
+                        } else {
+                            app.locals.saleUserIndex = 0;
+                            data.saler = app.locals.telesalers[app.locals.saleUserIndex];
+                            ++app.locals.saleUserIndex;
+                        }
+                        await database.Client_info.create(data);
+                    }
+                });
+            } else {
+                await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
+                    if (result === null) {
+                        // insert data into table option
+                        data.saler = online_telesalers[0].username;
+                        online_telesalers[0].number_of_cus++;
+                        let saveResult = await database.Client_info.create(data);
+                        saveResult = saveResult.dataValues;
+                        io.to(online_telesalers[0].id).emit("server_send_new_customer", saveResult);
+                    }
+                });
+            }
+        });
+
         // console.log("a user connected");
         // socket.on("client_typing", (data) => {
         //   socket.broadcast.emit('server_send_user_typing', { username: data.username }) // send message tới các user ngoại trừ user gửi tin nhắn
@@ -121,16 +182,7 @@ module.exports = (io) => {
         //     io.emit("online_users", userdata);
         // });
         // //disconnect user
-        // socket.on("disconnect", async() => {
-        //     var data = {};
-        //     let user = users.removeUser(socket.id);
-        //     data.allUsers = [];
-        //     data.onlineUsers = users.getListUser();
-        //     await usersModel.find({}).then((result) => {
-        //         data.allUsers = result;
-        //     });
-        //     io.emit("online_users", data);
-        // });
+
         // // end disconnect user
         // // nhận tin nhắn từ user gửi lên cho public
         // socket.on("client_send_public_message", async(data) => {
