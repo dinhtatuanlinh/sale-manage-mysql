@@ -10,6 +10,8 @@ module.exports = async(io, app) => {
 
     // socket.io events
     io.on("connection", (socket) => {
+        // test connect socketio
+        io.emit("server_send_data", socket.id);
         // add user mới connect vào class telesalersManipulation
         socket.on("new_telesaler_connection", username => {
             let online_telesalers = telesalersM.getListUser();
