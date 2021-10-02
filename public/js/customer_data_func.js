@@ -14,18 +14,16 @@ let select_cus = (url, status) => {
     ajaxFunc().then(data => {
         let statusHtml = '';
         let myArr = status.split(",");
-        let status_check = ''
-        console.log(data.status);
         myArr.forEach(element => {
-            console.log(element);
+            let status_check = ''
             if (data.status === element) { status_check = 'checked' }
             statusHtml += `<option value="${element}" ${status_check}>${element}</option>`
         });
-        let createdtime = new Date(data.createdtime);
+        console.log(data.createdtime);
 
-        let time = `${createdtime.getDate()}/${createdtime.getMonth()+1}/${createdtime.getFullYear()}<br>
-        ${createdtime.getHours()}:${createdtime.getMinutes()}`;
-        console.log(time);
+        let time = `${new Date(data.createdtime).getDate()}/${new Date(data.createdtime).getMonth()+1}/${new Date(data.createdtime).getFullYear()}<br>
+        ${new Date(data.createdtime).getHours()}:${new Date(data.createdtime).getMinutes()}`;
+        
         let html = `
         <form method="POST" action="customer-data/edit/${data.id}">
         <div class="info">
