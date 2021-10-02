@@ -17,6 +17,7 @@ let select_cus = (url, status) => {
         let status_check = ''
         console.log(data.status);
         myArr.forEach(element => {
+            console.log(element);
             if (data.status === element) { status_check = 'checked' }
             statusHtml += `<option value="${element}" ${status_check}>${element}</option>`
         });
@@ -24,6 +25,7 @@ let select_cus = (url, status) => {
 
         let time = `${createdtime.getDate()}/${createdtime.getMonth()+1}/${createdtime.getFullYear()}<br>
         ${createdtime.getHours()}:${createdtime.getMinutes()}`;
+        console.log(time);
         let html = `
         <form method="POST" action="customer-data/edit/${data.id}">
         <div class="info">
