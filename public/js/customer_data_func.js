@@ -20,7 +20,7 @@ let select_cus = (url, status) => {
             if (data.status === element) { status_check = 'checked' }
             statusHtml += `<option value="${element}" ${status_check}>${element}</option>`
         });
-        createdtime = new Date(data.createdtime);
+        let createdtime = new Date(data.createdtime);
 
         let time = `${createdtime.getDate()}/${createdtime.getMonth()+1}/${createdtime.getFullYear()}<br>
         ${createdtime.getHours()}:${createdtime.getMinutes()}`;
