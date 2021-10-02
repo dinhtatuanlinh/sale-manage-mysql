@@ -19,8 +19,7 @@ let profileDataPage = async(req, res, next) => {
     // console.log(req.user);
     res.locals.title = "Profile Page";
     let userInfo = req.user;
-    res.locals.username = userInfo.username;
-    res.locals.role = userInfo.role;
+
     res.locals.pending_customers = await pending_customers(userInfo);
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}profile`, { userInfo });

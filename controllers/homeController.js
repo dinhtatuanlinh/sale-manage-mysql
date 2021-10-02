@@ -7,7 +7,7 @@ const { Op } = require("sequelize");
 const logging = require(__pathServices + 'winston_logging');
 let homePage = async(req, res, next) => {
     await check_login(req, res);
-    logging.info(JSON.stringify(req.user))
+
     let userInfo = req.user;
     let users;
     await database.User.findAll().then(results => {
@@ -16,8 +16,7 @@ let homePage = async(req, res, next) => {
     });
     res.locals.pending_customers = await pending_customers(userInfo);
     res.locals.title = "Home Page";
-    res.locals.username = userInfo.username;
-    res.locals.role = userInfo.role;
+    
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}home`, {
         users,

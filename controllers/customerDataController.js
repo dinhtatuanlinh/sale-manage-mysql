@@ -52,8 +52,7 @@ let customerDataPage = async(req, res, next) => {
 
     customerStatus = JSON.parse(customerStatus.value);
     res.locals.title = "Customer Data Page";
-    res.locals.username = userInfo.username;
-    res.locals.role = userInfo.role;
+
     res.locals.pending_customers = await pending_customers(userInfo);
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}customer_data`, {
