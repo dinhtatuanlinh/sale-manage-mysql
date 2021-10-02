@@ -35,7 +35,7 @@ module.exports = async(io, app) => {
         socket.on("send_customer_data", async data => {
             data.status = 'none';
             data.note = '';
-            logging.info(JSON.stringify(data));
+
             let online_telesalers = telesalersM.getListUser();
             // sắp xếp lại mảng theo thứ tự username từ a tới z
             // online_telesalers.sort(function(a, b) {
@@ -48,8 +48,6 @@ module.exports = async(io, app) => {
             
             if (online_telesalers.length === 0) {
                 await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
-                    logging.info('##########');
-                    logging.info(result);
                     if (result === null) {
                         // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                         // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
@@ -61,9 +59,7 @@ module.exports = async(io, app) => {
                             data.saler = app.locals.telesalers[app.locals.saleUserIndex];
                             ++app.locals.saleUserIndex;
                         }
-                        
                         await database.Client_info.create(data);
-                        logging.info(JSON.stringify(data));
                         
                     }
                 });
@@ -76,7 +72,6 @@ module.exports = async(io, app) => {
                         let saveResult = await database.Client_info.create(data);
                         saveResult = saveResult.dataValues;
                         io.to(online_telesalers[0].id).emit("server_send_new_customer", saveResult);
-                        logging.info('online');
                     }
                 });
             }
