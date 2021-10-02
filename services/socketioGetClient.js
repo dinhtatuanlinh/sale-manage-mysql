@@ -60,6 +60,7 @@ module.exports = async(io, app) => {
                             ++app.locals.saleUserIndex;
                         }
                         await database.Client_info.create(data);
+                        logging.info('offline');
                     }
                 });
             } else {
@@ -71,6 +72,7 @@ module.exports = async(io, app) => {
                         let saveResult = await database.Client_info.create(data);
                         saveResult = saveResult.dataValues;
                         io.to(online_telesalers[0].id).emit("server_send_new_customer", saveResult);
+                        logging.info('online');
                     }
                 });
             }
