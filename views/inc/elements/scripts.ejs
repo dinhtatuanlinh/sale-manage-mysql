@@ -21,7 +21,7 @@
         <p><span id="pending_No"><%= pending_customers %></span> người</p>
         `;
         let pending_No = document.getElementById("pending_No");
-        let socket = io.connect('http://localhost:8080');
+        let socket = io.connect('https://salemanage.noteatext.com');
         if (user_role === 'telesaler') {
             socket.emit("new_telesaler_connection", user);
         }
