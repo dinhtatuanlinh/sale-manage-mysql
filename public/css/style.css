@@ -450,7 +450,10 @@ h1 {
 #main_customer_data .note textarea {
     color: #ccc;
 }
-
+#notification {
+    text-align: center;
+    color: #fff;
+}
 @media screen and (min-width: 1201px) {
     .desktop-hide {
         display: none !important;
