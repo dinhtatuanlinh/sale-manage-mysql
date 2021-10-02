@@ -16,13 +16,13 @@ let select_cus = (url, status) => {
         let myArr = status.split(",");
         myArr.forEach(element => {
             let status_check = ''
-            if (data.status === element) { status_check = 'checked' }
+            if (data.status === element) { status_check = 'selected' }
             statusHtml += `<option value="${element}" ${status_check}>${element}</option>`
         });
-        console.log(data.createdtime);
+        let createdtime = new Date(parseInt(data.createdtime));
 
-        let time = `${new Date(data.createdtime).getDate()}/${new Date(data.createdtime).getMonth()+1}/${new Date(data.createdtime).getFullYear()}<br>
-        ${new Date(data.createdtime).getHours()}:${new Date(data.createdtime).getMinutes()}`;
+        let time = `${createdtime.getDate()}/${createdtime.getMonth()+1}/${createdtime.getFullYear()}<br>
+        ${createdtime.getHours()}:${createdtime.getMinutes()}`;
         
         let html = `
         <form method="POST" action="customer-data/edit/${data.id}">
