@@ -11,7 +11,7 @@ module.exports = async(io, app) => {
     // socket.io events
     io.on("connection", (socket) => {
         // test connect socketio
-        io.emit("server_send_data", socket.id);
+        // io.emit("server_send_data", socket.id);
         // add user mới connect vào class telesalersManipulation
         socket.on("new_telesaler_connection", username => {
             let online_telesalers = telesalersM.getListUser();
@@ -45,7 +45,7 @@ module.exports = async(io, app) => {
             online_telesalers.sort(function(a, b) {
                 return a.number_of_cus - b.number_of_cus;
             });
-
+            logging.info(online_telesalers.length);
             if (online_telesalers.length === 0) {
                 await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
                     if (result === null) {
