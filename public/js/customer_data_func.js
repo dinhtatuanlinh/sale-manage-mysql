@@ -21,7 +21,7 @@ let select_cus = (url, status) => {
         });
         let createdtime = new Date(parseInt(data.createdtime));
 
-        let time = `${createdtime.getDate()}/${createdtime.getMonth()+1}/${createdtime.getFullYear()}<br>
+        let time = `${createdtime.getDate()}/${createdtime.getMonth()+1}/${createdtime.getFullYear()} 
         ${createdtime.getHours()}:${createdtime.getMinutes()}`;
         
         let html = `
