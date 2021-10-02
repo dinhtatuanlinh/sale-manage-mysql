@@ -61,8 +61,9 @@ module.exports = async(io, app) => {
                             data.saler = app.locals.telesalers[app.locals.saleUserIndex];
                             ++app.locals.saleUserIndex;
                         }
+                        logging.info(JSON.stringify(data));
                         await database.Client_info.create(data);
-                        logging.info('offline');
+                        
                     }
                 });
             } else {
