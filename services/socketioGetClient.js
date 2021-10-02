@@ -45,9 +45,11 @@ module.exports = async(io, app) => {
             online_telesalers.sort(function(a, b) {
                 return a.number_of_cus - b.number_of_cus;
             });
-            logging.info(online_telesalers.length);
+            
             if (online_telesalers.length === 0) {
                 await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
+                    logging.info('##########');
+                    logging.info(result);
                     if (result === null) {
                         // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                         // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
