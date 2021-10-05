@@ -35,7 +35,7 @@ module.exports = async(io, app) => {
         socket.on("send_customer_data", async data => {
             data.status = 'none';
             data.note = '';
-
+            logging.info(JSON.stringify(data))
             let online_telesalers = telesalersM.getListUser();
             // sắp xếp lại mảng theo thứ tự username từ a tới z
             // online_telesalers.sort(function(a, b) {
@@ -60,7 +60,8 @@ module.exports = async(io, app) => {
                             ++app.locals.saleUserIndex;
                         }
                         await database.Client_info.create(data);
-                        
+                        logging.info('11111111111111111111')
+                        logging.info(JSON.stringify(data))
                     }
                 });
             } else {
@@ -74,6 +75,8 @@ module.exports = async(io, app) => {
                         io.to(online_telesalers[0].id).emit("server_send_new_customer", saveResult);
                     }
                 });
+                logging.info('22222222222222')
+                        logging.info(JSON.stringify(data))
             }
         });
 
