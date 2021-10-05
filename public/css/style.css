@@ -431,13 +431,12 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 18%;
+    min-width: 250px;
     margin: 10px 1%;
     padding: 5px;
     border: 1px solid #333;
     background-color: #202328;
     border-radius: 10px;
-    height: 200px;
     color: #ccc;
 }
 
