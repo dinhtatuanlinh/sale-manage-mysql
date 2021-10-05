@@ -27,9 +27,9 @@
         // socket.on("online_notification", data => {
         //     console.log(data);
         // })
-        // socket.on("server_send_data", data => {
-        //     console.log(data);
-        // });
+        socket.on("server_send_data", data => {
+            console.log(data);
+        });
         socket.on("server_send_new_customer", data => {
             console.log(data)
             let customer_list = document.getElementById("customer_list");
