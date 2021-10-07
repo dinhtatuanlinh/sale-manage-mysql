@@ -63,9 +63,10 @@
                                                 <%= clientData.note %>
                                             </div>
                                             <div class="time">
-                                                <%- new Date(clientData.createdtime).getFullYear() + '/' +  (new Date(clientData.createdtime).getMonth() +1) + '/' + new Date(clientData.createdtime).getDate() %>
+                                                <% let time = parseInt(clientData.createdtime) %> 
+                                                <%- new Date(time).getFullYear() + '/' +  (new Date(time).getMonth() +1) + '/' + new Date(time).getDate() %>
                                                 <br>
-                                                <%- new Date(clientData.createdtime).getHours() + ':' +  new Date(clientData.createdtime).getMinutes() + ':' + new Date(clientData.createdtime).getSeconds() %>
+                                                <%- new Date(time).getHours() + ':' +  new Date(time).getMinutes() + ':' + new Date(time).getSeconds() %>
                                             </div>
                                             <% if(userInfo.role==="admin" || userInfo.role==="sale_manager"){ %>
                                                 <div class="saler">
