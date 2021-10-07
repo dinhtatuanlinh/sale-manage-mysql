@@ -1,7 +1,8 @@
 const express = require("express");
-// thư viện giúp lấy biến truyền bằng phương thức get use?id=?
 var cors = require('cors')
 var http = require('http');
+// thư viện giúp lấy biến truyền bằng phương thức get use?id=?
+
 
 const bodyParser = require("body-parser");
 // import thu vien dotenv goi ham config() để lấy ra các biến môi trường

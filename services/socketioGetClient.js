@@ -7,7 +7,6 @@ module.exports = async(io, app) => {
     app.locals.saleUserIndex = 0;
     // tạo index cho online telesalers để gán khách hàng cho online telesaler
     // let on_telesaler_index = 0;
-
     // socket.io events
     io.on("connection", (socket) => {
         // test connect socketio
@@ -35,7 +34,6 @@ module.exports = async(io, app) => {
         socket.on("send_customer_data", async data => {
             data.status = 'none';
             data.note = '';
-            logging.info(JSON.stringify(data))
             let online_telesalers = telesalersM.getListUser();
             // sắp xếp lại mảng theo thứ tự username từ a tới z
             // online_telesalers.sort(function(a, b) {
@@ -45,7 +43,6 @@ module.exports = async(io, app) => {
             online_telesalers.sort(function(a, b) {
                 return a.number_of_cus - b.number_of_cus;
             });
-            
             if (online_telesalers.length === 0) {
                 await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
                     if (result === null) {
@@ -60,8 +57,7 @@ module.exports = async(io, app) => {
                             ++app.locals.saleUserIndex;
                         }
                         await database.Client_info.create(data);
-                        logging.info('11111111111111111111')
-                        logging.info(JSON.stringify(data))
+
                     }
                 });
             } else {
@@ -75,11 +71,9 @@ module.exports = async(io, app) => {
                         io.to(online_telesalers[0].id).emit("server_send_new_customer", saveResult);
                     }
                 });
-                logging.info('22222222222222')
-                        logging.info(JSON.stringify(data))
+
             }
         });
-
         // console.log("a user connected");
         // socket.on("client_typing", (data) => {
         //   socket.broadcast.emit('server_send_user_typing', { username: data.username }) // send message tới các user ngoại trừ user gửi tin nhắn

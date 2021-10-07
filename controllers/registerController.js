@@ -26,7 +26,6 @@ let postLogin = (req, res, next) => {
     res.redirect('/');
 }
 let postRegister = async(req, res, next) => {
-    logging.info(JSON.stringify(req.file));
     let field = '';
     let avatarPath = '';
     let fileSizeMB;
@@ -70,7 +69,6 @@ let postRegister = async(req, res, next) => {
             })
         } else {
             let id = Date.now();
-
             registerData.name = '';
             registerData.avatar = req.file.filename;
             registerData.id = MD5(`${id}`);
@@ -84,7 +82,6 @@ let postRegister = async(req, res, next) => {
             registerData.modifiedtime = 0;
             registerData.achievement = '';
             registerData.team = '';
-            logging.info(JSON.stringify(registerData));
             database.User.create(registerData).then(async(result) => {
 
                 let from = "Đinh Tạ Tuấn Linh";
@@ -112,7 +109,7 @@ let del = async(req, res, next) => {
     await database.User.destroy({ where: { username: req.params.username } }).then((result) => {
 
         if (result) {
-            logging.info(JSON.stringify(result));
+
             req.flash('success', 'xóa thành công', false);
             res.redirect(`/`);
         } else {
