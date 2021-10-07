@@ -63,10 +63,9 @@
                                                 <%= clientData.note %>
                                             </div>
                                             <div class="time">
-                                                <%= userInfo.createdtime %> 
-                                                <%- new Date(userInfo.createdtime).getFullYear() + '/' +  (new Date(userInfo.createdtime).getMonth() +1) + '/' + new Date(userInfo.createdtime).getDate() %>
+                                                <%- new Date(clientData.createdtime).getFullYear() + '/' +  (new Date(clientData.createdtime).getMonth() +1) + '/' + new Date(clientData.createdtime).getDate() %>
                                                 <br>
-                                                <%- new Date(userInfo.createdtime).getHours() + ':' +  new Date(userInfo.createdtime).getMinutes() + ':' + new Date(userInfo.createdtime).getSeconds() %>
+                                                <%- new Date(clientData.createdtime).getHours() + ':' +  new Date(clientData.createdtime).getMinutes() + ':' + new Date(clientData.createdtime).getSeconds() %>
                                             </div>
                                             <% if(userInfo.role==="admin" || userInfo.role==="sale_manager"){ %>
                                                 <div class="saler">
