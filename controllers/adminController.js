@@ -29,8 +29,9 @@ let adminPage = async (req, res, next) => {
         let url = req.get("host");
         res.locals.title = "Admin Page";
 
-        res.locals.pending_customers = await pending_customers(userInfo)[0];
-        res.locals.total_customers = await pending_customers(userInfo)[1];
+        let customers = await pending_customers(userInfo)
+    res.locals.pending_customers = customers[0];
+    res.locals.total_customers = customers[1];
         res.render(`${systemConfig.pathInc}admin`, {
             users,
             options,

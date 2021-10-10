@@ -15,8 +15,9 @@ let homePage = async(req, res, next) => {
         users = results;
     });
     
-    res.locals.pending_customers = await pending_customers(userInfo)[0];
-    res.locals.total_customers = await pending_customers(userInfo)[1];
+    let customers = await pending_customers(userInfo)
+    res.locals.pending_customers = customers[0];
+    res.locals.total_customers = customers[1];
     res.locals.title = "Home Page";
     
     res.setHeader("Content-Type", "text/html");
