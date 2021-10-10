@@ -75,7 +75,9 @@ let homePage = async(req, res, next) => {
 
 
 
-    res.locals.pending_customers = await pending_customers(userInfo);
+    
+    res.locals.pending_customers = await pending_customers(userInfo)[0];
+    res.locals.total_customers = await pending_customers(userInfo)[1];
 
     res.locals.title = "Home Page";
 

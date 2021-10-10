@@ -16,8 +16,11 @@
         let notification = document.getElementById("notification");
 
         notification.innerHTML = `
-        <p>Khách đang đợi</p>
+        <strong>Khách đang đợi</strong>
         <p><span id="pending_No"><%= pending_customers %></span> người</p>
+        <hr>
+        <strong>Tổng số khách</strong>
+        <p><%= total_customers %> người</p>
         `;
         let pending_No = document.getElementById("pending_No");
         let socket = io.connect('https://salemanage.noteatext.com');
