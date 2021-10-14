@@ -10,11 +10,13 @@ let customerDataPage = async(req, res, next) => {
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
     let userInfo = req.user;
     let statusquery = req.query.ss
+    let sendStatusQuery = req.query.ss
     if(statusquery){
         statusquery = statusquery.split("-");
         console.log(statusquery);
     }else{
         statusquery = {[Op.ne]: null};
+        sendStatusQuery='';
     }
     let clientDatas
     let pagiParams
@@ -71,7 +73,8 @@ let customerDataPage = async(req, res, next) => {
         clientDatas,
         url,
         customerStatus,
-        pagiParams
+        pagiParams,
+        sendStatusQuery
     });
 
 };
