@@ -21,7 +21,7 @@ let customerDataPage = async(req, res, next) => {
     let clientDatas
     let pagiParams
     if (userInfo.role === 'admin' || userInfo.role === 'sale_manager') {
-        let numberOfTable = await database.Client_info.count();
+        let numberOfTable = await database.Client_info.count({ where: { status: statusquery  } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
             where: { status:  statusquery},
@@ -34,7 +34,7 @@ let customerDataPage = async(req, res, next) => {
 
         });
     } else {
-        let numberOfTable = await database.Client_info.count({ where: { saler: userInfo.username } });
+        let numberOfTable = await database.Client_info.count({ where: { saler: userInfo.username, status: statusquery  } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
             where: { saler: userInfo.username, status: statusquery },
