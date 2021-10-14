@@ -12,13 +12,13 @@ let sort_open_close = (element) => {
             height: 0, //normal value
 
         }, {
-            height: 50,
+            height: 200,
             duration: 1
         });
         gsap.fromTo("#sort_icon", {
             top: -22,
         }, {
-            top: 28,
+            top: 180,
             duration: 1
         });
 
@@ -29,7 +29,7 @@ let sort_open_close = (element) => {
         icon.classList.remove("fa-times");
         gsap.fromTo("#sort", {
 
-            height: 50,
+            height: 200,
 
         }, {
             height: 0,
@@ -37,11 +37,29 @@ let sort_open_close = (element) => {
             duration: 1
         });
         gsap.fromTo("#sort_icon", {
-            top: 28,
+            top: 180,
         }, {
             top: -22,
             duration: 1
         });
 
     }
+}
+let statusCheck = document.getElementsByClassName("statusCheck");
+let statusQuery = '';
+let statusCheckFunc = ()=>{
+
+    statusQuery = '';
+    for(i=0; i<statusCheck.length; i++){
+        if(statusCheck[i].checked){
+            
+            statusQuery += statusCheck[i].value + '-';
+        }
+    }
+    statusQuery = statusQuery.slice(0, -1);
+}
+let filterFunc =(url)=>{
+    statusCheckFunc()
+    window.location.replace(`https://${url}?ss=${statusQuery}`);
+
 }

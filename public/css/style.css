@@ -103,13 +103,31 @@ main #general #sort {
     width: 100%;
     background-color: #202328;
     justify-content: space-between;
-    align-items: center;
     height: 0;
     overflow: hidden;
     position: absolute;
     z-index: 10;
 }
-
+main #general #sort #status_sort{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+main #general #sort #status_sort div{
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+main #general #sort div p {
+    width: 30%;
+    height: 40px;
+    margin: 0;
+}
+main #general #sort #url_search,#search{
+    height: 40px;
+}
 main #general #sort_icon {
     display: flex;
     justify-content: center;
@@ -345,7 +363,7 @@ main #detail button {
 }
 
 input {
-    width: 100%;
+    /* width: 100%; */
 }
 
 h1 {

@@ -4,17 +4,25 @@ const database = require(__pathModels + "database");
 const pending_customers = require(__pathServices + 'pending_customers');
 const logging = require(__pathServices + 'winston_logging');
 const pagination = require(__pathServices + 'pagi_func');
+const { Op } = require("sequelize");
 let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
     let userInfo = req.user;
-
+    let statusquery = req.query.ss
+    if(statusquery){
+        statusquery = statusquery.split("-");
+        console.log(statusquery);
+    }else{
+        statusquery = {[Op.ne]: null};
+    }
     let clientDatas
     let pagiParams
     if (userInfo.role === 'admin' || userInfo.role === 'sale_manager') {
         let numberOfTable = await database.Client_info.count();
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
+            where: { status:  statusquery},
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
@@ -27,7 +35,7 @@ let customerDataPage = async(req, res, next) => {
         let numberOfTable = await database.Client_info.count({ where: { saler: userInfo.username } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
-            where: { saler: userInfo.username },
+            where: { saler: userInfo.username, status: statusquery },
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
@@ -51,6 +59,7 @@ let customerDataPage = async(req, res, next) => {
     let customerStatus = await database.Option.findOne({ where: { name: 'customer' } })
 
     customerStatus = JSON.parse(customerStatus.value);
+
     res.locals.title = "Customer Data Page";
 
     let customers = await pending_customers(userInfo)
