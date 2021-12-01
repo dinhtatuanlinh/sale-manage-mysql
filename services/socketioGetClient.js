@@ -38,6 +38,7 @@ module.exports = async (io, app) => {
             onlineUsers = telesalersM.getListUser();
         });
         socket.on("send_customer_data", async (data) => {
+            logging.info(JSON.stringify(app.locals.telesalers.length));
             if(app.locals.telesalers.length === 0){
                 let saleUsers = await database.User.findAll({
                     attributes: ["username", "team"],
@@ -54,7 +55,7 @@ module.exports = async (io, app) => {
                 logging.info(
                     "##################CHECK#########################"
                 );
-                
+
             }
             data.status = "none";
             data.note = "";
