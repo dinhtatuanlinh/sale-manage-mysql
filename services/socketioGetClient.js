@@ -40,22 +40,24 @@ module.exports = async (io, app) => {
         socket.on("send_customer_data", async (data) => {
             if(!app.locals.telesalers){
                 
-                let saleUsers = await database.User.findAll({
+                await database.User.findAll({
                     attributes: ["username", "team"],
                     where: {
                         role: {
                             [Op.or]: ["telesaler"],
                         }
                     },
-                });
-                logging.info('111111111')
-                logging.info(
-                    "##################CHECK#########################"
-                );
-                logging.info(JSON.stringify(saleUsers));
-                logging.info(
-                    "##################CHECK#########################"
-                );
+                }).then(result=>{
+                    logging.info('111111111')
+                    logging.info(
+                        "##################CHECK#########################"
+                    );
+                    logging.info(JSON.stringify(result));
+                    logging.info(
+                        "##################CHECK#########################"
+                    );
+                })
+                
 
             }
             data.status = "none";
