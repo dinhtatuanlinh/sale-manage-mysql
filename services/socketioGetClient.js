@@ -1,6 +1,6 @@
 const database = require(__pathModels + "database");
 const { Op } = require("sequelize");
-// const email = require(__pathServices + 'sendemail');
+const email = require(__pathServices + 'sendemail');
 
 const telesalersManipulation = require(__pathServices +
     "telesalersManipulation");
@@ -73,29 +73,24 @@ module.exports = async (io, app) => {
                         // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
                         if(!app.locals.telesalers){
                 
-                            await database.User.findAll({
+                            let result = await database.User.findAll({
                                 attributes: ["username", "team"],
                                 where: {
                                     role: {
                                         [Op.or]: ["telesaler"],
                                     }
                                 },
-                            }).then(result=>{
-                                if(result.length === 0){
-                                    // await email.sendemail(
-                                    //     "salemanage", 
-                                    //     "dinhtatuanlinh@gmail.com",
-                                    //     "Lỗi không có telesaler", 
-                                    //     "..."
-                                    // );
-                                }else{
-                                    app.locals.telesalers = result;
-                                }
-                            }).catch(err=>{
-                                logging.info(JSON.stringify(err));
-                                logging.info(JSON.stringify(err.message));
                             })
-                            
+                            if(result.length === 0){
+                                logging.info("@@@@@@@@")
+                                let from = "Đinh Tạ Tuấn Linh";
+                                let to = "dinhtatuanlinh@gmail.com";
+                                let subject = "Email thông báo từ trang quản lý telesale của Jemmia";
+                                let body = "Lỗi không tìm thấy telesaler nào";
+                                await email.sendemail(from, to, subject, body);
+                            }else{
+                                app.locals.telesalers = result;
+                            }
             
                         }
                         if (
