@@ -80,12 +80,12 @@ module.exports = async (io, app) => {
                             app.locals.telesalers.length
                         ) {
                             data.saler =
-                                app.locals.telesalers[app.locals.saleUserIndex];
+                                app.locals.telesalers[app.locals.saleUserIndex].username;
                             ++app.locals.saleUserIndex;
                         } else {
                             app.locals.saleUserIndex = 0;
                             data.saler =
-                                app.locals.telesalers[app.locals.saleUserIndex];
+                                app.locals.telesalers[app.locals.saleUserIndex].username;
                             ++app.locals.saleUserIndex;
                         }
                         await database.Client_info.create(data);
