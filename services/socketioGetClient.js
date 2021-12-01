@@ -38,6 +38,24 @@ module.exports = async (io, app) => {
             onlineUsers = telesalersM.getListUser();
         });
         socket.on("send_customer_data", async (data) => {
+            if(app.locals.telesalers.length === 0){
+                let saleUsers = await database.User.findAll({
+                    attributes: ["username", "team"],
+                    where: {
+                        role: {
+                            [Op.or]: ["telesaler1"],
+                        }
+                    },
+                });
+                logging.info(
+                    "##################CHECK#########################"
+                );
+                logging.info(JSON.stringify(saleUsers));
+                logging.info(
+                    "##################CHECK#########################"
+                );
+                
+            }
             data.status = "none";
             data.note = "";
             await database.Client_info.findOne({
@@ -68,13 +86,7 @@ module.exports = async (io, app) => {
                     } else {
                         // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                         // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
-                        logging.info(
-                            "##################CHECK#########################"
-                        );
-                        logging.info(JSON.stringify(app.locals.telesalers));
-                        logging.info(
-                            "##################CHECK#########################"
-                        );
+                        
                         if (
                             app.locals.saleUserIndex <
                             app.locals.telesalers.length
