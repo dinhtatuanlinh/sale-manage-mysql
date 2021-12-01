@@ -77,12 +77,12 @@ module.exports = async (io, app) => {
                                 attributes: ["username", "team"],
                                 where: {
                                     role: {
-                                        [Op.or]: ["telesaler1"],
+                                        [Op.or]: ["telesaler"],
                                     }
                                 },
                             })
                             if(result.length === 0){
-                                logging.info("@@@@@@@@")
+                                logging.info("Lỗi không tìm thấy telesaler nào")
                                 let from = "Đinh Tạ Tuấn Linh";
                                 let to = "dinhtatuanlinh@gmail.com";
                                 let subject = "Email thông báo từ trang quản lý telesale của Jemmia";
