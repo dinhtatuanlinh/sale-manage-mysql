@@ -77,7 +77,7 @@ module.exports = async (io, app) => {
                                 attributes: ["username", "team"],
                                 where: {
                                     role: {
-                                        [Op.or]: ["telesaler1"],
+                                        [Op.or]: ["telesaler"],
                                     }
                                 },
                             }).then(result=>{
