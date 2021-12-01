@@ -1,6 +1,6 @@
 const database = require(__pathModels + "database");
 const { Op } = require("sequelize");
-const email = require(__pathServices + 'sendemail');
+// const email = require(__pathServices + 'sendemail');
 
 const telesalersManipulation = require(__pathServices +
     "telesalersManipulation");
@@ -82,12 +82,12 @@ module.exports = async (io, app) => {
                                 },
                             }).then(result=>{
                                 if(result.length === 0){
-                                    await email.sendemail(
-                                        "salemanage", 
-                                        "dinhtatuanlinh@gmail.com",
-                                        "Lỗi không có telesaler", 
-                                        "..."
-                                    );
+                                    // await email.sendemail(
+                                    //     "salemanage", 
+                                    //     "dinhtatuanlinh@gmail.com",
+                                    //     "Lỗi không có telesaler", 
+                                    //     "..."
+                                    // );
                                 }else{
                                     app.locals.telesalers = result;
                                 }
