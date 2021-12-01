@@ -235,7 +235,10 @@ let adminChangeProperties = async (req, res, next) => {
                 });
 
                 req.app.locals.telesalers = saleUsers.map((user) => {
-                    return user.username;
+                    let newUser = {};
+                    newUser.username = user.username;
+                    newUser.team = user.team;
+                    return newUser;
                 });
                 logging.info("##################--CHECK--#########################")
                 logging.info(JSON.stringify(req.app.locals.telesalers))
