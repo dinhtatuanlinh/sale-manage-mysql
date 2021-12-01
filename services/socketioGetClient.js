@@ -1,5 +1,7 @@
 const database = require(__pathModels + "database");
 const { Op } = require("sequelize");
+const email = require(__pathServices + 'sendemail');
+
 const telesalersManipulation = require(__pathServices +
     "telesalersManipulation");
 const logging = require(__pathServices + "winston_logging");
@@ -75,12 +77,17 @@ module.exports = async (io, app) => {
                                 attributes: ["username", "team"],
                                 where: {
                                     role: {
-                                        [Op.or]: ["telesaler"],
+                                        [Op.or]: ["telesaler1"],
                                     }
                                 },
                             }).then(result=>{
                                 if(result.length === 0){
-                                    
+                                    await email.sendemail(
+                                        "salemanage", 
+                                        "dinhtatuanlinh@gmail.com",
+                                        "Lỗi không có telesaler", 
+                                        "..."
+                                    );
                                 }else{
                                     app.locals.telesalers = result;
                                 }
