@@ -39,31 +39,6 @@ module.exports = async (io, app) => {
             onlineUsers = telesalersM.getListUser();
         });
         socket.on("send_customer_data", async (data) => {
-            if(!app.locals.telesalers){
-                
-                await database.User.findAll({
-                    attributes: ["username", "team"],
-                    where: {
-                        role: {
-                            [Op.or]: ["telesaler1"],
-                        }
-                    },
-                }).then(result=>{
-                    logging.info('111111111')
-                    logging.info(
-                        "##################CHECK#########################"
-                    );
-                    logging.info(JSON.stringify(result));
-                    logging.info(
-                        "##################CHECK#########################"
-                    );
-                }).catch(err=>{
-                    logging.info(JSON.stringify(err));
-                    logging.info(JSON.stringify(err.message));
-                })
-                
-
-            }
             data.status = "none";
             data.note = "";
             await database.Client_info.findOne({
@@ -94,7 +69,28 @@ module.exports = async (io, app) => {
                     } else {
                         // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                         // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
-                        
+                        if(!app.locals.telesalers){
+                
+                            await database.User.findAll({
+                                attributes: ["username", "team"],
+                                where: {
+                                    role: {
+                                        [Op.or]: ["telesaler"],
+                                    }
+                                },
+                            }).then(result=>{
+                                if(result.length === 0){
+                                    
+                                }else{
+                                    app.locals.telesalers = result;
+                                }
+                            }).catch(err=>{
+                                logging.info(JSON.stringify(err));
+                                logging.info(JSON.stringify(err.message));
+                            })
+                            
+            
+                        }
                         if (
                             app.locals.saleUserIndex <
                             app.locals.telesalers.length
