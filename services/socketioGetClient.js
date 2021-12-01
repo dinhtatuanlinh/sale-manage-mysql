@@ -8,6 +8,7 @@ module.exports = async(io, app) => {
     // tạo index cho online telesalers để gán khách hàng cho online telesaler
     // let on_telesaler_index = 0;
     // socket.io events
+    let onlineUsers = [];
     io.on("connection", (socket) => {
         // test connect socketio
         io.emit("server_send_data", socket.id);
@@ -26,28 +27,41 @@ module.exports = async(io, app) => {
             // console.log(online_telesalers);
             socket.broadcast.emit('online_notification', "hello")
                 // io.emit("online_notification", "hello")
+            onlineUsers = telesalersM.getListUser();
         });
         // remove user mới disconnect khỏi class telesalersManipulation
         socket.on("disconnect", async() => {
             telesalersM.removeUser(socket.id);
+            onlineUsers = telesalersM.getListUser();
         });
         socket.on("send_customer_data", async data => {
             data.status = 'none';
             data.note = '';
-            let online_telesalers = telesalersM.getListUser();
-            // sắp xếp lại mảng theo thứ tự username từ a tới z
-            // online_telesalers.sort(function(a, b) {
-            //     return a.number_of_cus.localeCompare(b.number_of_cus);
-            // });
-            // săp xếp số từ lớn tới bé
-            online_telesalers.sort(function(a, b) {
-                return a.number_of_cus - b.number_of_cus;
-            });
-            if (online_telesalers.length === 0) {
+            if (onlineUsers.length > 0){
+                // sắp xếp lại mảng theo thứ tự username từ a tới z
+                // online_telesalers.sort(function(a, b) {
+                //     return a.number_of_cus.localeCompare(b.number_of_cus);
+                // });
+                // săp xếp số từ lớn tới bé
+                onlineUsers.sort(function(a, b) {
+                    return a.number_of_cus - b.number_of_cus;
+                });
+                await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
+                    if (result === null) {
+                        // insert data into table option
+                        data.saler = onlineUsers[0].username;
+                        onlineUsers[0].number_of_cus++;
+                        let saveResult = await database.Client_info.create(data);
+                        saveResult = saveResult.dataValues;
+                        io.to(onlineUsers[0].id).emit("server_send_new_customer", saveResult);
+                    }
+                });
+            }else{
                 await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
                     if (result === null) {
                         // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                         // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
+                        logging.info(JSON.stringify(app.locals.telesalers));
                         if (app.locals.saleUserIndex < app.locals.telesalers.length) {
                             data.saler = app.locals.telesalers[app.locals.saleUserIndex];
                             ++app.locals.saleUserIndex;
@@ -60,18 +74,6 @@ module.exports = async(io, app) => {
 
                     }
                 });
-            } else {
-                await database.Client_info.findOne({ where: { phone: data.phone } }).then(async result => {
-                    if (result === null) {
-                        // insert data into table option
-                        data.saler = online_telesalers[0].username;
-                        online_telesalers[0].number_of_cus++;
-                        let saveResult = await database.Client_info.create(data);
-                        saveResult = saveResult.dataValues;
-                        io.to(online_telesalers[0].id).emit("server_send_new_customer", saveResult);
-                    }
-                });
-
             }
         });
         // console.log("a user connected");

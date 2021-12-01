@@ -30,7 +30,8 @@ let postRegister = async(req, res, next) => {
     let avatarPath = '';
     let fileSizeMB;
     let types = '';
-    await database.Option.findOne({ where: { name: 'avatar' } }).then(result => {
+    await database.Option.findOne({ where: { name: 'avatar' } })
+    .then(result => {
         field = result.name;
 
         let value = JSON.parse(result.value);
