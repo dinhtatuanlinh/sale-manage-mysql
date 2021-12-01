@@ -7,7 +7,6 @@ const { Op } = require("sequelize");
 const logging = require(__pathServices + 'winston_logging');
 let homePage = async(req, res, next) => {
     await check_login(req, res);
-    logging.info("checking log")
     let userInfo = req.user;
     let users;
     await database.User.findAll().then(results => {
