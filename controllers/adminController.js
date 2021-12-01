@@ -233,7 +233,7 @@ let adminChangeProperties = async (req, res, next) => {
                         }
                     },
                 });
-
+                logging.info(JSON.stringify(saleUsers))
                 req.app.locals.telesalers = saleUsers.map((user) => {
                     let newUser = {};
                     newUser.username = user.username;
