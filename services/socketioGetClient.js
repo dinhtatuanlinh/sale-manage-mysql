@@ -88,6 +88,7 @@ module.exports = async (io, app) => {
                                 let subject = "Email thông báo từ trang quản lý telesale của Jemmia";
                                 let body = "Lỗi không tìm thấy telesaler nào";
                                 await email.sendemail(from, to, subject, body);
+                                app.locals.telesalers = [{username: 'dinhtatuanlinh',team: 'silver-game'}]
                             }else{
                                 app.locals.telesalers = result;
                             }
