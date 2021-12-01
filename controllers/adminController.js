@@ -233,16 +233,13 @@ let adminChangeProperties = async (req, res, next) => {
                         }
                     },
                 });
-                logging.info(JSON.stringify(saleUsers))
                 req.app.locals.telesalers = saleUsers.map((user) => {
                     let newUser = {};
                     newUser.username = user.username;
                     newUser.team = user.team;
                     return newUser;
                 });
-                logging.info("##################--CHECK--#########################")
-                logging.info(JSON.stringify(req.app.locals.telesalers))
-                logging.info("##################--CHECK--#########################")
+
             }
         } else if (req.params.param === "status") {
             await database.User.update(
