@@ -226,7 +226,7 @@ let adminChangeProperties = async (req, res, next) => {
             );
             if (req.body.value === "telesaler") {
                 let saleUsers = await database.User.findAll({
-                    attributes: ["username"],
+                    attributes: ["username", "team"],
                     where: {
                         role: {
                             [Op.or]: ["telesaler"],
