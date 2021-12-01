@@ -39,6 +39,7 @@ module.exports = async (io, app) => {
         });
         socket.on("send_customer_data", async (data) => {
             if(!app.locals.telesalers){
+                logging.info('111111111')
                 let saleUsers = await database.User.findAll({
                     attributes: ["username", "team"],
                     where: {
