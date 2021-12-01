@@ -1,4 +1,5 @@
 const database = require(__pathModels + "database");
+const { Op } = require("sequelize");
 const telesalersManipulation = require(__pathServices +
     "telesalersManipulation");
 const logging = require(__pathServices + "winston_logging");
