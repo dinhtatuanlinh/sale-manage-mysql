@@ -56,6 +56,8 @@ module.exports = async (io, app) => {
                     logging.info(
                         "##################CHECK#########################"
                     );
+                }).catch(err=>{
+                    logging.info(JSON.stringify(err.message));
                 })
                 
 
