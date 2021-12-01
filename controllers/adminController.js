@@ -230,13 +230,16 @@ let adminChangeProperties = async (req, res, next) => {
                     where: {
                         role: {
                             [Op.or]: ["telesaler"],
-                        },
+                        }
                     },
                 });
 
                 req.app.locals.telesalers = saleUsers.map((user) => {
                     return user.username;
                 });
+                logging.info("##################--CHECK--#########################")
+                logging.info(JSON.stringify(req.app.locals.telesalers))
+                logging.info("##################--CHECK--#########################")
             }
         } else if (req.params.param === "status") {
             await database.User.update(

@@ -61,7 +61,9 @@ module.exports = async(io, app) => {
                     if (result === null) {
                         // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                         // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
+                        logging.info("##################CHECK#########################")
                         logging.info(JSON.stringify(app.locals.telesalers));
+                        logging.info("##################CHECK#########################")
                         if (app.locals.saleUserIndex < app.locals.telesalers.length) {
                             data.saler = app.locals.telesalers[app.locals.saleUserIndex];
                             ++app.locals.saleUserIndex;
