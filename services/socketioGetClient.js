@@ -95,7 +95,7 @@ module.exports = async (io, app) => {
             
                         }
                         logging.info(JSON.stringify(app.locals.telesalers))
-                        app.locals.telesalers = app.locals.telesalers.filter((user) => user.team !== "silver-game");
+                        app.locals.telesalers = app.locals.telesalers.filter((user) => user.team === "silver-game");
                         logging.info(JSON.stringify(app.locals.telesalers))
                         if (
                             app.locals.saleUserIndex <
