@@ -239,7 +239,7 @@ let adminChangeProperties = async (req, res, next) => {
                     newUser.team = user.team;
                     return newUser;
                 });
-
+                logging.info(JSON.stringify(req.app.locals.telesalers));
             }
         } else if (req.params.param === "status") {
             await database.User.update(
