@@ -86,6 +86,10 @@ let profileEdit = async(req, res, next) => {
                     password = req.user.password;
 
                 }
+                let team = await database.User.findOne({
+                    attributes: ["team"],
+                    where: { id: req.user.id }
+                })
                 let updateTime = Date.now();
                 let updateData = {
                     name: req.body.name,
@@ -95,7 +99,7 @@ let profileEdit = async(req, res, next) => {
                     role: req.user.role,
                     phone: req.body.phone,
                     birthday: req.body.birthday,
-                    team: req.body.team,
+                    team: team,
                     modifiedtime: updateTime,
                     email: req.user.email,
                     manager: req.user.manager,
