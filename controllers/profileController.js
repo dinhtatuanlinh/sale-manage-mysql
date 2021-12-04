@@ -90,6 +90,7 @@ let profileEdit = async(req, res, next) => {
                     attributes: ["team"],
                     where: { id: req.user.id }
                 })
+                console.log(team);
                 let updateTime = Date.now();
                 let updateData = {
                     name: req.body.name,
