@@ -117,7 +117,6 @@ module.exports = async (io, app) => {
             });
         });
         socket.on("send_customer_data_form_single_page_jemmia", async (data) => {
-            logging.info(JSON.stringify(data));
             data.status = "none";
             data.note = "";
             await database.Client_info.findOne({
