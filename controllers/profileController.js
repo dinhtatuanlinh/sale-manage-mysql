@@ -90,7 +90,7 @@ let profileEdit = async(req, res, next) => {
                     attributes: ["team"],
                     where: { id: req.user.id }
                 })
-                logging.info(team);
+                logging.info(JSON.stringify(team));
                 let updateTime = Date.now();
                 let updateData = {
                     name: req.body.name,
@@ -100,7 +100,7 @@ let profileEdit = async(req, res, next) => {
                     role: req.user.role,
                     phone: req.body.phone,
                     birthday: req.body.birthday,
-                    team: team,
+                    // team: team,
                     modifiedtime: updateTime,
                     email: req.user.email,
                     manager: req.user.manager,
