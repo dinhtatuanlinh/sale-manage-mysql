@@ -94,6 +94,8 @@ module.exports = async (io, app) => {
                             }
             
                         }
+                        app.locals.telesalers = app.locals.telesalers.filter((user) => user.team !== "silver-game");
+                        logging.info(JSON.stringify(app.locals.telesalers))
                         if (
                             app.locals.saleUserIndex <
                             app.locals.telesalers.length
