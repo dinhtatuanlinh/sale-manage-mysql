@@ -104,7 +104,7 @@ viewEngine(app);
 
 var server = http.createServer(app);
 // var io = socket_io(server);
-var io = socket_io(server, { cors: { origin: "https://jemmiasilver.vn", methods: ["GET", "POST"], credentials: true } });
+var io = socket_io(server, { cors: { origin: ["https://jemmiasilver.vn","https://jemmia.vn"], methods: ["GET", "POST"], credentials: true } });
 app.io = io;
 // io.attach(server);
 // truyền app vào route

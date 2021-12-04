@@ -47,28 +47,28 @@ module.exports = async (io, app) => {
                 where: { phone: data.phone },
             }).then(async (result) => {
                 if (result === null) {
-                    if (onlineUsers.length > 0) {
-                        // sắp xếp lại mảng theo thứ tự username từ a tới z
-                        // online_telesalers.sort(function(a, b) {
-                        //     return a.number_of_cus.localeCompare(b.number_of_cus);
-                        // });
-                        // săp xếp số từ lớn tới bé
-                        onlineUsers.sort(function (a, b) {
-                            return a.number_of_cus - b.number_of_cus;
-                        });
+                    // if (onlineUsers.length > 0) {
+                    //     // sắp xếp lại mảng theo thứ tự username từ a tới z
+                    //     // online_telesalers.sort(function(a, b) {
+                    //     //     return a.number_of_cus.localeCompare(b.number_of_cus);
+                    //     // });
+                    //     // săp xếp số từ lớn tới bé
+                    //     onlineUsers.sort(function (a, b) {
+                    //         return a.number_of_cus - b.number_of_cus;
+                    //     });
 
-                        // insert data into table option
-                        data.saler = onlineUsers[0].username;
-                        onlineUsers[0].number_of_cus++;
-                        let saveResult = await database.Client_info.create(
-                            data
-                        );
-                        saveResult = saveResult.dataValues;
-                        io.to(onlineUsers[0].id).emit(
-                            "server_send_new_customer",
-                            saveResult
-                        );
-                    } else {
+                    //     // insert data into table option
+                    //     data.saler = onlineUsers[0].username;
+                    //     onlineUsers[0].number_of_cus++;
+                    //     let saveResult = await database.Client_info.create(
+                    //         data
+                    //     );
+                    //     saveResult = saveResult.dataValues;
+                    //     io.to(onlineUsers[0].id).emit(
+                    //         "server_send_new_customer",
+                    //         saveResult
+                    //     );
+                    // } else {
                         // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                         // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
                         if(!app.locals.telesalers){
@@ -108,7 +108,7 @@ module.exports = async (io, app) => {
                             ++app.locals.saleUserIndex;
                         }
                         await database.Client_info.create(data);
-                    }
+                    // }
                 }
             });
         });
