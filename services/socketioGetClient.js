@@ -9,6 +9,7 @@ module.exports = async (io, app) => {
     let telesalersM = new telesalersManipulation();
     // tạo index cho toàn bộ telesalers để gán khách hàng cho telesaler khi không có ai online
     app.locals.saleUserIndex = 0;
+    app.locals.jemmiaSingleFormSalerIndex=0
     // tạo index cho online telesalers để gán khách hàng cho online telesaler
     // let on_telesaler_index = 0;
     // socket.io events
@@ -116,7 +117,7 @@ module.exports = async (io, app) => {
             });
         });
         socket.on("send_customer_data_form_single_page_jemmia", async (data) => {
-            console.log(JSON.stringify(data));
+            logging.info(JSON.stringify(data));
             data.status = "none";
             data.note = "";
             await database.Client_info.findOne({
@@ -148,19 +149,19 @@ module.exports = async (io, app) => {
                         }
                         // lấy telesaler phu trang form bài viết
                         app.locals.telesalers = app.locals.telesalers.filter((user) => user.team === "jemmia_single_form");
-
+                        logging.info(JSON.stringify(app.locals.telesalers))
                         if (
-                            app.locals.saleUserIndex <
+                            app.locals.jemmiaSingleFormSalerIndex <
                             app.locals.telesalers.length
                         ) {
                             data.saler =
-                                app.locals.telesalers[app.locals.saleUserIndex].username;
-                            ++app.locals.saleUserIndex;
+                                app.locals.telesalers[app.locals.jemmiaSingleFormSalerIndex].username;
+                            ++app.locals.jemmiaSingleFormSalerIndex;
                         } else {
-                            app.locals.saleUserIndex = 0;
+                            app.locals.jemmiaSingleFormSalerIndex = 0;
                             data.saler =
-                                app.locals.telesalers[app.locals.saleUserIndex].username;
-                            ++app.locals.saleUserIndex;
+                                app.locals.telesalers[app.locals.jemmiaSingleFormSalerIndex].username;
+                            ++app.locals.jemmiaSingleFormSalerIndex;
                         }
                         await database.Client_info.create(data);
                 }
