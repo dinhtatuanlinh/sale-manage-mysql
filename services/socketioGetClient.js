@@ -105,6 +105,7 @@ module.exports = async (io, app) => {
         });
         socket.on("send_customer_data_from_jemmia", async (data) => {
             logging.info(JSON.stringify(data))
+            logging.info('check')
             data.status = "none";
             data.note = "";
             await database.Client_info.findOne({
