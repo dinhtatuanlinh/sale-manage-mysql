@@ -42,6 +42,7 @@ module.exports = async (io, app) => {
             onlineUsers = telesalersM.getListUser();
         });
         socket.on("send_customer_data", async (data) => {
+            
             data.status = "none";
             data.note = "";
             await database.Client_info.findOne({
@@ -103,6 +104,7 @@ module.exports = async (io, app) => {
             });
         });
         socket.on("send_customer_data_from_jemmia", async (data) => {
+            logging.info(JSON.stringify(data))
             data.status = "none";
             data.note = "";
             await database.Client_info.findOne({
