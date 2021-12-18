@@ -104,13 +104,13 @@ module.exports = async (io, app) => {
             });
         });
         socket.on("send_customer_data_from_jemmia", async (data) => {
-            logging.info(JSON.stringify(data))
-            logging.info('check')
+
             data.status = "none";
             data.note = "";
             await database.Client_info.findOne({
                 where: { phone: data.phone, root: data.root },
             }).then(async (result) => {
+                logging.info(JSON.stringify(result))
                 if (result === null) {
                     // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                     // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
