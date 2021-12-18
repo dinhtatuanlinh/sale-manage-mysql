@@ -115,6 +115,7 @@ module.exports = async (io, app) => {
                     // nếu saleUserIndex nhỏ hơn số phần tử trong mảng telesalers thì lấy telesale ở vị trí index gán vào data.saler sau đó cộng thêm 1 vào index
                     // nếu index băng với số phần tử trong mảng telesalers thì gán index bằng 0 sau đó lấy phần tử vị tri 0 gán vào data.saler sau đó cộng thêm 1 vào index
                     if (!app.locals.telesalers) {
+                        logging.info("check1")
                         let result = await database.User.findAll({
                             attributes: ["username", "team"],
                             where: {
@@ -145,7 +146,7 @@ module.exports = async (io, app) => {
                     app.locals.telesalers = app.locals.telesalers.filter(
                         (user) => user.team === "jemmia_single_form"
                     );
-
+                    logging.info(JSON.stringify(app.locals.telesalers))
                     if (
                         app.locals.saleUserIndex < app.locals.telesalers.length
                     ) {
@@ -162,7 +163,8 @@ module.exports = async (io, app) => {
                             ].username;
                         ++app.locals.saleUserIndex;
                     }
-                    await database.Client_info.create(data);
+                    let a = await database.Client_info.create(data);
+                    logging.info(JSON.stringify(a))
                 }
             });
         });
