@@ -165,70 +165,70 @@ module.exports = async (io, app) => {
                 }
             });
         });
-        socket.on(
-            "send_customer_data_form_single_page_jemmia",
-            async (data) => {
-                data.status = "none";
-                data.note = "";
-                await database.Client_info.findOne({
-                    where: { phone: data.phone },
-                }).then(async (result) => {
-                    if (result === null) {
-                        if (!app.locals.telesalers) {
-                            let result = await database.User.findAll({
-                                attributes: ["username", "team"],
-                                where: {
-                                    role: {
-                                        [Op.or]: ["telesaler"],
-                                    },
-                                },
-                            });
-                            if (result.length === 0) {
-                                logging.info(
-                                    "Lỗi không tìm thấy telesaler nào"
-                                );
-                                let from = "Đinh Tạ Tuấn Linh";
-                                let to = "dinhtatuanlinh@gmail.com";
-                                let subject =
-                                    "Email thông báo từ trang quản lý telesale của Jemmia";
-                                let body = "Lỗi không tìm thấy telesaler nào";
-                                await email.sendemail(from, to, subject, body);
-                                app.locals.telesalers = [
-                                    {
-                                        username: "dinhtatuanlinh",
-                                        team: "silver-game",
-                                    },
-                                ];
-                            } else {
-                                app.locals.telesalers = result;
-                            }
-                        }
-                        // lấy telesaler phu trang form bài viết
-                        app.locals.telesalers = app.locals.telesalers.filter(
-                            (user) => user.team === "jemmia_single_form"
-                        );
-                        logging.info(JSON.stringify(app.locals.telesalers));
-                        if (
-                            app.locals.jemmiaSingleFormSalerIndex <
-                            app.locals.telesalers.length
-                        ) {
-                            data.saler =
-                                app.locals.telesalers[
-                                    app.locals.jemmiaSingleFormSalerIndex
-                                ].username;
-                            ++app.locals.jemmiaSingleFormSalerIndex;
-                        } else {
-                            app.locals.jemmiaSingleFormSalerIndex = 0;
-                            data.saler =
-                                app.locals.telesalers[
-                                    app.locals.jemmiaSingleFormSalerIndex
-                                ].username;
-                            ++app.locals.jemmiaSingleFormSalerIndex;
-                        }
-                        await database.Client_info.create(data);
-                    }
-                });
-            }
-        );
+        // socket.on(
+        //     "send_customer_data_form_single_page_jemmia",
+        //     async (data) => {
+        //         data.status = "none";
+        //         data.note = "";
+        //         await database.Client_info.findOne({
+        //             where: { phone: data.phone },
+        //         }).then(async (result) => {
+        //             if (result === null) {
+        //                 if (!app.locals.telesalers) {
+        //                     let result = await database.User.findAll({
+        //                         attributes: ["username", "team"],
+        //                         where: {
+        //                             role: {
+        //                                 [Op.or]: ["telesaler"],
+        //                             },
+        //                         },
+        //                     });
+        //                     if (result.length === 0) {
+        //                         logging.info(
+        //                             "Lỗi không tìm thấy telesaler nào"
+        //                         );
+        //                         let from = "Đinh Tạ Tuấn Linh";
+        //                         let to = "dinhtatuanlinh@gmail.com";
+        //                         let subject =
+        //                             "Email thông báo từ trang quản lý telesale của Jemmia";
+        //                         let body = "Lỗi không tìm thấy telesaler nào";
+        //                         await email.sendemail(from, to, subject, body);
+        //                         app.locals.telesalers = [
+        //                             {
+        //                                 username: "dinhtatuanlinh",
+        //                                 team: "silver-game",
+        //                             },
+        //                         ];
+        //                     } else {
+        //                         app.locals.telesalers = result;
+        //                     }
+        //                 }
+        //                 // lấy telesaler phu trang form bài viết
+        //                 app.locals.telesalers = app.locals.telesalers.filter(
+        //                     (user) => user.team === "jemmia_single_form"
+        //                 );
+        //                 logging.info(JSON.stringify(app.locals.telesalers));
+        //                 if (
+        //                     app.locals.jemmiaSingleFormSalerIndex <
+        //                     app.locals.telesalers.length
+        //                 ) {
+        //                     data.saler =
+        //                         app.locals.telesalers[
+        //                             app.locals.jemmiaSingleFormSalerIndex
+        //                         ].username;
+        //                     ++app.locals.jemmiaSingleFormSalerIndex;
+        //                 } else {
+        //                     app.locals.jemmiaSingleFormSalerIndex = 0;
+        //                     data.saler =
+        //                         app.locals.telesalers[
+        //                             app.locals.jemmiaSingleFormSalerIndex
+        //                         ].username;
+        //                     ++app.locals.jemmiaSingleFormSalerIndex;
+        //                 }
+        //                 await database.Client_info.create(data);
+        //             }
+        //         });
+        //     }
+        // );
     });
 };
