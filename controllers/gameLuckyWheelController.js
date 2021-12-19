@@ -53,7 +53,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
             }
         }else{
             // add to telesaler
-            salers.filter((user) => user.team == team );
+            salers = salers.filter((user) => user.team == team );
             logging.info(team);
             logging.info(JSON.stringify(salers))
             logging.info('have salers')
