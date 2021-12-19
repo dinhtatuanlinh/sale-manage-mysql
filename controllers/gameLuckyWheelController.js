@@ -41,7 +41,8 @@ let addPendingLineToDB = (pendingLine, team)=>{
 
             for(let i= 0; i<pendingLine.length; i++ ){
                 pendingLine[i].saler = "dinhtatuanlinh";
-
+                pendingLine[i].status = 'none';
+                pendingLine[i].note = "";
                 logging.info(i)
                 let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
@@ -63,7 +64,8 @@ let addPendingLineToDB = (pendingLine, team)=>{
                     
                 }
                 pendingLine[i].saler = salers[index].username;
-
+                pendingLine[i].status = 'none';
+                pendingLine[i].note = "";
                 logging.info(i)
                 let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
