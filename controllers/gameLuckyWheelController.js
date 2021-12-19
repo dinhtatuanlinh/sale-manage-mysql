@@ -27,8 +27,7 @@ let addPendingLineToDB = (pendingLine)=>{
             },
         },
     }).then(async salers=>{
-        logging.info('check 4')
-        logging.info(JSON.stringify(salers))
+
         if (salers.length === 0) {
             // check telesaler if non-exist add to dinhtatuanlinh
             logging.info("Lỗi không tìm thấy telesaler nào");
@@ -41,7 +40,7 @@ let addPendingLineToDB = (pendingLine)=>{
 
             for(let i= 0; i<pendingLine.length; i++ ){
                 pendingLine[i].saler = "dinhtatuanlinh";
-                logging.info(JSON.stringify(pendingLine[i]))
+
                 
                 let customer =await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
@@ -62,13 +61,11 @@ let addPendingLineToDB = (pendingLine)=>{
                     index = 0;
                 }
                 pendingLine[i].saler = salers[index].username;
-                logging.info('check 5')
-                logging.info(JSON.stringify(pendingLine[i]))
-                let customer =await database.Client_info.findOne({
+
+                let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
                 })
                 if(customer === null){
-                    logging.info('check 6')
                     await database.Client_info.create(pendingLine[i]);
                 }
                 index++
@@ -79,21 +76,16 @@ let addPendingLineToDB = (pendingLine)=>{
     })
 }
 let receiveCustommerData = async (req, res, next) => {
-
-    logging.info('check1')
-    logging.info(JSON.stringify(req.body));
-    logging.info('check2')
     pendingLine.addCustomer(req.body);
     let pendingLineReturn = pendingLine.getLine()
-    logging.info(pendingLineReturn.length)
-    if(pendingLineReturn.length >= 2){
+
+    if(pendingLineReturn.length >= 10){
         logging.info('check3')
         req.app.locals.pendingLine = [...pendingLineReturn]
         pendingLine.delLine()
         await addPendingLineToDB(req.app.locals.pendingLine)
         
     }
-    logging.info(JSON.stringify(pendingLine.getLine()));
     res.send(true)
 };
 
