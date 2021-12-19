@@ -27,6 +27,8 @@ let addPendingLineToDB = (pendingLine)=>{
             },
         },
     }).then(async result=>{
+        logging.info('check 4')
+        logging.info(JSON.stringify(result))
         if (result.length === 0) {
             // check telesaler if non-exist add to dinhtatuanlinh
             logging.info("Lỗi không tìm thấy telesaler nào");
@@ -68,8 +70,9 @@ let receiveCustommerData = async (req, res, next) => {
     logging.info(JSON.stringify(req.body));
     logging.info('check2')
 
-    logging.info('check3')
+
     if(pendingLine.getLine().length >= 2){
+        logging.info('check3')
         req.app.locals.pendingLine = [...pendingLine.getLine()]
         pendingLine.delLine()
         await addPendingLineToDB(req.app.locals.pendingLine)
