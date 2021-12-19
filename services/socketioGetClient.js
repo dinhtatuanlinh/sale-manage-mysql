@@ -143,11 +143,12 @@ module.exports = async (io, app) => {
                             app.locals.telesalers = result;
                         }
                     }
-
+                    logging.info("check 2")
+                    logging.info(JSON.stringify(app.locals.telesalers))
                     app.locals.telesalers = app.locals.telesalers.filter(
                         (user) => user.team === "jemmia_single_form"
                     );
-                    logging.info("check 2")
+                    logging.info("check 3")
                     logging.info(JSON.stringify(app.locals.telesalers))
                     if (
                         app.locals.saleUserIndex < app.locals.telesalers.length
@@ -168,6 +169,7 @@ module.exports = async (io, app) => {
                     let a = await database.Client_info.create(data);
                     logging.info("check 3")
                     logging.info(JSON.stringify(a))
+
                 }
             });
         });
