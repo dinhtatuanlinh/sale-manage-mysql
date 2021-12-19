@@ -53,9 +53,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
             }
         }else{
             // add to telesaler
-            salers.filter(
-                (user) => user.team === team
-            );
+            salers.filter((user) => user.team === team );
             logging.info(team);
             logging.info(JSON.stringify(salers))
             logging.info('have salers')
@@ -63,6 +61,8 @@ let addPendingLineToDB = (pendingLine, team)=>{
                 if(index> salers.length){
                     index = 0;
                     pendingLine[i].saler = salers[index].username;
+                    logging.info(pendingLine[i].saler)
+                    logging.info(salers[index].username)
                 }
                 logging.info(i)
                 let customer = await database.Client_info.findOne({
