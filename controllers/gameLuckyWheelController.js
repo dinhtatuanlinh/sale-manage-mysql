@@ -83,7 +83,7 @@ let receiveCustommerData = async (req, res, next) => {
     logging.info('check1')
     logging.info(JSON.stringify(req.body));
     logging.info('check2')
-
+    pendingLine.addCustomer(req.body);
     let pendingLineReturn = pendingLine.getLine()
     logging.info(pendingLineReturn.length)
     if(pendingLineReturn.length >= 2){
@@ -92,8 +92,6 @@ let receiveCustommerData = async (req, res, next) => {
         pendingLine.delLine()
         await addPendingLineToDB(req.app.locals.pendingLine)
         
-    }else{
-        pendingLine.addCustomer(req.body);
     }
     logging.info(JSON.stringify(pendingLine.getLine()));
     res.send(true)
