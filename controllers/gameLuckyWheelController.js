@@ -28,8 +28,8 @@ let addPendingLineToDB = (pendingLine)=>{
         },
     }).then(async salers=>{
         logging.info('check 4')
-        logging.info(JSON.stringify(result))
-        if (result.length === 0) {
+        logging.info(JSON.stringify(salers))
+        if (salers.length === 0) {
             // check telesaler if non-exist add to dinhtatuanlinh
             logging.info("Lỗi không tìm thấy telesaler nào");
             let from = "Đinh Tạ Tuấn Linh";
@@ -53,15 +53,15 @@ let addPendingLineToDB = (pendingLine)=>{
             }
         }else{
             // add to telesaler
-            result.filter(
+            salers.filter(
                 (user) => user.team === "jemmia_single_form"
             );
             
             for(let i= 0; i<pendingLine.length; i++ ){
-                if(index> result.length){
+                if(index> salers.length){
                     index = 0;
                 }
-                pendingLine[i].saler = result[index].username;
+                pendingLine[i].saler = salers[index].username;
                 logging.info('check 5')
                 logging.info(JSON.stringify(pendingLine[i]))
                 let customer =await database.Client_info.findOne({
