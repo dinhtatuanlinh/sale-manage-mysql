@@ -56,6 +56,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
             salers.filter(
                 (user) => user.team === team
             );
+            logging.info(team);
             logging.info('have salers')
             for(let i= 0; i<pendingLine.length; i++ ){
                 if(index> salers.length){
