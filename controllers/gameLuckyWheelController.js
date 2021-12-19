@@ -71,6 +71,7 @@ let receiveCustommerData = async (req, res, next) => {
     logging.info('check2')
 
     let pendingLineReturn = pendingLine.getLine()
+    logging.info(pendingLineReturn.length)
     if(pendingLineReturn.length >= 2){
         logging.info('check3')
         req.app.locals.pendingLine = [...pendingLineReturn]
