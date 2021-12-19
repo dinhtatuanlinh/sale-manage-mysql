@@ -65,6 +65,10 @@ let addPendingLineToDB = (pendingLine)=>{
 let receiveCustommerData = async (req, res, next) => {
     console.log(JSON.stringify(req.query));
     logging.info('check1')
+    console.log(JSON.stringify(req.body));
+    logging.info('check2')
+    console.log(JSON.stringify(req.params));
+    logging.info('check3')
     if(pendingLine.getLine().length >= 2){
         req.app.locals.pendingLine = [...pendingLine.getLine()]
         pendingLine.delLine()
