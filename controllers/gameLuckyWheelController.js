@@ -65,7 +65,7 @@ let addPendingLineToDB = (pendingLine)=>{
 let receiveCustommerData = async (req, res, next) => {
 
     logging.info('check1')
-    logging.info(req.body);
+    logging.info(JSON.stringify(req.body));
     logging.info('check2')
 
     logging.info('check3')
