@@ -7,6 +7,7 @@ const profileController = require(__pathControllers + "profileController");
 const adminController = require(__pathControllers + "adminController");
 const homeController = require(__pathControllers + "homeController");
 const getIPController = require(__pathControllers + 'getIPController');
+const {receiveCustommerData} = require(__pathControllers + 'gameLuckyWheelController')
 // kéo socketio
 const socketioGetClient = require(__pathServices + 'socketioGetClient');
 
@@ -29,6 +30,7 @@ module.exports = (io, app) => {
 
     router.get('/profile', (req, res, next) => { profileController.profileDataPage(req, res, next) });
     router.post('/profile/edit/:id', (req, res, next) => { profileController.profileEdit(req, res, next) });
+    router.post('/gameluckywheel', (req, res, next)=>{receiveCustommerData(req, res, next)})
     socketioGetClient(io, app);
     return router;
 }
