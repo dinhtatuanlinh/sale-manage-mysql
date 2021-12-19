@@ -63,8 +63,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
                     
                 }
                 pendingLine[i].saler = salers[index].username;
-                    logging.info(pendingLine[i].saler)
-                    logging.info(salers[index].username)
+
                 logging.info(i)
                 let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
