@@ -16,8 +16,9 @@ function customerPendingLine(){
         }
     };
 }
-let pendingLine = customerPendingLine();
-let addPendingLineToDB = (pendingLine)=>{
+let jemmiaPendingLine = customerPendingLine();
+let silverPendingLine = customerPendingLine();
+let addPendingLineToDB = (pendingLine, team)=>{
     let index = 0;
     return database.User.findAll({
         attributes: ["username", "team"],
@@ -42,7 +43,7 @@ let addPendingLineToDB = (pendingLine)=>{
                 pendingLine[i].saler = "dinhtatuanlinh";
 
                 logging.info(i)
-                let customer =await database.Client_info.findOne({
+                let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
                 })
                 if(customer === null){
@@ -53,7 +54,7 @@ let addPendingLineToDB = (pendingLine)=>{
         }else{
             // add to telesaler
             salers.filter(
-                (user) => user.team === "jemmia_single_form"
+                (user) => user.team === team
             );
             logging.info('have salers')
             for(let i= 0; i<pendingLine.length; i++ ){
@@ -76,16 +77,30 @@ let addPendingLineToDB = (pendingLine)=>{
     })
 }
 let receiveCustommerData = async (req, res, next) => {
-    pendingLine.addCustomer(req.body);
-    let pendingLineReturn = pendingLine.getLine()
-
-    if(pendingLineReturn.length >= 10){
-        logging.info('check3')
-        req.app.locals.pendingLine = [...pendingLineReturn]
-        pendingLine.delLine()
-        await addPendingLineToDB(req.app.locals.pendingLine)
-        
+    if(req.body.root === 'jemmia.vn'){
+        logging.info(req.body.root)
+        jemmiaPendingLine.addCustomer(req.body);
+        let jemmiaPendingLineReturn = jemmiaPendingLine.getLine()
+        if(jemmiaPendingLineReturn.length >= 2){
+            logging.info('check3')
+            req.app.locals.pendingLine = [...jemmiaPendingLineReturn]
+            jemmiaPendingLine.delLine()
+            await addPendingLineToDB(req.app.locals.pendingLine, "jemmia_single_form")
+        }
     }
+    if(req.body.root === 'jemmiasilver'){
+        silverPendingLine.addCustomer(req.body);
+    
+        let silverPendingLineReturn = silverPendingLine.getLine()
+        
+        if(silverPendingLineReturn.length >= 10){
+            logging.info('check3')
+            req.app.locals.pendingLine = [...silverPendingLineReturn]
+            silverPendingLine.delLine()
+            await addPendingLineToDB(req.app.locals.pendingLine, "silver-game")
+        }
+    }
+
     res.send(true)
 };
 
