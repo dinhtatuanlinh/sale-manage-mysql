@@ -2,7 +2,7 @@ const database = require(__pathModels + "database");
 
 const { Op } = require("sequelize");
 const logging = require(__pathServices + 'winston_logging')
-function custommerPendingLine(){
+function customerPendingLine(){
     let line = [];
     return {
         addCustomer: (customer)=>{
@@ -16,7 +16,7 @@ function custommerPendingLine(){
         }
     };
 }
-let pendingLine = custommerPendingLine();
+let pendingLine = customerPendingLine();
 let addPendingLineToDB = (pendingLine)=>{
     let index = 0;
     return database.User.findAll({
@@ -26,7 +26,7 @@ let addPendingLineToDB = (pendingLine)=>{
                 [Op.or]: ["telesaler"],
             },
         },
-    }).then(async result=>{
+    }).then(async salers=>{
         logging.info('check 4')
         logging.info(JSON.stringify(result))
         if (result.length === 0) {
@@ -42,7 +42,14 @@ let addPendingLineToDB = (pendingLine)=>{
             for(let i= 0; i<pendingLine.length; i++ ){
                 pendingLine[i].saler = "dinhtatuanlinh";
                 logging.info(JSON.stringify(pendingLine[i]))
-                await database.Client_info.create(pendingLine[i]);
+                
+                let customer =await database.Client_info.findOne({
+                    where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
+                })
+                if(customer === null){
+                    await database.Client_info.create(pendingLine[i]);
+                }
+                
             }
         }else{
             // add to telesaler
@@ -55,8 +62,15 @@ let addPendingLineToDB = (pendingLine)=>{
                     index = 0;
                 }
                 pendingLine[i].saler = result[index].username;
-                logging.info(JSON.stringify(pendingLine[i]), 'add to database')
-                await database.Client_info.create(pendingLine[i]);
+                logging.info('check 5')
+                logging.info(JSON.stringify(pendingLine[i]))
+                let customer =await database.Client_info.findOne({
+                    where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
+                })
+                if(customer === null){
+                    logging.info('check 6')
+                    await database.Client_info.create(pendingLine[i]);
+                }
                 index++
             }
         }
