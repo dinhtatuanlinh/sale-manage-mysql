@@ -77,6 +77,7 @@ let receiveCustommerData = async (req, res, next) => {
     }else{
         pendingLine.addCustomer(req.body);
     }
+    logging.info(JSON.stringify(pendingLine.getLine()));
     res.send(true)
 };
 
