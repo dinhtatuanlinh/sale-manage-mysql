@@ -77,21 +77,12 @@ let addPendingLineToDB = (pendingLine, team)=>{
         }else{
             // add to telesaler
             salers = salers.filter((user) => user.team == team );
-            logging.info(JSON.stringify(salers[7]))
-            logging.info(jemmiaTelesaler.getTelesalers().length)
-            logging.info('have salers')
-            logging.info(jemmiaTelesaler.getIndex())
-            logging.info("customer")
-            logging.info(pendingLine.length)
+
             for(let i= 0; i< pendingLine.length; i++ ){
-                logging.info("check")
-                logging.info(jemmiaTelesaler.getIndex())
-                if(jemmiaTelesaler.getIndex() > salers.length){
+                if(jemmiaTelesaler.getIndex() > salers.length - 1){
                     jemmiaTelesaler.zeroIndex();
                     logging.info(jemmiaTelesaler.getIndex())
                 }
-                logging.info("check 0")
-                
                 pendingLine[i].saler = salers[jemmiaTelesaler.getIndex()].username;
                 pendingLine[i].status = 'none';
                 pendingLine[i].note = "";
