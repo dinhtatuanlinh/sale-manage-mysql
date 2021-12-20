@@ -91,6 +91,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
                 pendingLine[i].status = 'none';
                 pendingLine[i].note = "";
                 logging.info(i)
+                logging.info("check")
                 logging.info(jemmiaTelesaler.getIndex())
                 let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
@@ -111,8 +112,7 @@ let receiveCustommerData = async (req, res, next) => {
         logging.info(req.body.root)
         jemmiaPendingLine.addCustomer(req.body);
         let jemmiaPendingLineReturn = jemmiaPendingLine.getLine()
-        if(jemmiaPendingLineReturn.length >= 4){
-            logging.info('check3')
+        if(jemmiaPendingLineReturn.length >= 2){
             req.app.locals.pendingLine = [...jemmiaPendingLineReturn]
             jemmiaPendingLine.delLine()
             await addPendingLineToDB(req.app.locals.pendingLine, "jemmia_single_form")
