@@ -77,7 +77,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
         }else{
             // add to telesaler
             salers = salers.filter((user) => user.team == team );
-            jemmiaTelesaler.addTelesalerList(salers)
+            logging.info(JSON.stringify(salers[7]))
             logging.info(jemmiaTelesaler.getTelesalers().length)
             logging.info('have salers')
             logging.info(jemmiaTelesaler.getIndex())
@@ -86,13 +86,13 @@ let addPendingLineToDB = (pendingLine, team)=>{
             for(let i= 0; i< pendingLine.length; i++ ){
                 logging.info("check")
                 logging.info(jemmiaTelesaler.getIndex())
-                if(jemmiaTelesaler.getIndex() > jemmiaTelesaler.getTelesalers().length){
+                if(jemmiaTelesaler.getIndex() > salers.length){
                     jemmiaTelesaler.zeroIndex();
                     logging.info(jemmiaTelesaler.getIndex())
                 }
                 logging.info("check 0")
-                logging.info(JSON.stringify(jemmiaTelesaler.getTelesalers()[jemmiaTelesaler.getIndex()]))
-                pendingLine[i].saler = jemmiaTelesaler.getTelesalers()[jemmiaTelesaler.getIndex()].username;
+                
+                pendingLine[i].saler = salers[jemmiaTelesaler.getIndex()].username;
                 pendingLine[i].status = 'none';
                 pendingLine[i].note = "";
                 logging.info(i)
