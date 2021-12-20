@@ -83,7 +83,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
             logging.info(jemmiaTelesaler.getIndex())
             logging.info("customer")
             logging.info(JSON.stringify(pendingLine.length))
-            for(let i= 0; i<pendingLine.length; i++ ){
+            for(let i= 0; i<= pendingLine.length; i++ ){
                 if(jemmiaTelesaler.getIndex() > jemmiaTelesaler.getTelesalers().length){
                     jemmiaTelesaler.zeroIndex();
                 }
@@ -112,7 +112,7 @@ let receiveCustommerData = async (req, res, next) => {
         logging.info(req.body.root)
         jemmiaPendingLine.addCustomer(req.body);
         let jemmiaPendingLineReturn = jemmiaPendingLine.getLine()
-        if(jemmiaPendingLineReturn.length >= 2){
+        if(jemmiaPendingLineReturn.length >= 8){
             req.app.locals.pendingLine = [...jemmiaPendingLineReturn]
             jemmiaPendingLine.delLine()
             await addPendingLineToDB(req.app.locals.pendingLine, "jemmia_single_form")
