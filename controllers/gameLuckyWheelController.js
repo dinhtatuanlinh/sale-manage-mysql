@@ -20,10 +20,11 @@ function telesalerList(){
     let telesalers =[];
     let index = 0;
     return {
-        addTelesalerList: (telesalers)=>{
-            telesalers = telesalers
+        addTelesalerList: (salers)=>{
+            telesalers = [...salers]
         },
         getTelesalers: ()=>{
+            logging.info(JSON.stringify(telesalers))
             return telesalers
         },
         plusIndex: ()=>{
