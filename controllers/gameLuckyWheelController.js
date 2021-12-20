@@ -96,7 +96,8 @@ let addPendingLineToDB = (pendingLine, team)=>{
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
                 })
                 if(customer === null){
-                    await database.Client_info.create(pendingLine[i]);
+                    let addCustomer = await database.Client_info.create(pendingLine[i]);
+                    logging.info(JSON.stringify(addCustomer))
                 }
                 jemmiaTelesaler.plusIndex();
             }
