@@ -16,10 +16,32 @@ function customerPendingLine(){
         }
     };
 }
+function telesalerList(){
+    let telesalers =[];
+    let index = 0;
+    return {
+        addTelesalerList: (telesalers)=>{
+            telesalers = telesalers
+        },
+        getTelesalers: ()=>{
+            return telesalers
+        },
+        plusIndex: ()=>{
+            index++
+        },
+        getIndex: ()=>{
+            return index;
+        },
+        zeroIndex: ()=>{
+            index = 0;
+        }
+    }
+}
 let jemmiaPendingLine = customerPendingLine();
 let silverPendingLine = customerPendingLine();
+let jemmiaTelesaler= telesalerList()
 let addPendingLineToDB = (pendingLine, team)=>{
-    let index = 0;
+
     return database.User.findAll({
         attributes: ["username", "team"],
         where: {
@@ -55,15 +77,16 @@ let addPendingLineToDB = (pendingLine, team)=>{
         }else{
             // add to telesaler
             salers = salers.filter((user) => user.team == team );
+            jemmiaTelesaler.addTelesalerList(salers)
             logging.info(team);
-            logging.info(JSON.stringify(salers))
+            logging.info(JSON.stringify(jemmiaTelesaler.getTelesalers()))
             logging.info('have salers')
+            logging.info(jemmiaTelesaler.getIndex())
             for(let i= 0; i<pendingLine.length; i++ ){
-                if(index> salers.length){
-                    index = 0;
-                    
+                if(jemmiaTelesaler.getIndex() > jemmiaTelesaler.getTelesalers().length){
+                    jemmiaTelesaler.zeroIndex();
                 }
-                pendingLine[i].saler = salers[index].username;
+                pendingLine[i].saler = jemmiaTelesaler.getTelesalers()[jemmiaTelesaler.getIndex()].username;
                 pendingLine[i].status = 'none';
                 pendingLine[i].note = "";
                 logging.info(i)
@@ -73,7 +96,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
                 if(customer === null){
                     await database.Client_info.create(pendingLine[i]);
                 }
-                index++
+                jemmiaTelesaler.plusIndex();
             }
         }
     }).catch(err=>{
