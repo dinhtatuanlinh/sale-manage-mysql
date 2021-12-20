@@ -81,6 +81,8 @@ let addPendingLineToDB = (pendingLine, team)=>{
             logging.info(jemmiaTelesaler.getTelesalers().length)
             logging.info('have salers')
             logging.info(jemmiaTelesaler.getIndex())
+            logging.info("customer")
+            logging.info(JSON.stringify(pendingLine.length))
             for(let i= 0; i<pendingLine.length; i++ ){
                 if(jemmiaTelesaler.getIndex() > jemmiaTelesaler.getTelesalers().length){
                     jemmiaTelesaler.zeroIndex();
