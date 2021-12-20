@@ -84,6 +84,8 @@ let addPendingLineToDB = (pendingLine, team)=>{
             logging.info("customer")
             logging.info(JSON.stringify(pendingLine.length))
             for(let i= 0; i< pendingLine.length; i++ ){
+                logging.info("check")
+                logging.info(jemmiaTelesaler.getIndex())
                 if(jemmiaTelesaler.getIndex() > jemmiaTelesaler.getTelesalers().length){
                     jemmiaTelesaler.zeroIndex();
                 }
@@ -91,14 +93,14 @@ let addPendingLineToDB = (pendingLine, team)=>{
                 pendingLine[i].status = 'none';
                 pendingLine[i].note = "";
                 logging.info(i)
-                logging.info("check")
+                logging.info("check 1")
                 logging.info(jemmiaTelesaler.getIndex())
                 let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
                 })
                 if(customer === null){
                     let addCustomer = await database.Client_info.create(pendingLine[i]);
-                    logging.info("check 1")
+                    logging.info("check 2")
                     logging.info(JSON.stringify(addCustomer))
                 }
                 jemmiaTelesaler.plusIndex();
