@@ -24,7 +24,6 @@ function telesalerList(){
             telesalers = [...salers]
         },
         getTelesalers: ()=>{
-            logging.info(JSON.stringify(telesalers))
             return telesalers
         },
         plusIndex: ()=>{
@@ -90,7 +89,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
                 pendingLine[i].status = 'none';
                 pendingLine[i].note = "";
                 logging.info(i)
-                logging.info(jemmiaTelesaler.zeroIndex())
+                logging.info(jemmiaTelesaler.getIndex())
                 let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
                 })
