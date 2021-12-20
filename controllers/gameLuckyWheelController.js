@@ -80,8 +80,6 @@ let addPendingLineToDB = (pendingLine, team)=>{
             salers = salers.filter((user) => user.team == team );
             jemmiaTelesaler.addTelesalerList(salers)
             logging.info(team)
-            let a = jemmiaTelesaler.getTelesalers()
-            logging.info(JSON.stringify(a))
             logging.info('have salers')
             logging.info(jemmiaTelesaler.getIndex())
             for(let i= 0; i<pendingLine.length; i++ ){
