@@ -79,7 +79,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
             // add to telesaler
             salers = salers.filter((user) => user.team == team );
             jemmiaTelesaler.addTelesalerList(salers)
-            logging.info(team)
+            logging.info(jemmiaTelesaler.getTelesalers().length)
             logging.info('have salers')
             logging.info(jemmiaTelesaler.getIndex())
             for(let i= 0; i<pendingLine.length; i++ ){
@@ -90,6 +90,7 @@ let addPendingLineToDB = (pendingLine, team)=>{
                 pendingLine[i].status = 'none';
                 pendingLine[i].note = "";
                 logging.info(i)
+                logging.info(jemmiaTelesaler.zeroIndex())
                 let customer = await database.Client_info.findOne({
                     where: { phone: pendingLine[i].phone, root: pendingLine[i].root },
                 })
