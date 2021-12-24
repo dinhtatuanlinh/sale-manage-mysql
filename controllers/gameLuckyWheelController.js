@@ -120,7 +120,7 @@ let receiveCustommerData = async (req, res, next) => {
     
         let silverPendingLineReturn = silverPendingLine.getLine()
         
-        if(silverPendingLineReturn.length >= 4){
+        if(silverPendingLineReturn.length >= 8){
             logging.info('check3')
             req.app.locals.pendingLine = [...silverPendingLineReturn]
             silverPendingLine.delLine()
