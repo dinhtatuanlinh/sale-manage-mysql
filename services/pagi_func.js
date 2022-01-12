@@ -3,7 +3,7 @@ module.exports = (currentPage, totalItems) => {
     if (isNaN(currentPage) || currentPage === undefined) currentPage = 1;
 
     var pagiParams = {
-        itemsPerPage: 10,
+        itemsPerPage: 20,
         currentPage: currentPage,
         totalItems: totalItems
     }
