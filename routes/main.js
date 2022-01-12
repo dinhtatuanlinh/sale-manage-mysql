@@ -19,7 +19,7 @@ module.exports = (io, app) => {
 
     router.get('/ip/:token', (req, res, next) => { getIPController.getclientIP(req, res, next) });
 
-    router.get('/customer-data/:saler?', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
+    router.get('/customer-data', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
     router.get('/customer-data-realtime', (req, res, next) => { customerDataController.customerDataPage(req, res, next) });
     router.get('/customer-data/single-client/:id', (req, res, next) => { customerDataController.singleCustomer(req, res, next) });
     router.post('/customer-data/edit/:id', (req, res, next) => { customerDataController.editCustomer(req, res, next) });

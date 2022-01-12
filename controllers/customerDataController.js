@@ -37,7 +37,7 @@ let customerDataPage = async(req, res, next) => {
             ],
 
         });
-    }else if(req.params.saler ){
+    }else if(req.query.saler){
         let numberOfTable = await database.Client_info.count({ where: { saler: req.params.saler, status: statusquery  } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({

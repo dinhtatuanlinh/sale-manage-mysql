@@ -367,6 +367,7 @@ main #detail button {
     padding: 10px 8px;
     border: 1px solid #fff;
     border-radius: 3px;
+    color: #ccc;
 }
 
 h1 {

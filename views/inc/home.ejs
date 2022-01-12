@@ -19,7 +19,7 @@
                             <div class="email">Email:
                                 <%= user.email %>
                             </div>
-                            <a class="button" href="customer-data/<%= user.username %>"></a>
+                            <a class="button" href="customer-data?saler=<%= user.username %>">Show</a>
                         </div>
                     <% } %>
                 <% }) %>
