@@ -8,6 +8,10 @@ const { Op } = require("sequelize");
 let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
+    console.log(req.params.id);
+    if(req.params.id === undefined){
+
+    }
     let userInfo = req.user;
     let statusquery = req.query.ss
     let sendStatusQuery = req.query.ss
@@ -25,6 +29,19 @@ let customerDataPage = async(req, res, next) => {
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
             where: { status:  statusquery},
+            offset: pagiParams.position,
+            limit: pagiParams.itemsPerPage,
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['id', 'DESC']
+            ],
+
+        });
+    }else if(req.params.saler ){
+        let numberOfTable = await database.Client_info.count({ where: { saler: req.params.saler, status: statusquery  } });
+        pagiParams = pagination(parseInt(req.query.p), numberOfTable);
+        clientDatas = await database.Client_info.findAll({
+            where: { saler: req.params.saler, status: statusquery },
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
