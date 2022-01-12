@@ -8,10 +8,7 @@ const { Op } = require("sequelize");
 let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
-    console.log(req.params.id);
-    if(req.params.id === undefined){
-
-    }
+    console.log(req.query.saler);
     let userInfo = req.user;
     let statusquery = req.query.ss
     let sendStatusQuery = req.query.ss
@@ -24,7 +21,7 @@ let customerDataPage = async(req, res, next) => {
     }
     let clientDatas
     let pagiParams
-    if (userInfo.role === 'admin' || userInfo.role === 'sale_manager') {
+    if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { status: statusquery  } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({

@@ -364,7 +364,8 @@ main #detail button {
 
 .button {
     display: block;
-    padding: 10px 8px;
+    padding: 5px 10px;
+    margin: 5px 0;
     border: 1px solid #fff;
     border-radius: 3px;
     color: #ccc;
