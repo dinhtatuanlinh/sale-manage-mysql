@@ -21,12 +21,11 @@
                         <% users.forEach(user=>{ %>
                             <div class="user">
                                 <div class="box">
-                                    <div>Avatar:</div>
                                     <div>
                                         <img src="imgs/avatars/<%= user.avatar || 'Fuhrer.jpg' %>" alt="<%= user.username %>" />
                                     </div>
                                 </div>
-                                <div class="box">
+                                <div class="box info">
                                     <div>
                                         <strong>Name:</strong> <%= user.name %>
                                     </div>
@@ -44,7 +43,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="box">
+                                <div class="box options">
                                     <div>Manager:</div>
                                     <div>
 
@@ -78,7 +77,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="box">
+                                <div class="box team">
                                     <div>Team:</div>
                                     <div>
                                         <%= user.team %>

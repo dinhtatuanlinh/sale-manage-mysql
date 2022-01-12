@@ -393,8 +393,20 @@ h1 {
 #admin_users .user .box {
     border-right: 1px solid #333;
     border-top: 1px solid #333;
+    padding: 5px;
 }
-
+#admin_users .user .info {
+    width: 270px;
+    overflow-x: scroll;
+}
+#admin_users .user .options {
+    width: 150px;
+    overflow-x: scroll;
+}
+#admin_users .user .team{
+    width: 150px;
+    overflow-x: scroll;
+}
 #admin_users .user .box img {
     width: 80px;
     height: auto;
