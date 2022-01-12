@@ -368,6 +368,7 @@ main #detail button {
     border: 1px solid #fff;
     border-radius: 3px;
     color: #ccc;
+    text-decoration: none;
 }
 
 h1 {

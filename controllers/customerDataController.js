@@ -38,10 +38,10 @@ let customerDataPage = async(req, res, next) => {
 
         });
     }else if(req.query.saler){
-        let numberOfTable = await database.Client_info.count({ where: { saler: req.params.saler, status: statusquery  } });
+        let numberOfTable = await database.Client_info.count({ where: { saler: req.query.saler, status: statusquery  } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
-            where: { saler: req.params.saler, status: statusquery },
+            where: { saler: req.query.saler, status: statusquery },
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
