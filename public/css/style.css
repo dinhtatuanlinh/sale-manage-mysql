@@ -407,7 +407,7 @@ h1 {
     width: 160px;
     overflow-x: scroll;
 }
-#admin_users .user time {
+#admin_users .user .time {
     width: 200px;
 }
 #admin_users .user .box img {
