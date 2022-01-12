@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
 let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
-    console.log(req.query.saler);
+
     let userInfo = req.user;
     let statusquery = req.query.ss
     let sendStatusQuery = req.query.ss
@@ -77,7 +77,7 @@ let customerDataPage = async(req, res, next) => {
     customerStatus = JSON.parse(customerStatus.value);
 
     res.locals.title = "Customer Data Page";
-
+    let saler = req.query.saler
     let customers = await pending_customers(userInfo)
     res.locals.pending_customers = customers[0];
     res.locals.total_customers = customers[1];;
@@ -88,7 +88,8 @@ let customerDataPage = async(req, res, next) => {
         url,
         customerStatus,
         pagiParams,
-        sendStatusQuery
+        sendStatusQuery,
+        saler
     });
 
 };
