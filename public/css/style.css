@@ -387,7 +387,7 @@ h1 {
 
 #admin_users .user {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 #admin_users .user .box {
