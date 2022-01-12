@@ -13,6 +13,7 @@ const connection = new Sequelize(
         logging: false // không hiện câu lệnh sql trong terminal
     }
 );
+logging.info(process.env.DATABASE_USERNAME);
 let connectDB = async() => {
     try {
         // test kết nối tới database thành công thì in ra sai thì chạy hàm catch
