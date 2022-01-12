@@ -89,8 +89,9 @@
                                     </div>
                                     <div><strong>Modified time:</strong> <%- new Date(user.modifiedtime).getFullYear() + '/' + (new
                                         Date(user.modifiedtime).getMonth() +1) + '/' + new
-                                        Date(user.modifiedtime).getDate() %></div>
-                                    <div>
+                                        Date(user.modifiedtime).getDate() %>
+                                    </div>
+                                    
                                 </div>
                                 <div class="box">
                                     <div>Status:</div>
@@ -100,7 +101,7 @@
                                             <% let selected = sta === user.status? 'selected': '' %>
                                             <option value="<%= sta %>" <%= selected %>><%= sta.replace('_',' ') %></option> 
                                         <% }) %> 
-                                    </select>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
