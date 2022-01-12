@@ -44,7 +44,7 @@ let profileEdit = async(req, res, next) => {
     })
     let upload = require(__pathServices + "upload")(field, avatarPath, fileSizeMB, types);
     upload(req, res, async(errUpload) => {
-
+        
         //check id người đang sử dụng và id người truyền lên là cùng 1 người
         if (req.user.id === req.params.id) {
 
@@ -53,8 +53,9 @@ let profileEdit = async(req, res, next) => {
 
             // registerData = req.user;
             let validatorErr = await editProfileValidator(req);
-
+            
             if (errUpload) {
+                
                 // A Multer error occurred when uploading.
                 validatorErr.push({ param: 'avatar', msg: errUpload });
             };
@@ -71,10 +72,11 @@ let profileEdit = async(req, res, next) => {
                     // registerData
                 })
             } else {
-
-                if (req.file !== undefined) {
+                if (req.file !== undefined && req.user.avatar !== '') {
                     avatar = req.file.filename;
                     fs.unlinkSync(__pathIMGS + "avatars/" + req.user.avatar);
+                } else if(req.user.avatar === ''){
+                    avatar = req.file.filename
                 } else {
                     avatar = req.user.avatar;
                 }

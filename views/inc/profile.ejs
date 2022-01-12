@@ -11,7 +11,7 @@
                         <div class="key">Avatar:</div>
                         <div class="box">
                             <div class="value">
-                                <img src="imgs/avatars/<%= userInfo.avatar %>" alt="avatar" />
+                                <img src="imgs/avatars/<%= userInfo.avatar || 'Fuhrer.jpg' %>" alt="avatar" />
                             </div>
                             <input type="file" name="avatar" class="profile_fields" />
                         </div>

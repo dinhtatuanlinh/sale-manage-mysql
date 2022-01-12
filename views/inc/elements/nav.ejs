@@ -11,7 +11,7 @@
         <ul>
             <li id="${userInfo._id}" onclick="changeMenuColor(this)">
                 <a href="profile">
-                    <img src="imgs/avatars/${userInfo.avatar}" alt="avatar">
+                    <img src="imgs/avatars/${userInfo.avatar || 'Fuhrer.jpg'}" alt="avatar">
                     <div class="name">${name}</div>
                     <p>Profile</p>
                 </a>

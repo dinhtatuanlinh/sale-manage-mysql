@@ -6,7 +6,7 @@
                 <% users.forEach(user=>{ %>
                     <% if(user.username !== 'dinhtatuanlinh'){ %>
                         <div class="users">
-                            <img src="imgs/avatars/<%= user.avatar %>" alt="<%= user.avatar %>">
+                            <img src="imgs/avatars/<%= user.avatar || 'Fuhrer.jpg' %>">
                             <div class="name">Name:
                                 <%= user.name %>
                             </div>

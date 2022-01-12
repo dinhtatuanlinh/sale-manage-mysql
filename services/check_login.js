@@ -15,12 +15,12 @@ let check_login = (req, res) => {
                 registerData
             });
             // return false;
-        }
-        // logging.info("#####################");
-        // logging.info(JSON.stringify(req.user));
+        }else{
         res.locals.username = req.user.username;
         res.locals.role = req.user.role;
         respond(true);
+        }
+
     })
 }
 module.exports = check_login;
