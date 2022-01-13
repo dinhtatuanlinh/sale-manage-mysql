@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
 let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
-
+    console.log(req.query.saler);
     let userInfo = req.user;
     let statusquery = req.query.ss
     let sendStatusQuery = req.query.ss
@@ -34,7 +34,7 @@ let customerDataPage = async(req, res, next) => {
             ],
 
         });
-    }else if(req.query.saler){
+    }else if(req.query.saler && req.query.saler !== "undefined"){
         let numberOfTable = await database.Client_info.count({ where: { saler: req.query.saler, status: statusquery  } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
@@ -60,6 +60,7 @@ let customerDataPage = async(req, res, next) => {
             ],
 
         });
+        console.log(clientDatas);
     }
     // get data cua trang hien tai
 
@@ -78,6 +79,7 @@ let customerDataPage = async(req, res, next) => {
 
     res.locals.title = "Customer Data Page";
     let saler = req.query.saler
+    console.log(saler);
     let customers = await pending_customers(userInfo)
     res.locals.pending_customers = customers[0];
     res.locals.total_customers = customers[1];;
