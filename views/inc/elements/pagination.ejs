@@ -1,34 +1,35 @@
 <% 
-    pagination = (pagiParams,sendStatusQuery,saler) =>{
+    pagination = (pagiParams,sendStatusQuery,saler,webQuery) =>{
+        webQuery = webQuery ? `&web=${webQuery} : '';
         let salerQuery = saler ? `&saler=${saler}` : ''
         var html = `<ul class="pagination text-center">`;
         var link = 'customer-data' 
         if(pagiParams.currentPage === 1){
             html += `<li class="disabled"><a>«</a></li>`;
         }else{
-            html += `<li><a target="_self" href="${link}?p=1&ss=${sendStatusQuery}${salerQuery}">«</a></li>`;
+            html += `<li><a target="_self" href="${link}?p=1&ss=${sendStatusQuery}${salerQuery}${webQuery}">«</a></li>`;
         }
         
         if(pagiParams.currentPage === 2){
             html += `<li>
-                    <a target="_self" href="${link}?p=1&ss=${sendStatusQuery}${salerQuery}">1</a>
+                    <a target="_self" href="${link}?p=1&ss=${sendStatusQuery}${salerQuery}${webQuery}">1</a>
                 </li>`;
         }else if(pagiParams.currentPage === 3){
             html += `<li>
-                    <a target="_self" href="${link}?p=1&ss=${sendStatusQuery}${salerQuery}">1</a>
+                    <a target="_self" href="${link}?p=1&ss=${sendStatusQuery}${salerQuery}${webQuery}">1</a>
                 </li>
                 <li>
-                    <a target="_self" href="${link}?p=2&ss=${sendStatusQuery}${salerQuery}">2</a>
+                    <a target="_self" href="${link}?p=2&ss=${sendStatusQuery}${salerQuery}${webQuery}">2</a>
                 </li>`;
         }else if(pagiParams.currentPage > 3){
             html += `<li>
-                    <a target="_self" href="${link}?p=1&ss=${sendStatusQuery}${salerQuery}">1</a>
+                    <a target="_self" href="${link}?p=1&ss=${sendStatusQuery}${salerQuery}${webQuery}">1</a>
                 </li>
                 <li class="active">
                         <a>...</a>
                 </li>
                 <li>
-                    <a target="_self" href="${link}?p=${pagiParams.currentPage-1}&ss=${sendStatusQuery}${salerQuery}">${pagiParams.currentPage-1}</a>
+                    <a target="_self" href="${link}?p=${pagiParams.currentPage-1}&ss=${sendStatusQuery}${salerQuery}${webQuery}">${pagiParams.currentPage-1}</a>
                 </li>`;
         }
         html += `<li class="active">
@@ -37,32 +38,32 @@
                 `;
         if(pagiParams.currentPage === (pagiParams.totalPages -1)){
             html += `<li>
-                    <a target="_self" href="${link}?p=${pagiParams.totalPages}&ss=${sendStatusQuery}${salerQuery}">${pagiParams.totalPages}</a>
+                    <a target="_self" href="${link}?p=${pagiParams.totalPages}&ss=${sendStatusQuery}${salerQuery}${webQuery}">${pagiParams.totalPages}</a>
                 </li>`;
         }else if(pagiParams.currentPage === (pagiParams.totalPages -2)){
             html += `
                 <li>
-                    <a target="_self" href="${link}?p=${pagiParams.totalPages-1}&ss=${sendStatusQuery}${salerQuery}">${pagiParams.totalPages-1}</a>
+                    <a target="_self" href="${link}?p=${pagiParams.totalPages-1}&ss=${sendStatusQuery}${salerQuery}${webQuery}">${pagiParams.totalPages-1}</a>
                 </li>
                 <li>
-                    <a target="_self" href="${link}?p=${pagiParams.totalPages}&ss=${sendStatusQuery}${salerQuery}">${pagiParams.totalPages}</a>
+                    <a target="_self" href="${link}?p=${pagiParams.totalPages}&ss=${sendStatusQuery}${salerQuery}${webQuery}">${pagiParams.totalPages}</a>
                 </li>
                 `;
         }else if(pagiParams.currentPage < (pagiParams.totalPages -2)){
             html += `<li>
-                    <a target="_self" href="${link}?p=${pagiParams.currentPage+1}&ss=${sendStatusQuery}${salerQuery}">${pagiParams.currentPage+1}</a>
+                    <a target="_self" href="${link}?p=${pagiParams.currentPage+1}&ss=${sendStatusQuery}${salerQuery}${webQuery}">${pagiParams.currentPage+1}</a>
                 </li>
                 <li class="active">
                         <a>...</a>
                 </li>
                 <li>
-                    <a target="_self" href="${link}?p=${pagiParams.totalPages}&ss=${sendStatusQuery}${salerQuery}">${pagiParams.totalPages}</a>
+                    <a target="_self" href="${link}?p=${pagiParams.totalPages}&ss=${sendStatusQuery}${salerQuery}${webQuery}">${pagiParams.totalPages}</a>
                 </li>`;
         }
         if(pagiParams.currentPage === pagiParams.totalPages){
             html += `<li class="disabled"><a>»</a></li>`;
         }else{
-            html += `<li><a target="_self" href="${link}?p=${pagiParams.totalPages}&ss=${sendStatusQuery}${salerQuery}">»</a></li>`;
+            html += `<li><a target="_self" href="${link}?p=${pagiParams.totalPages}&ss=${sendStatusQuery}${salerQuery}${webQuery}">»</a></li>`;
         }
         html += `</ul>`;
         return ` ${html} `;
