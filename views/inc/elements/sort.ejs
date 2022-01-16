@@ -1,8 +1,6 @@
 <% 
     sort=(status, url, webQuery, sendStatusQuery)=>{
         let statusHtml = '';
-        <!-- let status = sendStatusQuery ? sendStatusQuery : '';
-        let web = webQuery ? webQuery : ''; -->
         status.forEach(e=>{
             statusHtml += `<p><input type="checkbox" class="statusCheck" id="${e}" value="${e}" /><label for="${e}">${e}</label></p>`
         })
@@ -17,11 +15,11 @@
                 <div>
                     ${statusHtml}
                 </div>
-                <input type="button" value="filter" onclick="filterFunc('${url}/customer-data', '${web}')" />
+                <input type="button" value="filter" onclick="filterFunc('${url}/customer-data', '${webQuery}')" />
                 <input type="hidden" value="" id="statusQuery" />
             </div>
             <div id="web">
-                <select name="web" id="" onchange="selectWeb(this, '${status}', '${url}/customer-data')">
+                <select name="web" id="" onchange="selectWeb(this, '${sendStatusQuery}', '${url}/customer-data')">
                     <option value="all">All</option>
                     <option value="jemmia.vn">jemmia.vn</option>
                     <option value="jemmiasilver">jemmiasilver</option>

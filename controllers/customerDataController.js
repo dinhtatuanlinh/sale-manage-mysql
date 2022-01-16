@@ -97,6 +97,7 @@ let customerDataPage = async(req, res, next) => {
     let customers = await pending_customers(userInfo)
     res.locals.pending_customers = customers[0];
     res.locals.total_customers = customers[1];
+    console.log(sendStatusQuery, webQuery);
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}customer_data`, {
         userInfo,
