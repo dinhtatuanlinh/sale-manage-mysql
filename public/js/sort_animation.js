@@ -70,7 +70,7 @@ function toTimestamp(strDate){
     var datum = Date.parse(strDate);
     return datum/1000;
  }
-let filterDate = ()=>{
+let filterDate = (url)=>{
     let dateFrom = document.getElementById('dateFrom');
     let dateTo = document.getElementById('dateFrom');
     console.log(toTimestamp(dateFrom.value), toTimestamp(dateTo.value));
