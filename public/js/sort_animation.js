@@ -73,7 +73,7 @@ function toTimestamp(strDate){
 let filterDate = (url)=>{
     let dateFrom = document.getElementById('dateFrom');
     let dateTo = document.getElementById('dateFrom');
-
+    console.log(dateFrom, dateTo);
     if(dateFrom && dateTo && toTimestamp(dateFrom.value)< Date.now()){
         let time = `${toTimestamp(dateFrom.value)}-${toTimestamp(dateTo.value)}`
         console.log(time);
