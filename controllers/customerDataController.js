@@ -8,6 +8,7 @@ const { Op } = require("sequelize");
 let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
+    if(req.query.web)
     let userInfo = req.user;
     let statusquery = req.query.ss
     let sendStatusQuery = req.query.ss
@@ -20,7 +21,7 @@ let customerDataPage = async(req, res, next) => {
     }
     let web = [];
     let webQuery = req.query.web
-    if(webQuery === "all" || webQuery === undefined || webQuery === null){
+    if(webQuery === "all" || webQuery === undefined || webQuery === null || webQuery === ''){
         web = [{root: 'jemmia.vn'},{root: 'jemmiasilver'}]
         webQuery = ``
     }else{
@@ -91,13 +92,11 @@ let customerDataPage = async(req, res, next) => {
     let customerStatus = await database.Option.findOne({ where: { name: 'customer' } })
 
     customerStatus = JSON.parse(customerStatus.value);
-    logging.info('abc');
     res.locals.title = "Customer Data Page";
     let saler = req.query.saler
     let customers = await pending_customers(userInfo)
     res.locals.pending_customers = customers[0];
     res.locals.total_customers = customers[1];
-    console.log(sendStatusQuery, webQuery);
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}customer_data`, {
         userInfo,
