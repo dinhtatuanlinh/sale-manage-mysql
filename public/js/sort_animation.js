@@ -72,12 +72,14 @@ function toTimestamp(strDate){
  }
 let filterDate = (url)=>{
     let dateFrom = document.getElementById('dateFrom');
-    let dateTo = document.getElementById('dateFrom');
-    console.log(dateFrom.value, dateTo.value);
+    let dateTo = document.getElementById('dateTo');
+    // console.log(dateFrom.value, dateTo.value);
     if(dateFrom && dateTo && toTimestamp(dateFrom.value)< Date.now()){
         let time = `${toTimestamp(dateFrom.value)}-${toTimestamp(dateTo.value)}`
-        console.log(time);
-        // window.location.replace(`https://${url}?time=${time}`)
+        // console.log(time);
+        window.location.replace(`https://${url}?time=${time}`)
+    }else{
+        alert('dữ liệu chưa đúng')
     }
-    alert('dữ liệu chưa đúng')
+    
 }
