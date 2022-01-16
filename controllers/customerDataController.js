@@ -37,8 +37,16 @@ let customerDataPage = async(req, res, next) => {
     let to;
     if(dateQuery){
         period = dateQuery.split("-");
-        from = parseInt(period[0])
-        to = parseInt(period[1])
+        if(parseInt(period[0])>parseInt(period[1])){
+            from = 0
+            to = Date.now()
+        }else if(parseInt(period[1])>Date.now()){
+            from = parseInt(period[0])
+            to = Date.now()
+        }else{
+            from = parseInt(period[0])
+            to = parseInt(period[1])
+        }
     }else{
         from = 0
         to = Date.now()
