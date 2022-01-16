@@ -75,5 +75,5 @@ let filterDate = (url)=>{
     let dateTo = document.getElementById('dateFrom');
     console.log(toTimestamp(dateFrom.value), toTimestamp(dateTo.value));
     let time = `${toTimestamp(dateFrom.value)}-${toTimestamp(dateTo.value)}`
-    window.location.replace(`https://${url}?time=${time}`)
+    // window.location.replace(`https://${url}?time=${time}`)
 }
