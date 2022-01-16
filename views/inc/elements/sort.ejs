@@ -2,6 +2,7 @@
     sort=(status, url, webQuery, sendStatusQuery)=>{
         let statusHtml = '';
         let status = sendStatusQuery ? sendStatusQuery : '';
+        let web = webQuery ? webQuery : '';
         status.forEach(e=>{
             statusHtml += `<p><input type="checkbox" class="statusCheck" id="${e}" value="${e}" /><label for="${e}">${e}</label></p>`
         })
@@ -16,7 +17,7 @@
                 <div>
                     ${statusHtml}
                 </div>
-                <input type="button" value="filter" onclick="filterFunc('${url}/customer-data', '${webQuery}')" />
+                <input type="button" value="filter" onclick="filterFunc('${url}/customer-data', '${web}')" />
                 <input type="hidden" value="" id="statusQuery" />
             </div>
             <div id="web">
