@@ -1,8 +1,8 @@
 <% 
     sort=(status, url, webQuery, sendStatusQuery)=>{
         let statusHtml = '';
-        let status = sendStatusQuery ? sendStatusQuery : '';
-        let web = webQuery ? webQuery : '';
+        <!-- let status = sendStatusQuery ? sendStatusQuery : '';
+        let web = webQuery ? webQuery : ''; -->
         status.forEach(e=>{
             statusHtml += `<p><input type="checkbox" class="statusCheck" id="${e}" value="${e}" /><label for="${e}">${e}</label></p>`
         })
