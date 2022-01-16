@@ -78,7 +78,7 @@ let filterDate = (url)=>{
         console.log(dateTo);
         let time = `${toTimestamp(dateFrom.value)}-${toTimestamp(dateTo.value)}`
         // console.log(time);
-        window.location.replace(`https://${url}?time=${time}`)
+        // window.location.replace(`https://${url}?time=${time}`)
     }else{
         alert('dữ liệu chưa đúng')
     }
