@@ -1,7 +1,7 @@
 <% 
     sort=(status, url, webQuery, sendStatusQuery)=>{
         let statusHtml = '';
-
+        let status = sendStatusQuery ? sendStatusQuery : '';
         status.forEach(e=>{
             statusHtml += `<p><input type="checkbox" class="statusCheck" id="${e}" value="${e}" /><label for="${e}">${e}</label></p>`
         })
@@ -20,7 +20,7 @@
                 <input type="hidden" value="" id="statusQuery" />
             </div>
             <div id="web">
-                <select name="web" id="" onchange="selectWeb(this, '${sendStatusQuery}', '${url}/customer-data')">
+                <select name="web" id="" onchange="selectWeb(this, '${status}', '${url}/customer-data')">
                     <option value="all">All</option>
                     <option value="jemmia.vn">jemmia.vn</option>
                     <option value="jemmiasilver">jemmiasilver</option>
