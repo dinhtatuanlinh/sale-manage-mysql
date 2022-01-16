@@ -62,6 +62,18 @@ let filterFunc =(url, webQuery)=>{
     statusCheckFunc()
     window.location.replace(`https://${url}?ss=${statusQuery}&web=${webQuery}`);
 }
-let selectWeb = (e, sendStatusQuery, url)=>{
-    window.location.replace(`https://${url}?web=${e.value}&ss=${sendStatusQuery}`)
+let selectWeb = (e, sendStatusQuery, url, dateQuery)=>{
+    window.location.replace(`https://${url}?web=${e.value}&ss=${sendStatusQuery}&time=${dateQuery}`)
+}
+
+function toTimestamp(strDate){
+    var datum = Date.parse(strDate);
+    return datum/1000;
+ }
+let filterDate = ()=>{
+    let dateFrom = document.getElementById('dateFrom');
+    let dateTo = document.getElementById('dateFrom');
+    console.log(toTimestamp(dateFrom.value), toTimestamp(dateTo.value));
+    let time = `${toTimestamp(dateFrom.value)}-${toTimestamp(dateTo.value)}`
+    window.location.replace(`https://${url}?time=${time}`)
 }

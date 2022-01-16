@@ -31,16 +31,40 @@ let customerDataPage = async(req, res, next) => {
     }else{
         salerQuery = `&saler=${req.query.saler}`
     }
+    let dateQuery = req.query.time;
+    let period;
+    let from;
+    let to;
+    if(dateQuery){
+        period = dateQuery.split("-");
+        from = parseInt(period[0])
+        to = parseInt(period[1])
+    }else{
+        from = 0
+        to = Date.now()
+        dateQuery = ''
+    }
     let clientDatas
     let pagiParams
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
-            [Op.or]: web
+            [Op.or]: web,
+            createdtime: {
+                [Op.gt]: from,
+                [Op.lt]: to
+            }
         } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
-            where: { status:  statusquery, [Op.or]: web},
+            where: { 
+                status:  statusquery, 
+                [Op.or]: web,
+                createdtime: {
+                    [Op.gt]: from,
+                    [Op.lt]: to
+                }
+            },
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
@@ -50,10 +74,27 @@ let customerDataPage = async(req, res, next) => {
 
         });
     }else if(req.query.saler && req.query.saler !== "undefined"){
-        let numberOfTable = await database.Client_info.count({ where: { saler: req.query.saler, status: statusquery,[Op.or]: web  } });
+        let numberOfTable = await database.Client_info.count({ 
+            where: { 
+                saler: req.query.saler, 
+                status: statusquery,
+                [Op.or]: web,
+                createdtime: {
+                    [Op.gt]: from,
+                    [Op.lt]: to
+                }
+            } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
-            where: { saler: req.query.saler, status: statusquery,[Op.or]: web },
+            where: { 
+                saler: req.query.saler, 
+                status: statusquery,
+                [Op.or]: web,
+                createdtime: {
+                    [Op.gt]: from,
+                    [Op.lt]: to
+                } 
+            },
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
@@ -63,10 +104,27 @@ let customerDataPage = async(req, res, next) => {
 
         });
     } else {
-        let numberOfTable = await database.Client_info.count({ where: { saler: userInfo.username, status: statusquery, [Op.or]: web  } });
+        let numberOfTable = await database.Client_info.count({ 
+            where: { 
+                saler: userInfo.username, 
+                status: statusquery, 
+                [Op.or]: web,
+                createdtime: {
+                    [Op.gt]: from,
+                    [Op.lt]: to
+                }  
+            } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
-            where: { saler: userInfo.username, status: statusquery, [Op.or]: web },
+            where: { 
+                saler: userInfo.username, 
+                status: statusquery, 
+                [Op.or]: web,
+                createdtime: {
+                    [Op.gt]: from,
+                    [Op.lt]: to
+                } 
+            },
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
@@ -75,7 +133,7 @@ let customerDataPage = async(req, res, next) => {
             ],
 
         });
-        console.log(clientDatas);
+
     }
     // get data cua trang hien tai
 
@@ -105,7 +163,8 @@ let customerDataPage = async(req, res, next) => {
         pagiParams,
         sendStatusQuery,
         saler,
-        webQuery
+        webQuery,
+        dateQuery
     });
 
 };

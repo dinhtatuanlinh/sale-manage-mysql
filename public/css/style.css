@@ -246,7 +246,9 @@ main #general #customer_list .active>a {
     color: #727272;
     text-decoration: underline;
 }
-
+#timefilter input{
+    display: block;
+}
 main #detail {
     padding: 10px;
     border-left: 1px solid #333;
