@@ -68,7 +68,7 @@ let selectWeb = (e, sendStatusQuery, url, dateQuery)=>{
 
 function toTimestamp(strDate){
     var datum = Date.parse(strDate);
-    return datum/1000000;
+    return datum;
  }
 let filterDate = (url)=>{
     let dateFrom = document.getElementById('dateFrom');
