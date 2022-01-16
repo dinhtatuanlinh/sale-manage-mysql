@@ -73,10 +73,11 @@ function toTimestamp(strDate){
 let filterDate = (url)=>{
     let dateFrom = document.getElementById('dateFrom');
     let dateTo = document.getElementById('dateFrom');
-    console.log(toTimestamp(dateFrom.value), toTimestamp(dateTo.value));
+
     if(dateFrom && dateTo && toTimestamp(dateFrom.value)< Date.now()){
         let time = `${toTimestamp(dateFrom.value)}-${toTimestamp(dateTo.value)}`
-        window.location.replace(`https://${url}?time=${time}`)
+        console.log(time);
+        // window.location.replace(`https://${url}?time=${time}`)
     }
     alert('dữ liệu chưa đúng')
 }
