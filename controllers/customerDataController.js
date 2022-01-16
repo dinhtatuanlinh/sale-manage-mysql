@@ -8,10 +8,12 @@ const { Op } = require("sequelize");
 let customerDataPage = async(req, res, next) => {
     await check_login(req, res);
     // gọi biến local test ra dùng bằng cách req.app.locals.test 
-    console.log(req.query.saler);
+    logging.info(req.query.saler);
+    logging.info('abc');
     let userInfo = req.user;
     let statusquery = req.query.ss
     let sendStatusQuery = req.query.ss
+    logging.info(sendStatusQuery);
     if(statusquery){
         statusquery = statusquery.split("-");
         console.log(statusquery);
@@ -19,13 +21,29 @@ let customerDataPage = async(req, res, next) => {
         statusquery = {[Op.ne]: null};
         sendStatusQuery='';
     }
+    let web = [];
+    let webQuery = req.query.web
+    if(webQuery === "all" || webQuery === undefined || webQuery === null){
+        web = [{root: 'jemmia.vn'},{root: 'jemmiasilver'}]
+        webQuery = ``
+    }else{
+        web = [{root: webQuery}]
+    }
+    if(req.query.saler === undefined || req.query.saler === null){
+        salerQuery = "&saler="
+    }else{
+        salerQuery = `&saler=${req.query.saler}`
+    }
     let clientDatas
     let pagiParams
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
-        let numberOfTable = await database.Client_info.count({ where: { status: statusquery  } });
+        let numberOfTable = await database.Client_info.count({ where: { 
+            status: statusquery, 
+            [Op.or]: web
+        } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
-            where: { status:  statusquery},
+            where: { status:  statusquery, [Op.or]: web},
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
@@ -35,10 +53,10 @@ let customerDataPage = async(req, res, next) => {
 
         });
     }else if(req.query.saler && req.query.saler !== "undefined"){
-        let numberOfTable = await database.Client_info.count({ where: { saler: req.query.saler, status: statusquery  } });
+        let numberOfTable = await database.Client_info.count({ where: { saler: req.query.saler, status: statusquery,[Op.or]: web  } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
-            where: { saler: req.query.saler, status: statusquery },
+            where: { saler: req.query.saler, status: statusquery,[Op.or]: web },
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
@@ -48,10 +66,10 @@ let customerDataPage = async(req, res, next) => {
 
         });
     } else {
-        let numberOfTable = await database.Client_info.count({ where: { saler: userInfo.username, status: statusquery  } });
+        let numberOfTable = await database.Client_info.count({ where: { saler: userInfo.username, status: statusquery, [Op.or]: web  } });
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
-            where: { saler: userInfo.username, status: statusquery },
+            where: { saler: userInfo.username, status: statusquery, [Op.or]: web },
             offset: pagiParams.position,
             limit: pagiParams.itemsPerPage,
             order: [
@@ -79,10 +97,9 @@ let customerDataPage = async(req, res, next) => {
 
     res.locals.title = "Customer Data Page";
     let saler = req.query.saler
-    console.log(saler);
     let customers = await pending_customers(userInfo)
     res.locals.pending_customers = customers[0];
-    res.locals.total_customers = customers[1];;
+    res.locals.total_customers = customers[1];
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}customer_data`, {
         userInfo,
@@ -91,7 +108,8 @@ let customerDataPage = async(req, res, next) => {
         customerStatus,
         pagiParams,
         sendStatusQuery,
-        saler
+        saler,
+        webQuery
     });
 
 };

@@ -61,5 +61,7 @@ let statusCheckFunc = ()=>{
 let filterFunc =(url)=>{
     statusCheckFunc()
     window.location.replace(`https://${url}?ss=${statusQuery}`);
-
+}
+let selectWeb = (e, sendStatusQuery)=>{
+    window.location.replace(`https://${url}?web=${e.value}&ss=${sendStatusQuery}`)
 }

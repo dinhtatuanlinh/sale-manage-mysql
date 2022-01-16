@@ -1,5 +1,5 @@
 <% 
-    sort=(status, url)=>{
+    sort=(status, url, webQuery)=>{
         let statusHtml = '';
 
         status.forEach(e=>{
@@ -19,7 +19,13 @@
                 <input type="button" value="filter" onclick="filterFunc('${url}/customer-data')" />
                 <input type="hidden" value="" id="statusQuery" />
             </div>
-
+            <div id="web">
+                <select name="web" id="" onchange="selectWeb(this, '${sendStatusQuery}')">
+                    <option value="all">All</option>
+                    <option value="jemmia.vn">jemmia.vn</option>
+                    <option value="jemmiasilver">jemmiasilver</option>
+                </select>
+            </div>
 
             <input type="text" id="url_search" placeholder="search url ...">
             <input type="text" id="search" placeholder="search ...">
