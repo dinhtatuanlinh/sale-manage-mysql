@@ -58,9 +58,9 @@ let statusCheckFunc = ()=>{
     }
     statusQuery = statusQuery.slice(0, -1);
 }
-let filterFunc =(url, webQuery)=>{
+let filterFunc =(url, webQuery, dateQuery)=>{
     statusCheckFunc()
-    window.location.replace(`https://${url}?ss=${statusQuery}&web=${webQuery}`);
+    window.location.replace(`https://${url}?ss=${statusQuery}&web=${webQuery}&time=${dateQuery}`);
 }
 let selectWeb = (e, sendStatusQuery, url, dateQuery)=>{
     window.location.replace(`https://${url}?web=${e.value}&ss=${sendStatusQuery}&time=${dateQuery}`)
@@ -73,12 +73,12 @@ function toTimestamp(strDate){
 let filterDate = (url)=>{
     let dateFrom = document.getElementById('dateFrom');
     let dateTo = document.getElementById('dateTo');
-    // console.log(dateFrom.value, dateTo.value);
+
     if(dateFrom.value && dateTo.value && toTimestamp(dateFrom.value)< Date.now()){
-        console.log(dateTo);
+
         let time = `${toTimestamp(dateFrom.value)}-${toTimestamp(dateTo.value)}`
-        // console.log(time);
-        // window.location.replace(`https://${url}?time=${time}`)
+
+        window.location.replace(`https://${url}?time=${time}`)
     }else{
         alert('dữ liệu chưa đúng')
     }
