@@ -70,7 +70,7 @@ function toTimestamp(strDate){
     var datum = Date.parse(strDate);
     return datum;
  }
-let filterDate = (url)=>{
+let filterDate = (url, sendStatusQuery, webQuery)=>{
     let dateFrom = document.getElementById('dateFrom');
     let dateTo = document.getElementById('dateTo');
 
@@ -78,7 +78,7 @@ let filterDate = (url)=>{
 
         let time = `${toTimestamp(dateFrom.value)}-${toTimestamp(dateTo.value)}`
 
-        window.location.replace(`https://${url}?time=${time}`)
+        window.location.replace(`https://${url}?time=${time}&ss=${sendStatusQuery}&web=${webQuery}`)
     }else{
         alert('dữ liệu chưa đúng')
     }
