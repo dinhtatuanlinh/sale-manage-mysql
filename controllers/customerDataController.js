@@ -35,6 +35,7 @@ let customerDataPage = async(req, res, next) => {
     let period;
     let from;
     let to;
+    logging.info(dateQuery)
     if(dateQuery){
         period = dateQuery.split("-");
         if(parseInt(period[0])>parseInt(period[1])){
