@@ -19,7 +19,7 @@
                             <div class="email">Email:
                                 <%= user.email %>
                             </div>
-                            <%= JSON.stringify(userInfo) %>
+                            <%= userInfo.role %>
                             <a class="button" href="customer-data?saler=<%= user.username %>">Show</a>
                         </div>
                     <% } %>
