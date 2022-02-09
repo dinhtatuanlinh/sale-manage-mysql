@@ -20,7 +20,9 @@
                                 <%= user.email %>
                             </div>
                             <%= userInfo.role %>
-                            <a class="button" href="customer-data?saler=<%= user.username %>">Show</a>
+                            <% if(userInfo.role === 'admin' || userInfo === 'sale_manager'){ %> 
+                                <a class="button" href="customer-data?saler=<%= user.username %>">Show</a>
+                            <% } %> 
                         </div>
                     <% } %>
                 <% }) %>
