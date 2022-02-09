@@ -101,7 +101,7 @@ let adminEditSetting = async (req, res, next) => {
         user[0] = {};
         user[0].roles = req.body.roles.length === 0 ? [] : req.body.roles.split(",");
         user[0].status = req.body.status.length === 0 ? [] : req.body.status.split(",");
-        user[0].status = req.body.status.length === 0 ? [] : req.body.status.split(",");
+        user[0].team = req.body.status.team === 0 ? [] : req.body.team.split(",");
         user = JSON.stringify(user);
         await database.Option.findOne({ where: { name: "user" } }).then(
             async (result) => {
