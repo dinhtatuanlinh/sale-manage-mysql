@@ -249,7 +249,7 @@ let adminChangeProperties = async (req, res, next) => {
             );
         } else if (req.params.param === "team") {
             await database.User.update(
-                { manager: req.body.value },
+                { team: req.body.value },
                 { where: { id: req.body.id } }
             );
         }
