@@ -30,8 +30,8 @@ let adminPage = async (req, res, next) => {
         res.locals.title = "Admin Page";
 
         let customers = await pending_customers(userInfo)
-    res.locals.pending_customers = customers[0];
-    res.locals.total_customers = customers[1];
+        res.locals.pending_customers = customers[0];
+        res.locals.total_customers = customers[1];
         res.render(`${systemConfig.pathInc}admin`, {
             users,
             options,
@@ -99,10 +99,9 @@ let adminEditSetting = async (req, res, next) => {
 
         let user = [];
         user[0] = {};
-        user[0].roles =
-            req.body.roles.length === 0 ? [] : req.body.roles.split(",");
-        user[0].status =
-            req.body.status.length === 0 ? [] : req.body.status.split(",");
+        user[0].roles = req.body.roles.length === 0 ? [] : req.body.roles.split(",");
+        user[0].status = req.body.status.length === 0 ? [] : req.body.status.split(",");
+        user[0].status = req.body.status.length === 0 ? [] : req.body.status.split(",");
         user = JSON.stringify(user);
         await database.Option.findOne({ where: { name: "user" } }).then(
             async (result) => {
@@ -154,10 +153,7 @@ let adminEditSetting = async (req, res, next) => {
         );
         let customer = [];
         customer[0] = {};
-        customer[0].status =
-            req.body.customer_status.length === 0
-                ? []
-                : req.body.customer_status.split(",");
+        customer[0].status = req.body.customer_status.length === 0 ? [] : req.body.customer_status.split(",");
         customer = JSON.stringify(customer);
         await database.Option.findOne({ where: { name: "customer" } }).then(
             async (result) => {

@@ -4,9 +4,9 @@
 
             <% 
     let userParams = options.filter((option) => option.name === 'user') 
-    userParams = userParams.length === 0? {roles: [],status: []}:JSON.parse(userParams[0].value)[0]
+    userParams = userParams.length === 0 ? {roles: [],status: [],team: []} : JSON.parse(userParams[0].value)[0]
     let customerParams = options.filter((option) => option.name === 'customer') 
-    customerParams = customerParams.length === 0? {status: []}:JSON.parse(customerParams[0].value)[0]
+    customerParams = customerParams.length === 0 ? {status: []} : JSON.parse(customerParams[0].value)[0]
     let managers = users.filter(user => user.role === 'sale_manager' || user.role === 'admin')
     
 
@@ -145,6 +145,7 @@
 
                                             </div>
                                         </div>
+                                        
                                         <div class="box">
                                             <label>Status: </label>
                                             <div>
@@ -153,7 +154,14 @@
                                                     <textarea class="profile_fields" name="status"><%= userParams.status %></textarea>
                                             </div>
                                         </div>
+                                        <div class="box">
+                                            <label>Team: </label>
+                                            <div>
+                                                <%= userParams.team %>
 
+                                                    <textarea class="profile_fields" name="team"><%= userParams.team %></textarea>
+                                            </div>
+                                        </div>
 
                                     </div>
                                     <h3>Customer status</h3>
