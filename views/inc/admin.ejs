@@ -77,12 +77,13 @@
                                 </div>
                                 <div class="box team">
                                     <div>Team:</div>
-                                        <select name="team" onchange="status(this,'<%= user.id %>','<%= url %>')">
+                                        <%= JSON.stringify(userParams) %> 
+                                        <!-- <select name="team" onchange="status(this,'<%= user.id %>','<%= url %>')">
                                             <% userParams.team.forEach(singleTeam=>{ %>
                                                 <% let selected = singleTeam === user.singleTeam? 'selected': '' %>
                                                 <option value="<%= sta %>" <%= selected %>><%= singleTeam %></option> 
                                             <% }) %> 
-                                        </select>
+                                        </select> -->
                                     </div>
                                 </div>
                                 <div class="box">
