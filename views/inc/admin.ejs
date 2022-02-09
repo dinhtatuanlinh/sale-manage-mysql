@@ -77,8 +77,12 @@
                                 </div>
                                 <div class="box team">
                                     <div>Team:</div>
-                                    <div>
-                                        <%= user.team %>
+                                        <select name="team" onchange="status(this,'<%= user.id %>','<%= url %>')">
+                                            <% userParams.team.forEach(singleTeam=>{ %>
+                                                <% let selected = singleTeam === user.singleTeam? 'selected': '' %>
+                                                <option value="<%= sta %>" <%= selected %>><%= singleTeam %></option> 
+                                            <% }) %> 
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="box">

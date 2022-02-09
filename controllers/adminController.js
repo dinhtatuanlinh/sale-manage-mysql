@@ -247,6 +247,11 @@ let adminChangeProperties = async (req, res, next) => {
                 { manager: req.body.value },
                 { where: { id: req.body.id } }
             );
+        } else if (req.params.param === "team") {
+            await database.User.update(
+                { manager: req.body.value },
+                { where: { id: req.body.id } }
+            );
         }
         // console.log(req.body);
         req.flash("success", "Thay đổi thành công", false);
