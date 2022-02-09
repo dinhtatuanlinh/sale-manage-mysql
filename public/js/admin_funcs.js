@@ -8,6 +8,9 @@ let role = (element, id, url) => {
 let status = (element, id, url) => {
     sendajax('status', element.value, id, url)
 }
+let team = (element, id, url) => {
+    sendajax('team', element.value, id, url)
+}
 let manager = (element, id, url) => {
     sendajax('manager', element.value, id, url)
 }
