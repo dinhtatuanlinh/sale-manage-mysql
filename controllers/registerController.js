@@ -82,7 +82,7 @@ let postRegister = async(req, res, next) => {
             registerData.birthday = '';
             registerData.modifiedtime = 0;
             registerData.achievement = '';
-            registerData.team = '';
+            registerData.team = 'none';
             database.User.create(registerData).then(async(result) => {
 
                 let from = "Đinh Tạ Tuấn Linh";
