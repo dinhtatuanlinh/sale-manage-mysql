@@ -55,7 +55,7 @@ let customerDataPage = async(req, res, next) => {
     let clientDatas
     let pagiParams
     let searchKey = req.query.search;
-
+    logging.info(searchKey)
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
