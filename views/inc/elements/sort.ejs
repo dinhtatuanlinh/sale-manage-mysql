@@ -31,7 +31,7 @@
                 <input type="date" name="to" id="dateTo">
                 <input type="button" onclick="filterDate('${url}/customer-data', '${sendStatusQuery}', '${webQuery}')" class="button" value="filter">
             </div>
-            <input type="text" id="search" placeholder="search ...">
+            <input type="text" id="search" placeholder="search ..." onkeyup="search(this, '${url}/customer-data', '${sendStatusQuery}', '${webQuery}', '${dateQuery}')">
         </div>
         `;
     }

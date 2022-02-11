@@ -13,7 +13,6 @@ let customerDataPage = async(req, res, next) => {
     let sendStatusQuery = req.query.ss
     if(statusquery){
         statusquery = statusquery.split("-");
-        console.log(statusquery);
     }else{
         statusquery = {[Op.ne]: null};
         sendStatusQuery='';
@@ -55,10 +54,17 @@ let customerDataPage = async(req, res, next) => {
     }
     let clientDatas
     let pagiParams
+    let searchKey = req.query.search;
+
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             [Op.or]: web,
+            [Op.or]: [
+                {name: {$like: `%${searchKey}%`}},
+                {phone: {$like: `%${searchKey}%`}},
+                {location: {$like: `%${searchKey}%`}},
+            ],
             createdtime: {
                 [Op.gt]: from,
                 [Op.lt]: to
@@ -69,6 +75,11 @@ let customerDataPage = async(req, res, next) => {
             where: { 
                 status:  statusquery, 
                 [Op.or]: web,
+                [Op.or]: [
+                    {name: {$like: `%${searchKey}%`}},
+                    {phone: {$like: `%${searchKey}%`}},
+                    {location: {$like: `%${searchKey}%`}},
+                ],
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -88,6 +99,11 @@ let customerDataPage = async(req, res, next) => {
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
+                [Op.or]: [
+                    {name: {$like: `%${searchKey}%`}},
+                    {phone: {$like: `%${searchKey}%`}},
+                    {location: {$like: `%${searchKey}%`}},
+                ],
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -99,6 +115,11 @@ let customerDataPage = async(req, res, next) => {
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
+                [Op.or]: [
+                    {name: {$like: `%${searchKey}%`}},
+                    {phone: {$like: `%${searchKey}%`}},
+                    {location: {$like: `%${searchKey}%`}},
+                ],
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -118,6 +139,11 @@ let customerDataPage = async(req, res, next) => {
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
+                [Op.or]: [
+                    {name: {$like: `%${searchKey}%`}},
+                    {phone: {$like: `%${searchKey}%`}},
+                    {location: {$like: `%${searchKey}%`}},
+                ],
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -129,6 +155,11 @@ let customerDataPage = async(req, res, next) => {
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
+                [Op.or]: [
+                    {name: {$like: `%${searchKey}%`}},
+                    {phone: {$like: `%${searchKey}%`}},
+                    {location: {$like: `%${searchKey}%`}},
+                ],
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to

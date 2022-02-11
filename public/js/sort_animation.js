@@ -84,3 +84,6 @@ let filterDate = (url, sendStatusQuery, webQuery)=>{
     }
     
 }
+let search = (e, url, sendStatusQuery, webQuery, dateQuery) =>{
+    window.location.replace(`https://${url}?search=${e.value}&ss=${sendStatusQuery}&web=${webQuery}&time=${dateQuery}`)
+}
