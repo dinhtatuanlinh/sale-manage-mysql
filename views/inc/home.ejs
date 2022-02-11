@@ -19,7 +19,6 @@
                             <div class="email">Email:
                                 <%= user.email %>
                             </div>
-                            <%= userInfo.role %>
                             <% if(userInfo.role === 'admin' || userInfo === 'sale_manager'){ %> 
                                 <a class="button" href="customer-data?saler=<%= user.username %>">Show</a>
                             <% } %> 
