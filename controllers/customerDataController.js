@@ -63,7 +63,7 @@ let customerDataPage = async(req, res, next) => {
             {location: searchKey},
         ]}
     }else{
-        search = {phone: {[Op.ne]: null} }
+        search = {phone: {[Op.ne]: 'null'} }
     }
 
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
