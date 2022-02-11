@@ -65,7 +65,7 @@ let customerDataPage = async(req, res, next) => {
         ]}
     }else{
         logging.info('abc')
-        search = {phone: {$not: null} }
+        search = {[Op.not]: {phone: true} }
         logging.info(JSON.stringify(search))
     }
 
