@@ -65,9 +65,9 @@ let customerDataPage = async(req, res, next) => {
             status: statusquery, 
             [Op.or]: web,
             [Op.or]: [
-                {name: {$like: `%${searchKey}%`}},
-                {phone: {$like: `%${searchKey}%`}},
-                {location: {$like: `%${searchKey}%`}},
+                {name: searchKey},
+                {phone: searchKey},
+                {location: searchKey},
             ],
             createdtime: {
                 [Op.gt]: from,
@@ -80,9 +80,9 @@ let customerDataPage = async(req, res, next) => {
                 status:  statusquery, 
                 [Op.or]: web,
                 [Op.or]: [
-                    {name: {$like: `%${searchKey}%`}},
-                    {phone: {$like: `%${searchKey}%`}},
-                    {location: {$like: `%${searchKey}%`}},
+                    {name: searchKey},
+                {phone: searchKey},
+                {location: searchKey},
                 ],
                 createdtime: {
                     [Op.gt]: from,
