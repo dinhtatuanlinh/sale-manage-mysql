@@ -94,6 +94,7 @@ let customerDataPage = async(req, res, next) => {
                 ['id', 'DESC']
             ],
         });
+        logging.info(JSON.stringify(clientDatas))
     }else if(req.query.saler && req.query.saler !== "undefined"){
         let numberOfTable = await database.Client_info.count({ 
             where: { 
