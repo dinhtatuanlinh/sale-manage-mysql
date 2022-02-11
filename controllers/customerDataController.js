@@ -54,26 +54,26 @@ let customerDataPage = async(req, res, next) => {
     }
     let clientDatas
     let pagiParams
-    let searchKey = req.query.search;
-    logging.info(searchKey)
-    let search;
-    if(searchKey){
-        search = [
-            {name: searchKey},
-            {phone: searchKey},
-            {location: searchKey},
-        ]
-    }else{
-        logging.info('abc')
-        search = {phone: {$notLike: null}} 
-        logging.info(JSON.stringify(search))
-    }
+    // let searchKey = req.query.search;
+    // logging.info(searchKey)
+    // let search;
+    // if(searchKey){
+    //     search = [
+    //         {name: searchKey},
+    //         {phone: searchKey},
+    //         {location: searchKey},
+    //     ]
+    // }else{
+    //     logging.info('abc')
+    //     search = {phone: {$notLike: null}} 
+    //     logging.info(JSON.stringify(search))
+    // }
 
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             [Op.or]: web,
-            [Op.or]: search,
+            // [Op.or]: search,
             createdtime: {
                 [Op.gt]: from,
                 [Op.lt]: to
@@ -84,7 +84,7 @@ let customerDataPage = async(req, res, next) => {
             where: { 
                 status:  statusquery, 
                 [Op.or]: web,
-                [Op.or]: search,
+                // [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -104,7 +104,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
-                [Op.or]: search,
+                // [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -116,7 +116,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
-                [Op.or]: search,
+                // [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -136,7 +136,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
-                [Op.or]: search,
+                // [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -148,7 +148,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
-                [Op.or]: search,
+                // [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
