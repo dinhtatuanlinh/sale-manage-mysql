@@ -68,7 +68,7 @@ let customerDataPage = async(req, res, next) => {
         search = {[Op.not]: {phone: true} }
         logging.info(JSON.stringify(search))
     }
-
+    logging.info('123')
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
