@@ -55,6 +55,7 @@ let customerDataPage = async(req, res, next) => {
     let clientDatas
     let pagiParams
     let searchKey = req.query.search;
+    logging.info(searchKey)
     let search;
     if(searchKey){
         search = {[Op.or]:[
