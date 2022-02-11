@@ -58,22 +58,22 @@ let customerDataPage = async(req, res, next) => {
     logging.info(searchKey)
     let search;
     if(searchKey){
-        search = {[Op.or]:[
+        search = [
             {name: searchKey},
             {phone: searchKey},
             {location: searchKey},
-        ]}
+        ]
     }else{
         logging.info('abc')
-        search = {[Op.not]: {phone: true} }
+        search = {phone: {$notLike: null}} 
         logging.info(JSON.stringify(search))
     }
-    logging.info('123')
+
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             [Op.or]: web,
-            search,
+            [Op.or]: search,
             createdtime: {
                 [Op.gt]: from,
                 [Op.lt]: to
@@ -84,7 +84,7 @@ let customerDataPage = async(req, res, next) => {
             where: { 
                 status:  statusquery, 
                 [Op.or]: web,
-                search,
+                [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -104,7 +104,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
-                search,
+                [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -116,7 +116,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
-                search,
+                [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -136,7 +136,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
-                search,
+                [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -148,7 +148,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
-                search,
+                [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
