@@ -66,7 +66,7 @@ let customerDataPage = async(req, res, next) => {
     }else{
         logging.info('abc')
         search = {phone: {[Op.ne]: 'null'} }
-        logging.info(search)
+        logging.info(JSON.stringify(search))
     }
 
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
