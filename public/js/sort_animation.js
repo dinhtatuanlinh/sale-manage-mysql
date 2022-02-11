@@ -85,10 +85,9 @@ let filterDate = (url, sendStatusQuery, webQuery)=>{
     
 }
 let search = (e, event, url, sendStatusQuery, webQuery, dateQuery) =>{
-    console.log(event.keyCode);
-    console.log(e.value);
-    // if(event.keyCode === 13){
-    //     window.location.replace(`https://${url}?search=${e.value}&ss=${sendStatusQuery}&web=${webQuery}&time=${dateQuery}`)
-    // }
+
+    if(event.keyCode === 13){
+        window.location.replace(`https://${url}?search=${e.value}&ss=${sendStatusQuery}&web=${webQuery}&time=${dateQuery}`)
+    }
     
 }
