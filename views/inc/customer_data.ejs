@@ -76,14 +76,11 @@
                                                 </div>
                                                 <% } %>
                                                     <% if(userInfo.role!=="admin" && userInfo.role!=="sale_manager"){ %>
-                                                        <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`, '<%= customerStatus[0].status %>')">Chọn</button>
-                                                        <% } %>
-
+                                                    <button onclick="select_cus(`<%= url %>/customer-data/single-client/<%= clientData.id %>`, '<%= customerStatus[0].status %>')">Chọn</button>
+                                                <% } %>
                                         </div>
-
                                         <% }) %>
                                             <%- pagination(pagiParams,sendStatusQuery,saler,webQuery, dateQuery) %>
-
                             </div>
                     </div>
                     <% if(userInfo.role!=="admin" && userInfo.role!=="sale_manager"){ %>

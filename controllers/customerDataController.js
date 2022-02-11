@@ -55,14 +55,22 @@ let customerDataPage = async(req, res, next) => {
     let clientDatas
     let pagiParams
     let searchKey = req.query.search;
-    if(!searchKey){
-        searchKey = '';
+    let search;
+    if(searchKey){
+        search = {[Op.or]:[
+            {name: searchKey},
+            {phone: searchKey},
+            {location: searchKey},
+        ]}
+    }else{
+        search = {[Op.is]: null}
     }
 
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             [Op.or]: web,
+            search,
             createdtime: {
                 [Op.gt]: from,
                 [Op.lt]: to
@@ -73,11 +81,7 @@ let customerDataPage = async(req, res, next) => {
             where: { 
                 status:  statusquery, 
                 [Op.or]: web,
-                [Op.or]: [
-                    {name: searchKey},
-                    {phone: searchKey},
-                    {location: searchKey},
-                ],
+                search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -96,6 +100,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
+                search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -107,11 +112,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
-                [Op.or]: [
-                    {name: searchKey},
-                    {phone: searchKey},
-                    {location: searchKey},
-                ],
+                search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -124,12 +125,14 @@ let customerDataPage = async(req, res, next) => {
                 ['id', 'DESC']
             ],
         });
+        logging.info(num)
     } else {
         let numberOfTable = await database.Client_info.count({ 
             where: { 
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
+                search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -141,11 +144,7 @@ let customerDataPage = async(req, res, next) => {
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
-                [Op.or]: [
-                    {name: searchKey},
-                    {phone: searchKey},
-                    {location: searchKey},
-                ],
+                search,
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
