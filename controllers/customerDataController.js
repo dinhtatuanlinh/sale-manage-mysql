@@ -63,11 +63,6 @@ let customerDataPage = async(req, res, next) => {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             [Op.or]: web,
-            [Op.or]: [
-                {name: searchKey},
-                {phone: searchKey},
-                {location: searchKey},
-            ],
             createdtime: {
                 [Op.gt]: from,
                 [Op.lt]: to
@@ -94,20 +89,13 @@ let customerDataPage = async(req, res, next) => {
                 // Will escape title and validate DESC against a list of valid direction parameters
                 ['id', 'DESC']
             ],
-
         });
-
     }else if(req.query.saler && req.query.saler !== "undefined"){
         let numberOfTable = await database.Client_info.count({ 
             where: { 
                 saler: req.query.saler, 
                 status: statusquery,
                 [Op.or]: web,
-                [Op.or]: [
-                    {name: searchKey},
-                    {phone: searchKey},
-                    {location: searchKey},
-                ],
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -135,7 +123,6 @@ let customerDataPage = async(req, res, next) => {
                 // Will escape title and validate DESC against a list of valid direction parameters
                 ['id', 'DESC']
             ],
-
         });
     } else {
         let numberOfTable = await database.Client_info.count({ 
@@ -143,11 +130,6 @@ let customerDataPage = async(req, res, next) => {
                 saler: userInfo.username, 
                 status: statusquery, 
                 [Op.or]: web,
-                [Op.or]: [
-                    {name: searchKey},
-                    {phone: searchKey},
-                    {location: searchKey},
-                ],
                 createdtime: {
                     [Op.gt]: from,
                     [Op.lt]: to
@@ -175,9 +157,7 @@ let customerDataPage = async(req, res, next) => {
                 // Will escape title and validate DESC against a list of valid direction parameters
                 ['id', 'DESC']
             ],
-
         });
-
     }
     // get data cua trang hien tai
 
