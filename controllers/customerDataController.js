@@ -34,7 +34,7 @@ let customerDataPage = async(req, res, next) => {
     let period;
     let from;
     let to;
-    logging.info(dateQuery)
+
     if(dateQuery){
         period = dateQuery.split("-");
         if(parseInt(period[0])>parseInt(period[1])){
@@ -58,8 +58,7 @@ let customerDataPage = async(req, res, next) => {
     if(!searchKey){
         searchKey = '';
     }
-    logging.info('search')
-    logging.info(searchKey)
+
     if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
@@ -81,8 +80,8 @@ let customerDataPage = async(req, res, next) => {
                 [Op.or]: web,
                 [Op.or]: [
                     {name: searchKey},
-                {phone: searchKey},
-                {location: searchKey},
+                    {phone: searchKey},
+                    {location: searchKey},
                 ],
                 createdtime: {
                     [Op.gt]: from,
@@ -97,7 +96,7 @@ let customerDataPage = async(req, res, next) => {
             ],
 
         });
-        logging.info('----------------')
+
     }else if(req.query.saler && req.query.saler !== "undefined"){
         let numberOfTable = await database.Client_info.count({ 
             where: { 
@@ -105,9 +104,9 @@ let customerDataPage = async(req, res, next) => {
                 status: statusquery,
                 [Op.or]: web,
                 [Op.or]: [
-                    {name: {$like: `%${searchKey}%`}},
-                    {phone: {$like: `%${searchKey}%`}},
-                    {location: {$like: `%${searchKey}%`}},
+                    {name: searchKey},
+                    {phone: searchKey},
+                    {location: searchKey},
                 ],
                 createdtime: {
                     [Op.gt]: from,
@@ -121,9 +120,9 @@ let customerDataPage = async(req, res, next) => {
                 status: statusquery,
                 [Op.or]: web,
                 [Op.or]: [
-                    {name: {$like: `%${searchKey}%`}},
-                    {phone: {$like: `%${searchKey}%`}},
-                    {location: {$like: `%${searchKey}%`}},
+                    {name: searchKey},
+                    {phone: searchKey},
+                    {location: searchKey},
                 ],
                 createdtime: {
                     [Op.gt]: from,
@@ -145,9 +144,9 @@ let customerDataPage = async(req, res, next) => {
                 status: statusquery, 
                 [Op.or]: web,
                 [Op.or]: [
-                    {name: {$like: `%${searchKey}%`}},
-                    {phone: {$like: `%${searchKey}%`}},
-                    {location: {$like: `%${searchKey}%`}},
+                    {name: searchKey},
+                    {phone: searchKey},
+                    {location: searchKey},
                 ],
                 createdtime: {
                     [Op.gt]: from,
@@ -161,9 +160,9 @@ let customerDataPage = async(req, res, next) => {
                 status: statusquery, 
                 [Op.or]: web,
                 [Op.or]: [
-                    {name: {$like: `%${searchKey}%`}},
-                    {phone: {$like: `%${searchKey}%`}},
-                    {location: {$like: `%${searchKey}%`}},
+                    {name: searchKey},
+                    {phone: searchKey},
+                    {location: searchKey},
                 ],
                 createdtime: {
                     [Op.gt]: from,
