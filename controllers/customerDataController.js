@@ -67,7 +67,7 @@ let customerDataPage = async(req, res, next) => {
         search = {phone: {[Op.not]: null}} 
     }
 
-    if (req.query.saler === undefined && userInfo.role === 'admin' ) {
+    if (req.query.saler === undefined && (userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             [Op.or]: web,
@@ -96,70 +96,7 @@ let customerDataPage = async(req, res, next) => {
             ],
         });
         // logging.info(JSON.stringify(clientDatas))
-    }else if (req.query.saler === undefined && userInfo.role === 'sale_manager' ) {
-        let numberOfTable = await database.Client_info.count({ where: { 
-            status: statusquery, 
-            [Op.or]: web,
-            [Op.or]: search,
-            createdtime: {
-                [Op.gt]: from,
-                [Op.lt]: to
-            }
-        } });
-        pagiParams = pagination(parseInt(req.query.p), numberOfTable);
-        clientDatas = await database.Client_info.findAll({
-            where: { 
-                status:  statusquery, 
-                [Op.or]: web,
-                [Op.or]: search,
-                createdtime: {
-                    [Op.gt]: from,
-                    [Op.lt]: to
-                }
-            },
-            offset: pagiParams.position,
-            limit: pagiParams.itemsPerPage,
-            order: [
-                // Will escape title and validate DESC against a list of valid direction parameters
-                ['id', 'DESC']
-            ],
-        });
-        // logging.info(JSON.stringify(clientDatas))
-    }else if(req.query.saler && req.query.saler !== undefined && userInfo.role === 'admin'){
-        logging.info('sale manager')
-        let numberOfTable = await database.Client_info.count({ 
-            where: { 
-                saler: req.query.saler, 
-                status: statusquery,
-                [Op.or]: web,
-                [Op.or]: search,
-                createdtime: {
-                    [Op.gt]: from,
-                    [Op.lt]: to
-                }
-            } });
-        pagiParams = pagination(parseInt(req.query.p), numberOfTable);
-        clientDatas = await database.Client_info.findAll({
-            where: { 
-                saler: req.query.saler, 
-                status: statusquery,
-                [Op.or]: web,
-                [Op.or]: search,
-                createdtime: {
-                    [Op.gt]: from,
-                    [Op.lt]: to
-                } 
-            },
-            offset: pagiParams.position,
-            limit: pagiParams.itemsPerPage,
-            order: [
-                // Will escape title and validate DESC against a list of valid direction parameters
-                ['id', 'DESC']
-            ],
-        });
-        // logging.info(JSON.stringify(clientDatas))
-    }else if(req.query.saler && req.query.saler !== undefined && userInfo.role === 'sale_manager'){
-        logging.info('sale manager')
+    } else if(req.query.saler && req.query.saler !== undefined && ( userInfo.role === 'admin' || userInfo.role === 'sale_manager' )){
         let numberOfTable = await database.Client_info.count({ 
             where: { 
                 saler: req.query.saler, 
@@ -223,15 +160,7 @@ let customerDataPage = async(req, res, next) => {
             ],
         });
     }
-    // get data cua trang hien tai
 
-    // let datasOfPagi = [];
-    // for (i = pagiParams.position; i < (pagiParams.position + pagiParams.itemsPerPage); i++) {
-    //     if (clientDatas[i] !== undefined) {
-    //         datasOfPagi.push(clientDatas[i]);
-    //     }
-    // }
-    // clientDatas = datasOfPagi;
 
     let url = req.get('host');
     let customerStatus = await database.Option.findOne({ where: { name: 'customer' } })
