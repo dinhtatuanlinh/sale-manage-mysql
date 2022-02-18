@@ -55,7 +55,7 @@ let customerDataPage = async(req, res, next) => {
     let clientDatas
     let pagiParams
     let searchKey = req.query.search;
-    logging.info(searchKey)
+    // logging.info(searchKey)
     let search;
     if(searchKey){
         search = [
@@ -67,7 +67,7 @@ let customerDataPage = async(req, res, next) => {
         search = {phone: {[Op.not]: null}} 
     }
 
-    if (req.query.saler === undefined && userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) {
+    if (req.query.saler === undefined && userInfo.role === 'admin' ) {
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             [Op.or]: web,
@@ -95,8 +95,70 @@ let customerDataPage = async(req, res, next) => {
                 ['id', 'DESC']
             ],
         });
-        logging.info(JSON.stringify(clientDatas))
-    }else if(req.query.saler && req.query.saler !== "undefined" && userInfo.role === 'admin' || userInfo.role === 'sale_manager'){
+        // logging.info(JSON.stringify(clientDatas))
+    }else if (req.query.saler === undefined && userInfo.role === 'sale_manager' ) {
+        let numberOfTable = await database.Client_info.count({ where: { 
+            status: statusquery, 
+            [Op.or]: web,
+            [Op.or]: search,
+            createdtime: {
+                [Op.gt]: from,
+                [Op.lt]: to
+            }
+        } });
+        pagiParams = pagination(parseInt(req.query.p), numberOfTable);
+        clientDatas = await database.Client_info.findAll({
+            where: { 
+                status:  statusquery, 
+                [Op.or]: web,
+                [Op.or]: search,
+                createdtime: {
+                    [Op.gt]: from,
+                    [Op.lt]: to
+                }
+            },
+            offset: pagiParams.position,
+            limit: pagiParams.itemsPerPage,
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['id', 'DESC']
+            ],
+        });
+        // logging.info(JSON.stringify(clientDatas))
+    }else if(req.query.saler && req.query.saler !== undefined && userInfo.role === 'admin'){
+        logging.info('sale manager')
+        let numberOfTable = await database.Client_info.count({ 
+            where: { 
+                saler: req.query.saler, 
+                status: statusquery,
+                [Op.or]: web,
+                [Op.or]: search,
+                createdtime: {
+                    [Op.gt]: from,
+                    [Op.lt]: to
+                }
+            } });
+        pagiParams = pagination(parseInt(req.query.p), numberOfTable);
+        clientDatas = await database.Client_info.findAll({
+            where: { 
+                saler: req.query.saler, 
+                status: statusquery,
+                [Op.or]: web,
+                [Op.or]: search,
+                createdtime: {
+                    [Op.gt]: from,
+                    [Op.lt]: to
+                } 
+            },
+            offset: pagiParams.position,
+            limit: pagiParams.itemsPerPage,
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['id', 'DESC']
+            ],
+        });
+        // logging.info(JSON.stringify(clientDatas))
+    }else if(req.query.saler && req.query.saler !== undefined && userInfo.role === 'sale_manager'){
         logging.info('sale manager')
         let numberOfTable = await database.Client_info.count({ 
             where: { 
