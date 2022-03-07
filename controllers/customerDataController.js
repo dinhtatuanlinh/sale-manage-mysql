@@ -25,6 +25,7 @@ let customerDataPage = async(req, res, next) => {
     }else{
         web = [{root: webQuery}]
     }
+    logging.info(JSON.stringify(web))
     if(req.query.saler === undefined || req.query.saler === null){
         salerQuery = "&saler="
     }else{
