@@ -25,7 +25,7 @@ let customerDataPage = async(req, res, next) => {
     }else{
         web = [{root: webQuery}]
     }
-    logging.info(JSON.stringify(web))
+
     if(req.query.saler === undefined || req.query.saler === null){
         salerQuery = "&saler="
     }else{
@@ -69,6 +69,7 @@ let customerDataPage = async(req, res, next) => {
     }
 
     if (req.query.saler === undefined && (userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) ) {
+        logging.info(JSON.stringify(web))
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             [Op.or]: web,
