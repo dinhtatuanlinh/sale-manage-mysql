@@ -20,10 +20,10 @@ let customerDataPage = async(req, res, next) => {
     let web = [];
     let webQuery = req.query.web
     if(webQuery === "all" || webQuery === undefined || webQuery === null || webQuery === ''){
-        web = [{root: 'jemmia.vn'},{root: 'jemmiasilver'}]
+        web = ['jemmia.vn', 'jemmiasilver']
         webQuery = ``
     }else{
-        web = [{root: webQuery}]
+        web = [webQuery]
     }
 
     if(req.query.saler === undefined || req.query.saler === null){
@@ -69,21 +69,21 @@ let customerDataPage = async(req, res, next) => {
     }
 
     if (req.query.saler === undefined && (userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) ) {
-        logging.info(JSON.stringify(web))
+
         let numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
-            [Op.or]: web,
+            root: web,
             [Op.or]: search,
             createdtime: {
                 [Op.gt]: from,
                 [Op.lt]: to
             }
-        } });
+        }});
         pagiParams = pagination(parseInt(req.query.p), numberOfTable);
         clientDatas = await database.Client_info.findAll({
             where: { 
                 status:  statusquery, 
-                [Op.or]: web,
+                root: web,
                 [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
@@ -95,17 +95,15 @@ let customerDataPage = async(req, res, next) => {
             order: [
                 // Will escape title and validate DESC against a list of valid direction parameters
                 ['id', 'DESC']
-            ],
+            ]
         });
-        logging.info('#########')
-        logging.info(JSON.stringify(clientDatas))
-        logging.info('#########')
+
     } else if(req.query.saler && req.query.saler !== undefined && ( userInfo.role === 'admin' || userInfo.role === 'sale_manager' )){
         let numberOfTable = await database.Client_info.count({ 
             where: { 
                 saler: req.query.saler, 
                 status: statusquery,
-                [Op.or]: web,
+                root: web,
                 [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
@@ -117,7 +115,7 @@ let customerDataPage = async(req, res, next) => {
             where: { 
                 saler: req.query.saler, 
                 status: statusquery,
-                [Op.or]: web,
+                root: web,
                 [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
@@ -137,7 +135,7 @@ let customerDataPage = async(req, res, next) => {
             where: { 
                 saler: userInfo.username, 
                 status: statusquery, 
-                [Op.or]: web,
+                root: web,
                 [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
@@ -149,7 +147,7 @@ let customerDataPage = async(req, res, next) => {
             where: { 
                 saler: userInfo.username, 
                 status: statusquery, 
-                [Op.or]: web,
+                root: web,
                 [Op.or]: search,
                 createdtime: {
                     [Op.gt]: from,
