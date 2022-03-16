@@ -12,7 +12,7 @@ let sort_open_close = (element) => {
             height: 0, //normal value
 
         }, {
-            height: 200,
+            height: 500,
             duration: 1
         });
         gsap.fromTo("#sort_icon", {
