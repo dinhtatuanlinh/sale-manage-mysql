@@ -18,7 +18,7 @@ let sort_open_close = (element) => {
         gsap.fromTo("#sort_icon", {
             top: -22,
         }, {
-            top: 180,
+            top: 480,
             duration: 1
         });
 
@@ -29,7 +29,7 @@ let sort_open_close = (element) => {
         icon.classList.remove("fa-times");
         gsap.fromTo("#sort", {
 
-            height: 200,
+            height: 500,
 
         }, {
             height: 0,
@@ -37,7 +37,7 @@ let sort_open_close = (element) => {
             duration: 1
         });
         gsap.fromTo("#sort_icon", {
-            top: 180,
+            top: 480,
         }, {
             top: -22,
             duration: 1
