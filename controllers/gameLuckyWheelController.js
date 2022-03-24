@@ -113,7 +113,7 @@ let receiveCustommerData = async (req, res, next) => {
         if(jemmiaPendingLineReturn.length >= 2){
             req.app.locals.jemmiapendingLine = [...jemmiaPendingLineReturn]
             jemmiaPendingLine.delLine()
-            await addPendingLineToDB(req.app.locals.pendingLine, "jemmia_single_form")
+            await addPendingLineToDB(req.app.locals.jemmiapendingLine, "jemmia_single_form")
         }
     }
     if(req.body.root === 'jemmiasilver'){
@@ -125,7 +125,7 @@ let receiveCustommerData = async (req, res, next) => {
             logging.info('check3')
             req.app.locals.silverPendingLine = [...silverPendingLineReturn]
             silverPendingLine.delLine()
-            await addPendingLineToDB(req.app.locals.pendingLine, "silver-game")
+            await addPendingLineToDB(req.app.locals.silverPendingLine, "silver-game")
         }
     }
 
