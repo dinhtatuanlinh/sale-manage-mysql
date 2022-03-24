@@ -109,8 +109,8 @@ let receiveCustommerData = async (req, res, next) => {
         logging.info(req.body.root)
         jemmiaPendingLine.addCustomer(req.body);
         let jemmiaPendingLineReturn = jemmiaPendingLine.getLine()
-        if(jemmiaPendingLineReturn.length >= 8){
-            req.app.locals.pendingLine = [...jemmiaPendingLineReturn]
+        if(jemmiaPendingLineReturn.length >= 2){
+            req.app.locals.jemmiapendingLine = [...jemmiaPendingLineReturn]
             jemmiaPendingLine.delLine()
             await addPendingLineToDB(req.app.locals.pendingLine, "jemmia_single_form")
         }
@@ -120,9 +120,9 @@ let receiveCustommerData = async (req, res, next) => {
     
         let silverPendingLineReturn = silverPendingLine.getLine()
         
-        if(silverPendingLineReturn.length >= 8){
+        if(silverPendingLineReturn.length >= 3){
             logging.info('check3')
-            req.app.locals.pendingLine = [...silverPendingLineReturn]
+            req.app.locals.silverPendingLine = [...silverPendingLineReturn]
             silverPendingLine.delLine()
             await addPendingLineToDB(req.app.locals.pendingLine, "silver-game")
         }
