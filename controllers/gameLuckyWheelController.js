@@ -41,7 +41,7 @@ let jemmiaPendingLine = customerPendingLine();
 let silverPendingLine = customerPendingLine();
 let jemmiaTelesaler= telesalerList()
 let addPendingLineToDB = (pendingLine, team)=>{
-    logging.info('@@@@@@@@');
+    logging.info('#######');
     logging.info(JSON.stringify(pendingLine))
     return database.User.findAll({
         attributes: ["username", "team"],
