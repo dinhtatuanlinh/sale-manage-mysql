@@ -9,8 +9,8 @@ const connection = new Sequelize(
     process.env.DATABASE_USERNAME,
     process.env.DATABASE_PASSWORD, {
         dialect: 'mysql',
-        host: '112.78.1.80',
-        port: '3306',
+        host: '112.78.4.66',
+        port: '8443',
         logging: false // không hiện câu lệnh sql trong terminal
     }
 );
