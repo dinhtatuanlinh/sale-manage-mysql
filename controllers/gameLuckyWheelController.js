@@ -110,7 +110,7 @@ let receiveCustommerData = async (req, res, next) => {
         logging.info(req.body.root)
         jemmiaPendingLine.addCustomer(req.body);
         let jemmiaPendingLineReturn = jemmiaPendingLine.getLine()
-        if(jemmiaPendingLineReturn.length >= 2){
+        if(jemmiaPendingLineReturn.length >= 1){
             req.app.locals.jemmiapendingLine = [...jemmiaPendingLineReturn]
             jemmiaPendingLine.delLine()
             await addPendingLineToDB(req.app.locals.jemmiapendingLine, "jemmia_single_form")
