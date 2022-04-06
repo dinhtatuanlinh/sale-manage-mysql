@@ -67,10 +67,10 @@ let customerDataPage = async(req, res, next) => {
     }else{
         search = {phone: {[Op.not]: null}} 
     }
-
+    let numberOfTable
     if (req.query.saler === undefined && (userInfo.role === 'admin' || userInfo.role === 'sale_manager' ) ) {
 
-        let numberOfTable = await database.Client_info.count({ where: { 
+        numberOfTable = await database.Client_info.count({ where: { 
             status: statusquery, 
             root: web,
             [Op.or]: search,
@@ -99,7 +99,7 @@ let customerDataPage = async(req, res, next) => {
         });
 
     } else if(req.query.saler && req.query.saler !== undefined && ( userInfo.role === 'admin' || userInfo.role === 'sale_manager' )){
-        let numberOfTable = await database.Client_info.count({ 
+        numberOfTable = await database.Client_info.count({ 
             where: { 
                 saler: req.query.saler, 
                 status: statusquery,
@@ -131,7 +131,7 @@ let customerDataPage = async(req, res, next) => {
         });
         // logging.info(JSON.stringify(clientDatas))
     } else {
-        let numberOfTable = await database.Client_info.count({ 
+        numberOfTable = await database.Client_info.count({ 
             where: { 
                 saler: userInfo.username, 
                 status: statusquery, 
@@ -173,7 +173,7 @@ let customerDataPage = async(req, res, next) => {
     let customers = await pending_customers(userInfo)
     res.locals.pending_customers = customers[0];
     res.locals.total_customers = customers[1];
-
+    logging.info(numberOfTable)
     res.setHeader("Content-Type", "text/html");
     res.render(`${systemConfig.pathInc}customer_data`, {
         userInfo,
